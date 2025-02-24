@@ -8,14 +8,15 @@ namespace DungeonExplorer
         // Private Fields
         private string _name;
         private int _health;
-        private List<string> inventory = new List<string>();
+        private List<string> _inventory;
 
         // Parameterized Constructor
 
-        public Player(string name, int health) 
+        public Player(string name, int health, List<string> inventory) 
         {
             _name = name;
             _health = health;
+            _inventory = inventory;
         }
 
         // Public properties for accessing private fields
@@ -41,15 +42,24 @@ namespace DungeonExplorer
                     _health = value; 
             }
         }
+        public List<string> Inventory
+        {
+            get { return _inventory; }
+            set
+            {
+                
+                    _inventory = value;
+            }
+        }
 
 
         public void PickUpItem(string item)
         {
-            inventory.Add(item);
+            Inventory.Add(item);
         }
         public string InventoryContents()
         {
-            return string.Join(", ", inventory);
+            return string.Join(", ", Inventory);
         }
     }
 }

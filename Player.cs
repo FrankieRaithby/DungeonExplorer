@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
@@ -21,12 +22,24 @@ namespace DungeonExplorer
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set 
+            {
+                if (string.IsNullOrEmpty(value))
+                    Console.WriteLine("Name cannot be empty.");
+                else
+                    _name = value; 
+            }
         }
         public int Health
         {
             get { return _health; }
-            set { _health = value; }
+            set 
+            {
+                if (value < 0)
+                    Console.WriteLine("Health cannot be negative.");
+                else
+                    _health = value; 
+            }
         }
 
 

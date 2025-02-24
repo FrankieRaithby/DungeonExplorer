@@ -4,15 +4,32 @@ namespace DungeonExplorer
 {
     public class Player
     {
-        public string Name { get; private set; }
-        public int Health { get; private set; }
+        // Private Fields
+        private string _name;
+        private int _health;
         private List<string> inventory = new List<string>();
+
+        // Parameterized Constructor
 
         public Player(string name, int health) 
         {
-            Name = name;
-            Health = health;
+            _name = name;
+            _health = health;
         }
+
+        // Public properties for accessing private fields
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+        public int Health
+        {
+            get { return _health; }
+            set { _health = value; }
+        }
+
+
         public void PickUpItem(string item)
         {
             inventory.Add(item);

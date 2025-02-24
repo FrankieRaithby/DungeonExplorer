@@ -11,17 +11,23 @@ namespace DungeonExplorer
         public Game()
         {
             // Initialize the game with one room and one player
-            player = new Player("Epidorus", 100);
+            player = new Player("", 0);
             currentRoom = new Room("description bla bla bla");
-            // Test Commit
 
         }
         public void Start()
         {
             // Change the playing logic into true and populate the while loop
-            bool playing = false;
+            bool playing = true;
             while (playing)
             {
+                // Player Creation
+                Console.WriteLine("Enter your username: ");
+                string username = Console.ReadLine();
+                player.Name = username;
+                player.Health = 250;
+                
+                
                 // Code your playing logic here
             }
         }

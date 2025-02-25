@@ -57,6 +57,10 @@ namespace DungeonExplorer
         {
             Inventory.Add(item);
         }
+        public string CurrentStatus()
+        {
+            return ($"You are at {Health} health.")
+        }
         public string InventoryContents()
         {
             return string.Join(", ", Inventory);

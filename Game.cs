@@ -15,15 +15,12 @@ namespace DungeonExplorer
             // Initialize the game with one room and one player
             player = new Player("", 250, new List<string>());
             currentRoom = new Room("description bla bla bla");
-
         }
         public void Start()
         {
-
-
             // Player Character Creation
-            bool characterCreation = true;
-            while (characterCreation)
+            bool characterCreated = false;
+            while (!characterCreation)
             {
                 try
                 {
@@ -37,7 +34,7 @@ namespace DungeonExplorer
                     Console.WriteLine($"Username set to {username}.");
                     Console.WriteLine("Character successfuly created!");
                     // Exit loop on successful creation
-                    characterCreation = false;
+                    characterCreated = true;
                 }
                 catch (ArgumentNullException)
                 {
@@ -55,6 +52,12 @@ namespace DungeonExplorer
             while (playing)
             {
                 
+
+                // reminders CRG
+                // player attributes, different rooms, items
+                // C# style guide
+                // testing class using debug.assert
+                // XML documenting comments
                 
                 
                 // Code your playing logic here

@@ -25,7 +25,7 @@ namespace DungeonExplorer
                     _description = value;
             }
         }
-        public List<string> loot
+        public List<string> Loot
         {
             get { return _loot; }
             set
@@ -33,7 +33,10 @@ namespace DungeonExplorer
                 _loot = value;
             }
         }
-
+        public string GetLoot()
+        {
+            return string.Join(", ", Loot);
+        }
         public string GetDescription()
         {
             return Description;

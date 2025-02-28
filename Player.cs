@@ -58,7 +58,7 @@ namespace DungeonExplorer
         }
         public string CurrentStatus()
         {
-            return ($"You are at {Health} health.")
+            return ($"You are at {Health} health.");
         }
         public string InventoryContents()
         {

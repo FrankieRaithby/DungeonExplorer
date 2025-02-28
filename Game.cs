@@ -52,6 +52,10 @@ namespace DungeonExplorer
             while (playing)
             {
                 
+                // options A B C D etc
+
+                // Current Status
+                // View Inventory
 
                 // reminders CRG
                 // player attributes, different rooms, items

@@ -14,13 +14,13 @@ namespace DungeonExplorer
         {
             // Initialize the game with one room and one player
             player = new Player("", 250, new List<string>());
-            currentRoom = new Room("description bla bla bla");
+            currentRoom = new Room("description bla bla bla", new List<string>());
         }
         public void Start()
         {
             // Player Character Creation
             bool characterCreated = false;
-            while (!characterCreation)
+            while (!characterCreated)
             {
                 try
                 {

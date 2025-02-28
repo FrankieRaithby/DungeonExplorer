@@ -47,7 +47,6 @@ namespace DungeonExplorer
             get { return _inventory; }
             set
             {
-                
                     _inventory = value;
             }
         }

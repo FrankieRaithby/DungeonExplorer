@@ -50,8 +50,6 @@ namespace DungeonExplorer
                     _inventory = value;
             }
         }
-
-
         public void PickUpItem(string item)
         {
             Inventory.Add(item);
@@ -63,6 +61,19 @@ namespace DungeonExplorer
         public string InventoryContents()
         {
             return string.Join(", ", Inventory);
+        }
+        public string GetChoice(string[] choices)
+        {
+            while (true)
+            {
+                Console.WriteLine("\n[A] to view inventory.");
+                Console.WriteLine("[B] to view current status.");
+                foreach (string choice in choices)
+                {
+                    Console.WriteLine(choice);
+                }
+                return Console.ReadLine().Trim().ToLower();
+            }
         }
     }
 }

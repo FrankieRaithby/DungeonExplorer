@@ -62,17 +62,42 @@ namespace DungeonExplorer
         {
             return string.Join(", ", Inventory);
         }
-        public string GetChoice(Dictionary<string, string> choices)
+        public string GetChoice(Dictionary<string, string> additionalChoices)
         {
+            // Predefined choices
+            Dictionary<string, string> choices = new Dictionary<string, string>
+            {
+                { "A", "View Inventory" },
+                { "B", "View Current Status" },
+                { "C", "Inspect Room" }
+            };
+
+            // Merge dictionaries
+            foreach (var choice in additionalChoices)
+            {
+                choices[choice.Key] = choice.Value;
+            }
+
+            // Collect UserInput
             while (true)
             {
-                Console.WriteLine("\n[A] - view inventory.");
-                Console.WriteLine("[B] - view current status.");
+                Console.WriteLine("\n");
                 foreach (KeyValuePair<string, string> choice in choices)
                 {
-                    Console.WriteLine($"{choice.Key} - {choice.Value}");
+                    Console.WriteLine($"[{choice.Key}] - {choice.Value}.");
                 }
-                return Console.ReadLine().Trim().ToLower();
+                
+                string UserInput = Console.ReadLine().Trim().ToUpper();
+
+                // Check UserInput is a dictionary key
+                if (choices.ContainsKey(UserInput))
+                {
+                    return UserInput;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice, please pick from the list.");
+                }
             }
         }
     }

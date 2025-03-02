@@ -52,7 +52,11 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
-                Player.GetChoice({ {"[C]",   ""}, });
+                string Choice = player.GetChoice(new Dictionary<string, string>
+                    {
+                        { "D", "grab tool" },
+                        { "E", "run" }
+                    });
                 // options A B C D etc
 
                 // Current Status

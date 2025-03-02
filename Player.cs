@@ -62,15 +62,15 @@ namespace DungeonExplorer
         {
             return string.Join(", ", Inventory);
         }
-        public string GetChoice(string[] choices)
+        public string GetChoice(Dictionary<string, string> choices)
         {
             while (true)
             {
-                Console.WriteLine("\n[A] to view inventory.");
-                Console.WriteLine("[B] to view current status.");
-                foreach (string choice in choices)
+                Console.WriteLine("\n[A] - view inventory.");
+                Console.WriteLine("[B] - view current status.");
+                foreach (KeyValuePair<string, string> choice in choices)
                 {
-                    Console.WriteLine(choice);
+                    Console.WriteLine($"{choice.Key} - {choice.Value}");
                 }
                 return Console.ReadLine().Trim().ToLower();
             }

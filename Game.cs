@@ -45,13 +45,14 @@ namespace DungeonExplorer
                     Console.WriteLine(ex.Message);
                 }
             }
-            
+            // Rules
+            // Rooms, Items, Monsters, etc etc
             
             // Change the playing logic into true and populate the while loop
             bool playing = true;
             while (playing)
             {
-                
+                Player.GetChoice({ {"[C]",   ""}, });
                 // options A B C D etc
 
                 // Current Status

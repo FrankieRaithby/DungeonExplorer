@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 namespace DungeonExplorer
 {
@@ -92,13 +93,19 @@ namespace DungeonExplorer
                 // Check UserInput is a dictionary key
                 if (choices.ContainsKey(UserInput))
                 {
+                    Console.WriteLine($"{Name} has chosen [{UserInput}] - {choices[UserInput]}.");
                     return UserInput;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid choice, please pick from the list.");
+                    Console.WriteLine("Invalid choice, please pick from the list");
                 }
             }
+        }
+        public void UseItem()
+        {
+
+            //
         }
     }
 }

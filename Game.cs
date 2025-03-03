@@ -46,6 +46,7 @@ namespace DungeonExplorer
                 }
             }
             // Rules
+            // readkey to start game
             // Rooms, Items, Monsters, etc etc
             
             // Change the playing logic into true and populate the while loop
@@ -71,6 +72,10 @@ namespace DungeonExplorer
                 
                 // Code your playing logic here
             }
+        }
+        public void PlayTurn()
+        {
+
         }
     }
 }

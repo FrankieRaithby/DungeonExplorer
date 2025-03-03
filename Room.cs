@@ -33,6 +33,10 @@ namespace DungeonExplorer
                 _loot = value;
             }
         }
+        public void GenerateRoom()
+        {
+
+        }
         public string GetLoot()
         {
             return string.Join(", ", Loot);

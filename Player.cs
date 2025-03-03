@@ -53,6 +53,7 @@ namespace DungeonExplorer
         }
         public void PickUpItem(string item)
         {
+            Console.WriteLine($"You pick up the {item}.");
             Inventory.Add(item);
         }
         public string CurrentStatus()
@@ -106,6 +107,11 @@ namespace DungeonExplorer
         {
 
             //
+        }
+
+        public void Damage(Player hostile)
+        {
+
         }
     }
 }

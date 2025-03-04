@@ -52,9 +52,10 @@ namespace DungeonExplorer
                     _inventory = value;
             }
         }
-        public void PickUpItem(string item)
+        public void PickUpItem(string item, Room room)
         {
             Console.WriteLine($"You pick up the {item}.");
+            room.Loot.Remove(item);
             Inventory.Add(item);
         }
         public string CurrentStatus()
@@ -63,7 +64,7 @@ namespace DungeonExplorer
         }
         public string InventoryContents()
         {
-            return string.Join(", ", Inventory);
+            return ($"{Name}'s Inventory: {string.Join(", ", Inventory)}");
         }
         public string GetChoice(Dictionary<string, string> choices)
         {

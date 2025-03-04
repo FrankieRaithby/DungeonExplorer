@@ -16,12 +16,12 @@ namespace DungeonExplorer
         {
             // Initialize the game with one room and one player
             player = new Player("Username", 250, new List<string>());
-            currentRoom = rooms[1];
             rooms = new List<Room>
             {
                 new Room("asd", new List<string>{"ads"}),
 
             };
+            currentRoom = rooms[0];
         }
         public void Start()
         {
@@ -55,32 +55,42 @@ namespace DungeonExplorer
             // Rules
             // readkey to start game
             // Rooms, Items, Monsters, etc etc
-            
+
             // Change the playing logic into true and populate the while loop
+            int RoomNumber = 0;
+            bool scavenged = false;
             bool playing = true;
             while (playing)
             {
-                int RoomNumber = 1;
+                
                 currentRoom = rooms[RoomNumber];
 
                 currentRoom.GetDescription();
 
-                string Choice = player.GetChoice(new Dictionary<string, string>
+                Dictionary<string, string> choices = new Dictionary<string, string>
                 {
                     { "A", "View Inventory" },
                     { "B", "View Current Status" },
                     { "C", "Scavenge Room" },
-                });
+                };
+
+                
+                if (scavenged)
+                {
+                    choices["C"] = "Next Room";
+                }
+
+                string Choice = player.GetChoice(choices);
 
                 switch (Choice)
                 {
                     case "A":
                         Console.WriteLine("You have chosen A.");
-                        player.InventoryContents();
+                        Console.WriteLine(player.InventoryContents());
                         break;
                     case "B":
                         Console.WriteLine("You have chosen B.");
-                        player.CurrentStatus();
+                        Console.WriteLine(player.CurrentStatus());
                         break;
                     case "C":
                         Console.WriteLine("You have chosen C");
@@ -89,21 +99,28 @@ namespace DungeonExplorer
                         {
                             Dictionary<string, string> loot = new Dictionary<string, string>();
 
-                            foreach (string item in currentRoom.Loot)
+                            for (int i = 0; i < currentRoom.Loot.Count; i++)
                             {
-                                for (int i = 0; i < 26; i++)
+                                foreach (string item in currentRoom.Loot)
                                 {
                                     char letter = (char)('A' + i);
                                     loot[letter.ToString()] = item;
                                 }
                             }
 
+
+
                             string weapon = player.GetChoice(loot);
                             if (loot.ContainsKey(weapon))
                             {
-                                player.PickUpItem(loot[weapon]);
+                                player.PickUpItem(loot[weapon], currentRoom);
                             }
                         }
+                        else
+                        {
+                            // NEXT ROOM LOGIC
+                        }
+                        scavenged = true;
                         break;
                     
                     // options A B C D etc

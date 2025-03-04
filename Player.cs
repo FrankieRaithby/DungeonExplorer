@@ -90,17 +90,6 @@ namespace DungeonExplorer
                 }
             }
         }
-        public bool Scavenge(Room room)
-        {
-            if (room.Loot.Count == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
         public void UseItem()
         {
 

@@ -84,7 +84,8 @@ namespace DungeonExplorer
                         break;
                     case "C":
                         Console.WriteLine("You have chosen C");
-                        if (player.Scavenge(currentRoom))
+                        // Boolean check if room has loot
+                        if (currentRoom.HasLoot())
                         {
                             Dictionary<string, string> loot = new Dictionary<string, string>();
 

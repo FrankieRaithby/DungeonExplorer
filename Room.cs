@@ -41,5 +41,16 @@ namespace DungeonExplorer
         {
             return Description;
         }
+        public bool HasLoot()
+        {
+            if (Loot.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

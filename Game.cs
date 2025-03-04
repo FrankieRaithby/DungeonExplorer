@@ -9,11 +9,12 @@ namespace DungeonExplorer
     {
         private Player player;
         private Room currentRoom;
+        private List<Room> rooms;
 
         public Game()
         {
             // Initialize the game with one room and one player
-            player = new Player("", 250, new List<string>());
+            player = new Player("Username", 250, new List<string>());
             currentRoom = new Room("asd", new List<string>());
         }
         public void Start()
@@ -58,6 +59,22 @@ namespace DungeonExplorer
                         { "D", "grab tool" },
                         { "E", "run" }
                     });
+
+                switch (Choice)
+                {
+                    case "A":
+                        Console.WriteLine("You have chosen A.");
+                        player.InventoryContents();
+                        break;
+                    case "B":
+                        Console.WriteLine("You have chosen B.");
+                        player.CurrentStatus();
+                        break;
+                    case "C":
+                        Console.WriteLine("You have chosen C");
+                        currentRoom.GetDescription();
+                        break;
+                }
                 // options A B C D etc
 
                 // Current Status

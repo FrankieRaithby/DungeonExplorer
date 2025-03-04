@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography.X509Certificates;
 
 namespace DungeonExplorer
@@ -103,6 +104,17 @@ namespace DungeonExplorer
                 }
             }
         }
+        public bool Scavenge(Room room)
+        {
+            if (room.Loot.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public void UseItem()
         {
 
@@ -111,7 +123,7 @@ namespace DungeonExplorer
 
         public void Damage(Player hostile)
         {
-
+            //
         }
     }
 }

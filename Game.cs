@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Media;
 
@@ -19,6 +20,7 @@ namespace DungeonExplorer
             rooms = new List<Room>
             {
                 new Room("asd", new List<string>{"ads"}),
+
             };
         }
         public void Start()
@@ -61,12 +63,13 @@ namespace DungeonExplorer
                 int RoomNumber = 1;
                 currentRoom = rooms[RoomNumber];
 
+                currentRoom.GetDescription();
 
                 string Choice = player.GetChoice(new Dictionary<string, string>
                 {
                     { "A", "View Inventory" },
                     { "B", "View Current Status" },
-                    { "C", "Inspect Room" },
+                    { "C", "Scavenge Room" },
                 });
 
                 switch (Choice)
@@ -81,7 +84,25 @@ namespace DungeonExplorer
                         break;
                     case "C":
                         Console.WriteLine("You have chosen C");
-                        currentRoom.GetDescription();
+                        if (player.Scavenge(currentRoom))
+                        {
+                            Dictionary<string, string> loot = new Dictionary<string, string>();
+
+                            foreach (string item in currentRoom.Loot)
+                            {
+                                for (int i = 0; i < 26; i++)
+                                {
+                                    char letter = (char)('A' + i);
+                                    loot[letter.ToString()] = item;
+                                }
+                            }
+
+                            string weapon = player.GetChoice(loot);
+                            if (loot.ContainsKey(weapon))
+                            {
+                                player.PickUpItem(loot[weapon]);
+                            }
+                        }
                         break;
                     
                     // options A B C D etc

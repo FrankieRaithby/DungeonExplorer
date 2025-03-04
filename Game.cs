@@ -15,7 +15,11 @@ namespace DungeonExplorer
         {
             // Initialize the game with one room and one player
             player = new Player("Username", 250, new List<string>());
-            currentRoom = new Room("asd", new List<string>());
+            currentRoom = rooms[1];
+            rooms = new List<Room>
+            {
+                new Room("asd", new List<string>{"ads"}),
+            };
         }
         public void Start()
         {
@@ -54,11 +58,16 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
+                int RoomNumber = 1;
+                currentRoom = rooms[RoomNumber];
+
+
                 string Choice = player.GetChoice(new Dictionary<string, string>
-                    {
-                        { "D", "grab tool" },
-                        { "E", "run" }
-                    });
+                {
+                    { "A", "View Inventory" },
+                    { "B", "View Current Status" },
+                    { "C", "Inspect Room" },
+                });
 
                 switch (Choice)
                 {
@@ -74,20 +83,23 @@ namespace DungeonExplorer
                         Console.WriteLine("You have chosen C");
                         currentRoom.GetDescription();
                         break;
+                    
+                    // options A B C D etc
+
+                    // Current Status
+                    // View Inventory
+
+                    // reminders CRG
+                    // player attributes, different rooms, items
+                    // C# style guide
+                    // testing class using debug.assert
+                    // XML documenting comments
+
+
+                    
                 }
-                // options A B C D etc
 
-                // Current Status
-                // View Inventory
 
-                // reminders CRG
-                // player attributes, different rooms, items
-                // C# style guide
-                // testing class using debug.assert
-                // XML documenting comments
-                
-                
-                // Code your playing logic here
             }
         }
         public void PlayTurn()

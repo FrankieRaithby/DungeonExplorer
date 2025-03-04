@@ -65,22 +65,8 @@ namespace DungeonExplorer
         {
             return string.Join(", ", Inventory);
         }
-        public string GetChoice(Dictionary<string, string> additionalChoices)
+        public string GetChoice(Dictionary<string, string> choices)
         {
-            // Predefined choices
-            Dictionary<string, string> choices = new Dictionary<string, string>
-            {
-                { "A", "View Inventory" },
-                { "B", "View Current Status" },
-                { "C", "Inspect Room" }
-            };
-
-            // Merge dictionaries
-            foreach (var choice in additionalChoices)
-            {
-                choices[choice.Key] = choice.Value;
-            }
-
             // Collect UserInput
             while (true)
             {
@@ -121,7 +107,7 @@ namespace DungeonExplorer
             //
         }
 
-        public void Damage(Player hostile)
+        public void Damage(int damage)
         {
             //
         }

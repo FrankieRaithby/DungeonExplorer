@@ -9,7 +9,8 @@ namespace DungeonExplorer
     {
         // Private Fields
         private string _name;
-        private int _health;
+        public int _health { get; private set; }
+
         private List<string> _inventory;
 
         // Parameterized Constructor
@@ -33,17 +34,7 @@ namespace DungeonExplorer
                     _name = value; 
             }
         }
-        public int Health
-        {
-            get { return _health; }
-            set 
-            {
-                if (value < 0)
-                    Console.WriteLine("Health cannot be negative.");
-                else
-                    _health = value; 
-            }
-        }
+
         public List<string> Inventory
         {
             get { return _inventory; }

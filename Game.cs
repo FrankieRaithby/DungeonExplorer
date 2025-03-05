@@ -21,9 +21,9 @@ namespace DungeonExplorer
                 new Room("Room1", new List<string>{"Health Potion", "Sword", "Bow"}),
                 new Room("Room2", new List<string>{"Torch", "Chisel"}),
                 new Room("Room3", new List<string>{"Key", "Hammer"}),
-                new Room("Room4", new List<string>{"ads"}),
-                new Room("Room5", new List<string>{"ads"}),
-                new Room("Room6", new List<string>{"ads"}),
+                new Room("Room4", new List<string>{"Shield", "Dagger"}),
+                new Room("Room5", new List<string>{"Invisibility Potion", "Rope", "Bone"}),
+                new Room("Room6", new List<string>{"Book", "White Pearl", "Staff"}),
 
             };
             currentRoom = rooms[0];
@@ -68,6 +68,12 @@ namespace DungeonExplorer
             while (playing)
             {
                 currentRoom = rooms[RoomNumber];
+
+                if (rooms.Count < RoomNumber)
+                {
+                    Console.WriteLine("Congratulations, you have escaped the dungeon!");
+                }
+
                 Console.WriteLine(currentRoom.GetDescription());
 
                 Dictionary<string, string> choices = new Dictionary<string, string>

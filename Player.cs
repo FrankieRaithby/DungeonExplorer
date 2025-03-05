@@ -71,7 +71,6 @@ namespace DungeonExplorer
             // Collect UserInput
             while (true)
             {
-                Console.WriteLine("\n");
                 foreach (KeyValuePair<string, string> choice in choices)
                 {
                     Console.WriteLine($"[{choice.Key}] - {choice.Value}.");
@@ -82,7 +81,7 @@ namespace DungeonExplorer
                 // Check UserInput is a dictionary key
                 if (choices.ContainsKey(UserInput))
                 {
-                    Console.WriteLine($"{Name} has chosen [{UserInput}] - {choices[UserInput]}.");
+                    //Console.WriteLine($"{Name} has chosen [{UserInput}] - {choices[UserInput]}.");
                     return UserInput;
                 }
                 else

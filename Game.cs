@@ -18,7 +18,12 @@ namespace DungeonExplorer
             player = new Player("Username", 250, new List<string>());
             rooms = new List<Room>
             {
-                new Room("asd", new List<string>{"ads"}),
+                new Room("Room1", new List<string>{"Health Potion", "Sword", "Bow"}),
+                new Room("Room2", new List<string>{"Torch", "Chisel"}),
+                new Room("Room3", new List<string>{"Key", "Hammer"}),
+                new Room("Room4", new List<string>{"ads"}),
+                new Room("Room5", new List<string>{"ads"}),
+                new Room("Room6", new List<string>{"ads"}),
 
             };
             currentRoom = rooms[0];
@@ -62,10 +67,8 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
-                
                 currentRoom = rooms[RoomNumber];
-
-                currentRoom.GetDescription();
+                Console.WriteLine(currentRoom.GetDescription());
 
                 Dictionary<string, string> choices = new Dictionary<string, string>
                 {
@@ -74,7 +77,6 @@ namespace DungeonExplorer
                     { "C", "Scavenge Room" },
                 };
 
-                
                 if (scavenged)
                 {
                     choices["C"] = "Next Room";
@@ -99,28 +101,29 @@ namespace DungeonExplorer
                         {
                             Dictionary<string, string> loot = new Dictionary<string, string>();
 
-                            for (int i = 0; i < currentRoom.Loot.Count; i++)
+                            int i = 0;
+                            foreach (string item in currentRoom.Loot)
                             {
-                                foreach (string item in currentRoom.Loot)
-                                {
-                                    char letter = (char)('A' + i);
-                                    loot[letter.ToString()] = item;
-                                }
+                                char letter = (char)('A' + i);
+                                loot[letter.ToString()] = item;
+                                i++;
                             }
 
-
-
+                            Console.WriteLine("Pick up an item:");
                             string weapon = player.GetChoice(loot);
                             if (loot.ContainsKey(weapon))
                             {
                                 player.PickUpItem(loot[weapon], currentRoom);
+                                currentRoom.Loot.Clear();
                             }
                         }
-                        else
-                        {
-                            // NEXT ROOM LOGIC
-                        }
                         scavenged = true;
+                        if (choices["C"] == "Next Room")
+                        {
+                            Console.WriteLine("You proceed to the next room.");
+                            scavenged = false;
+                            RoomNumber++;
+                        }
                         break;
                     
                     // options A B C D etc

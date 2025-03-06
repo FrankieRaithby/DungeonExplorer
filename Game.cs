@@ -95,7 +95,6 @@ namespace DungeonExplorer
                             if (loot.ContainsKey(weapon))
                             {
                                 player.PickUpItem(loot[weapon], currentRoom);
-                                currentRoom.Loot.Clear();
                             }
                         }
                         scavenged = true;

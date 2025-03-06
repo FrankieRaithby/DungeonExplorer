@@ -57,6 +57,7 @@ namespace DungeonExplorer
             Console.WriteLine($"You pick up the {item}.");
             room.Loot.Remove(item);
             Inventory.Add(item);
+            room.Loot.Clear();
         }
         public string CurrentStatus()
         {

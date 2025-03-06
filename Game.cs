@@ -30,32 +30,8 @@ namespace DungeonExplorer
         public void Start()
         {
             // Player Character Creation
-            bool characterCreated = false;
-            while (!characterCreated)
-            {
-                try
-                {
-                    Console.WriteLine("Enter your username: ");
-                    string username = Console.ReadLine();
-                    if (string.IsNullOrWhiteSpace(username))
-                    {
-                        throw new ArgumentNullException(nameof(username));
-                    }
-                    player.Name = username;
-                    Console.WriteLine($"Username set to {username}.");
-                    Console.WriteLine("Character successfuly created!");
-                    // Exit loop on successful creation
-                    characterCreated = true;
-                }
-                catch (ArgumentNullException)
-                {
-                    Console.WriteLine("Username cannot be empty.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            }
+            player.SetName();
+
             // Rules
             // readkey to start game
             // Rooms, Items, Monsters, etc etc
@@ -148,10 +124,6 @@ namespace DungeonExplorer
 
 
             }
-        }
-        public void PlayTurn()
-        {
-
         }
     }
 }

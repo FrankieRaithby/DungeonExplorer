@@ -66,6 +66,34 @@ namespace DungeonExplorer
         {
             return ($"{Name}'s Inventory: {string.Join(", ", Inventory)}");
         }
+        public void SetName()
+        {
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("Enter your username: ");
+                    string username = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(username))
+                    {
+                        throw new ArgumentNullException(nameof(username));
+                    }
+                    Name = username;
+                    Console.WriteLine($"Username set to {username}.");
+                    Console.WriteLine("Character successfuly created!");
+                    // Exit loop on successful creation
+                    break;
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("Username cannot be empty.");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+        }
         public string GetChoice(Dictionary<string, string> choices)
         {
             // Collect UserInput

@@ -25,10 +25,10 @@ namespace DungeonExplorer
             {
                 new Room("The Abandoned Armory – Rusted weapons and shattered shields litter the floor, with dust thick on every surface.", new List<string>{"Dagger", "Sword", "Bow"}),
                 new Room("The Old Workshop – Shelves sag under the weight of dust-covered vials, and the faint smell of chemicals lingers in the air.", new List<string>{"Torch", "Chisel"}),
-                new Room("The Echoing Hall – Every step taken here repeats tenfold, bouncing off the cold stone walls.", new List<string>{"Key", "Hammer"}),
-                new Room("The Crumbling Chapel – A worn altar stands beneath a faded fresco, its colors dulled by time and neglect.", new List<string>{"Shield", "Dagger"}),
-                new Room("The Forgotten Tomb – Rows of stone sarcophagi line the walls, their lids slightly ajar in the dim light.", new List<string>{"Invisibility Potion", "Health Potion", "Bone"}),
-                new Room("The Mirror Room – The walls are lined with tall, warped mirrors, their surfaces clouded with age.", new List<string>{"Book", "White Pearl", "Staff"}),
+                //new Room("The Echoing Hall – Every step taken here repeats tenfold, bouncing off the cold stone walls.", new List<string>{"Key", "Hammer"}),
+                //new Room("The Crumbling Chapel – A worn altar stands beneath a faded fresco, its colors dulled by time and neglect.", new List<string>{"Shield", "Dagger"}),
+                //new Room("The Forgotten Tomb – Rows of stone sarcophagi line the walls, their lids slightly ajar in the dim light.", new List<string>{"Invisibility Potion", "Health Potion", "Bone"}),
+                //new Room("The Mirror Room – The walls are lined with tall, warped mirrors, their surfaces clouded with age.", new List<string>{"Book", "White Pearl", "Staff"}),
             };
         }
         /// <summary>
@@ -53,11 +53,13 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
+                Console.WriteLine(RoomNumber);
                 // Checks if player has gone through all rooms, otherwise escape.
-                if (rooms.Count < RoomNumber)
+                if (RoomNumber+1 > rooms.Count)
                 {
                     Console.WriteLine("Congratulations, you have escaped the dungeon!");
                     playing = false;
+                    break;
                 }
                 else
                 {

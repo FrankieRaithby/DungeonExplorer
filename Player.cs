@@ -113,6 +113,7 @@ namespace DungeonExplorer
                     Console.WriteLine(ex.Message);
                 }
             }
+            Name = "";
         }
 
         /// <summary>

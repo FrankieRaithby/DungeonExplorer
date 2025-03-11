@@ -38,7 +38,6 @@ namespace DungeonExplorer
         {
             // Player Character Creation
             player.SetName();
-            player.Name = "";
             Testing.CheckName(player);
 
             // Rules
@@ -54,13 +53,15 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
-                currentRoom = rooms[RoomNumber];
-
                 // Checks if player has gone through all rooms, otherwise escape.
                 if (rooms.Count < RoomNumber)
                 {
                     Console.WriteLine("Congratulations, you have escaped the dungeon!");
                     playing = false;
+                }
+                else
+                {
+                    currentRoom = rooms[RoomNumber];
                 }
 
                 // Room description
@@ -113,7 +114,7 @@ namespace DungeonExplorer
                             if (loot.ContainsKey(weapon))
                             {
                                 player.PickUpItem(loot[weapon], currentRoom);
-                                Testing.CheckItem(player, weapon);
+                                Testing.CheckItem(player, loot[weapon]);
                             }
                         }
                         scavenged = true;

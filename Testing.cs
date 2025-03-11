@@ -9,7 +9,7 @@ namespace DungeonExplorer
         /// </summary>
         public static void CheckItem(Player player, string item)
         {
-            Debug.Assert(player.Inventory.Contains(item), ($"{item} cannot be found in the inventory."));
+            Debug.Assert(player.Inventory.Contains(item), $"{item} cannot be found in the inventory.");
         }
 
         /// <summary>

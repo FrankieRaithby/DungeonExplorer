@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Media;
+
 
 namespace DungeonExplorer
 {
+    /// <summary>
+    /// This class utilises player and room objects to control game loop.
+    /// </summary>
     internal class Game
     {
         private Player player;
         private Room currentRoom;
         private List<Room> rooms;
 
+        public Testing testing;
+
         public Game()
         {
-            // Initialize the game with one room and one player
+            /// <summary>
+            /// Intitialising player instance and multiple room instances.
+            /// </summary>
             player = new Player("Username", 250, new List<string>());
             rooms = new List<Room>
             {
@@ -25,18 +30,25 @@ namespace DungeonExplorer
                 new Room("The Forgotten Tomb – Rows of stone sarcophagi line the walls, their lids slightly ajar in the dim light.", new List<string>{"Invisibility Potion", "Health Potion", "Bone"}),
                 new Room("The Mirror Room – The walls are lined with tall, warped mirrors, their surfaces clouded with age.", new List<string>{"Book", "White Pearl", "Staff"}),
             };
-            currentRoom = rooms[0];
         }
+        /// <summary>
+        /// This method handles main game loop.
+        /// </summary>
         public void Start()
         {
             // Player Character Creation
             player.SetName();
+            player.Name = "";
+            Testing.CheckName(player);
 
             // Rules
-            // readkey to start game
-            // Rooms, Items, Monsters, etc etc
+            Console.WriteLine("RULES:");
+            Console.WriteLine("You are trapped within the dungeon and must traverse each room.");
+            Console.WriteLine("There may be items in a room, but you are only allowed to pick one, so choose wisely.");
+            Console.WriteLine("You only have 250 health, so always check your health.");
+            Console.WriteLine("Some items are one use, so ensure you use them at the correct time.");
 
-            // Change the playing logic into true and populate the while loop
+            // Playing Loop
             int RoomNumber = 0;
             bool scavenged = false;
             bool playing = true;
@@ -44,13 +56,17 @@ namespace DungeonExplorer
             {
                 currentRoom = rooms[RoomNumber];
 
+                // Checks if player has gone through all rooms, otherwise escape.
                 if (rooms.Count < RoomNumber)
                 {
                     Console.WriteLine("Congratulations, you have escaped the dungeon!");
+                    playing = false;
                 }
 
-                Console.WriteLine(currentRoom.GetDescription());
+                // Room description
+                Console.WriteLine($"\n{currentRoom.GetDescription()}");
 
+                // Default Choices
                 Dictionary<string, string> choices = new Dictionary<string, string>
                 {
                     { "A", "View Inventory" },
@@ -58,25 +74,27 @@ namespace DungeonExplorer
                     { "C", "Scavenge Room" },
                 };
 
+                // Changes choice [C] if room has been looted.
                 if (scavenged)
                 {
                     choices["C"] = "Next Room";
                 }
 
+                // Gets user input for their choice
                 string Choice = player.GetChoice(choices);
-
+                // Functions for each choice
                 switch (Choice)
                 {
                     case "A":
-                        Console.WriteLine("You have chosen A.");
+                        Console.WriteLine("\tYou have chosen A.");
                         Console.WriteLine(player.InventoryContents());
                         break;
                     case "B":
-                        Console.WriteLine("You have chosen B.");
+                        Console.WriteLine("\tYou have chosen B.");
                         Console.WriteLine(player.CurrentStatus());
                         break;
                     case "C":
-                        Console.WriteLine("You have chosen C");
+                        Console.WriteLine("\tYou have chosen C.");
                         // Boolean check if room has loot
                         if (currentRoom.HasLoot())
                         {
@@ -95,6 +113,7 @@ namespace DungeonExplorer
                             if (loot.ContainsKey(weapon))
                             {
                                 player.PickUpItem(loot[weapon], currentRoom);
+                                Testing.CheckItem(player, weapon);
                             }
                         }
                         scavenged = true;
@@ -105,23 +124,7 @@ namespace DungeonExplorer
                             RoomNumber++;
                         }
                         break;
-                    
-                    // options A B C D etc
-
-                    // Current Status
-                    // View Inventory
-
-                    // reminders CRG
-                    // player attributes, different rooms, items
-                    // C# style guide
-                    // testing class using debug.assert
-                    // XML documenting comments
-
-
-                    
                 }
-
-
             }
         }
     }

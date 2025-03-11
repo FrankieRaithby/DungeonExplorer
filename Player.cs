@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
 
 namespace DungeonExplorer
 {
     public class Player
     {
-        // Private Fields
+        /// <summary>
+        /// Private Fields.
+        /// </summary>
         private string _name;
         private int _health;
         private List<string> _inventory;
 
-        // Parameterized Constructor
-
+        /// <summary>
+        /// Parameterized Constructor.
+        /// </summary>
         public Player(string name, int health, List<string> inventory) 
         {
             _name = name;
@@ -21,13 +22,15 @@ namespace DungeonExplorer
             _inventory = inventory;
         }
 
-        // Public properties for accessing private fields
+        /// <summary>
+        /// Public properties for accessing private fields.
+        /// </summary>
         public string Name
         {
             get { return _name; }
             set 
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                     Console.WriteLine("Name cannot be empty.");
                 else
                     _name = value; 
@@ -52,6 +55,10 @@ namespace DungeonExplorer
                     _inventory = value;
             }
         }
+
+        /// <summary>
+        /// This method gives the player an item into their inventory and clears the room's loot.
+        /// </summary>
         public void PickUpItem(string item, Room room)
         {
             Console.WriteLine($"You pick up the {item}.");
@@ -59,14 +66,26 @@ namespace DungeonExplorer
             Inventory.Add(item);
             room.Loot.Clear();
         }
+
+        /// <summary>
+        /// This method returns the player healt as a string.
+        /// </summary>
         public string CurrentStatus()
         {
             return ($"You are at {Health} health.");
         }
+
+        /// <summary>
+        /// This method returns the inventory list as a string.
+        /// </summary>
         public string InventoryContents()
         {
             return ($"{Name}'s Inventory: {string.Join(", ", Inventory)}");
         }
+
+        /// <summary>
+        /// This method sets the player name.
+        /// </summary>
         public void SetName()
         {
             while (true)
@@ -81,13 +100,13 @@ namespace DungeonExplorer
                     }
                     Name = username;
                     Console.WriteLine($"Username set to {username}.");
-                    Console.WriteLine("Character successfuly created!");
+                    Console.WriteLine("Character successfuly created!\n");
                     // Exit loop on successful creation
                     break;
                 }
                 catch (ArgumentNullException)
                 {
-                    Console.WriteLine("Username cannot be empty.");
+                    Console.WriteLine("Username cannot be empty.\n");
                 }
                 catch (Exception ex)
                 {
@@ -95,6 +114,10 @@ namespace DungeonExplorer
                 }
             }
         }
+
+        /// <summary>
+        /// This method gets user input for their choice.
+        /// </summary>
         public string GetChoice(Dictionary<string, string> choices)
         {
             // Collect UserInput
@@ -102,9 +125,9 @@ namespace DungeonExplorer
             {
                 foreach (KeyValuePair<string, string> choice in choices)
                 {
-                    Console.WriteLine($"[{choice.Key}] - {choice.Value}.");
+                    Console.WriteLine($"\t[{choice.Key}] - {choice.Value}.");
                 }
-                
+
                 string UserInput = Console.ReadLine().Trim().ToUpper();
 
                 // Check UserInput is a dictionary key
@@ -119,13 +142,15 @@ namespace DungeonExplorer
                 }
             }
         }
+
+        // No function as of yet.
         public void UseItem()
         {
 
             //
         }
 
-        public void Damage(int damage)
+        public void Attack(Player hostile, int damage)
         {
             //
         }

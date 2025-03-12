@@ -17,7 +17,7 @@ namespace DungeonExplorer
         /// </summary>
         public static void CheckName(Player player)
         {
-            Debug.Assert(!string.IsNullOrWhiteSpace(player.Name) || !string.IsNullOrEmpty(player.Name), ("Name is null, white space or empty."));
+            Debug.Assert(!string.IsNullOrWhiteSpace(player.Name) && !string.IsNullOrEmpty(player.Name), ("Name is null, white space or empty."));
         }
     }
 }

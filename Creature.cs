@@ -1,6 +1,7 @@
 ﻿namespace DungeonExplorer
 {
-    internal class Creature
+    public abstract class Creature
     {
+
     }
 }

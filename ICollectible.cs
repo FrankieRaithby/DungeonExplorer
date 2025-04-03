@@ -8,5 +8,6 @@ namespace DungeonExplorer
 {
     internal interface ICollectible
     {
+        void Collect();
     }
 }

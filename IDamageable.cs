@@ -4,6 +4,6 @@ namespace DungeonExplorer
 {
     internal interface IDamageable
     {
-
+        void Damage();
     }
 }

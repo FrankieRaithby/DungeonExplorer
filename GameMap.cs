@@ -1,7 +1,6 @@
 ﻿namespace DungeonExplorer
 {
-    internal class Item
+    internal class GameMap
     {
-
     }
 }

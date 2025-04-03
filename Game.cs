@@ -14,6 +14,9 @@ namespace DungeonExplorer
         private List<Room> rooms;
 
         private Item item;
+        private Creature creature;
+        private Inventory inventory;
+        private GameMap gamemap;
 
         public Game()
         {

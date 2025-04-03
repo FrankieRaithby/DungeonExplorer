@@ -13,6 +13,8 @@ namespace DungeonExplorer
         private Room currentRoom;
         private List<Room> rooms;
 
+        private Item item;
+
         public Game()
         {
             /// <summary>

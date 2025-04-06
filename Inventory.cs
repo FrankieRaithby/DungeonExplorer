@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonExplorer
 {
@@ -16,7 +17,10 @@ namespace DungeonExplorer
             set { _items = value; }
         }
 
-
+        public bool ItemExists(string name)
+        {
+            return Items.Exists(item => item.Name == name);
+        }
 
 
 

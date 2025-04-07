@@ -10,7 +10,7 @@ namespace DungeonExplorer
         /// </summary>
         private string _name;
         private int _health;
-        private List<string> _inventory;
+        private List<Item> _inventory;
 
         /// <summary>
         /// Parameterized Constructor.

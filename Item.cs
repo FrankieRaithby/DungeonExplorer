@@ -1,4 +1,6 @@
-﻿namespace DungeonExplorer
+﻿using System;
+
+namespace DungeonExplorer
 {
     internal class Item
     {
@@ -45,6 +47,11 @@
         public string GetDescription()
         {
             return Description;
+        }
+
+        public virtual void UseItem()
+        {
+            Console.WriteLine("Using item: " + Name);
         }
     }
 }

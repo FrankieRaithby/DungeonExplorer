@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    public class Player
+    public class Player : Creature
     {
         /// <summary>
         /// Private Fields.
@@ -15,7 +15,7 @@ namespace DungeonExplorer
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Player(string name, int health, List<string> inventory) 
+        public Player(string name, int health, List<string> inventory):base(name, health)
         {
             _name = name;
             _health = health;

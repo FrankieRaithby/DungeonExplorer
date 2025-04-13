@@ -12,7 +12,7 @@ namespace DungeonExplorer
         private string _attack;
         private int _durability;
 
-        public Weapon(string name, string description, int damage, string attack, int durability) : base(name, description)
+        public Weapon(string name, string description, int weight, int damage, string attack, int durability) : base(name, description, weight)
         {
             _damage = damage;
             _attack = attack;

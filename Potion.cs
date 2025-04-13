@@ -8,7 +8,7 @@ namespace DungeonExplorer
 {
     internal class Potion : Item
     {
-        public Potion(string name, string description) : base(name, description)
+        public Potion(string name, string description, int weight) : base(name, description, weight)
         {
         }
     }

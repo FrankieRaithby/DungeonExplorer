@@ -6,9 +6,14 @@ namespace DungeonExplorer
     internal class Inventory
     {
         private List<Item> _items;
-        public Inventory(List<Item> items)
+        private int _maxWeight;
+        private int _currentWeight;
+
+        public Inventory(List<Item> items, int maxWeight)
         {
             _items = items;
+            _maxWeight = maxWeight;
+            _currentWeight = CalculateCurrentWeight();
         }
 
         public List<Item> Items
@@ -22,8 +27,10 @@ namespace DungeonExplorer
             return Items.Exists(item => item.Name == name);
         }
 
-
-
+        private int CalculateCurrentWeight()
+        {
+            return Items.Sum(item => item.Weight);
+        }
 
     }
 }

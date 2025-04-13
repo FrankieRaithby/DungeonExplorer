@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DungeonExplorer
@@ -20,6 +21,42 @@ namespace DungeonExplorer
         {
             get { return _items; }
             set { _items = value; }
+        }
+        public int MaxWeight
+        {
+            get { return _maxWeight; }
+            set { _maxWeight = value; }
+        }
+        public int CurrentWeight
+        {
+            get { return _currentWeight; }
+            set { _currentWeight = value; }
+        }
+
+        public void AddItem(Item item)
+        {
+            if (item.Weight + CurrentWeight <= MaxWeight)
+            {
+                Items.Add(item);
+                CurrentWeight += item.GetWeight();
+            }
+            else
+            {
+                Console.WriteLine("Cannot add item. Inventory weight limit exceeded.");
+            }
+        }
+
+        public void RemoveItem(Item item)
+        {
+            if (Items.Contains(item))
+            {
+                Items.Remove(item);
+                CurrentWeight -= item.GetWeight();
+            }
+            else
+            {
+                Console.WriteLine("Cannot remove item. Item not in inventory.");
+            }
         }
 
         public bool ItemExists(string name)

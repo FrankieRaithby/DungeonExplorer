@@ -8,15 +8,21 @@ namespace DungeonExplorer
         /// <summary>
         /// Private Fields.
         /// </summary>
+        private string _name;
         private string _description;
-        private List<string> _loot;
+        private int _x;
+        private int _y;
+        private List<Item> _loot;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Room(string description, List<string> loot)
+        public Room(string name, string description, int x, int y, List<Item> loot)
         {
+            _name = name;
             _description = description;
+            _x = x;
+            _y = y;
             _loot = loot;
         }
 
@@ -34,7 +40,7 @@ namespace DungeonExplorer
                     _description = value;
             }
         }
-        public List<string> Loot
+        public List<Item> Loot
         {
             get { return _loot; }
             set

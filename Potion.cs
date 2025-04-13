@@ -8,5 +8,8 @@ namespace DungeonExplorer
 {
     internal class Potion : Item
     {
+        public Potion(string name, string description) : base(name, description)
+        {
+        }
     }
 }

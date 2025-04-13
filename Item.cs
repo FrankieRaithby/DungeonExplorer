@@ -2,7 +2,7 @@
 
 namespace DungeonExplorer
 {
-    internal class Item
+    public class Item
     {
         /// <summary>
         /// Private Fields.

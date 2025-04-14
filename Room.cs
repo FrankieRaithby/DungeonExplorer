@@ -13,6 +13,7 @@ namespace DungeonExplorer
         private int _x;
         private int _y;
         private List<Item> _loot;
+        private bool discovered;
 
         /// <summary>
         /// Parameterized Constructor.
@@ -24,6 +25,7 @@ namespace DungeonExplorer
             _x = x;
             _y = y;
             _loot = loot;
+            discovered = false;
         }
 
         /// <summary>
@@ -63,6 +65,23 @@ namespace DungeonExplorer
         public string GetDescription()
         {
             return Description;
+        }
+
+
+
+        public int GetX()
+        {
+            return _x;
+        }
+
+        public int GetY()
+        {
+            return _y;
+        }
+
+        public bool IsDiscovered()
+        {
+            return discovered;
         }
 
         /// <summary>

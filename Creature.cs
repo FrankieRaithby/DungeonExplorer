@@ -5,8 +5,9 @@
         private string _name;
         private string _description;
         private int _health;
+        private Room _currentRoom;
 
-        public Creature(string name, string description, int health)
+        public Creature(string name, string description, int health, Room currentRoom)
         {
             _name = name;
             _description = description;
@@ -30,6 +31,11 @@
             get { return _health; }
             set { _health = value; }
         }
+        public Room CurrentRoom
+        {
+            get { return _currentRoom; }
+            set { _currentRoom = value; }
+        }
 
         public string GetName()
         {
@@ -39,10 +45,13 @@
         {
             return Description;
         }
-
         public int GetHealth()
         {
             return Health;
+        }
+        public Room GetCurrentRoom()
+        {
+            return CurrentRoom;
         }
     }
 }

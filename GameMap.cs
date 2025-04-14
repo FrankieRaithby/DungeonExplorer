@@ -66,12 +66,12 @@ namespace DungeonExplorer
                     directions["West"] = room.Key;
                 }
             }
-
             return directions;
         }
 
-        public string GetMap(Creature player)
+        public string GetMap(Player player)
         {
+            string map = "";
 
             foreach (Room room in rooms)
             {
@@ -80,6 +80,8 @@ namespace DungeonExplorer
                     
                 }
             }
+
+            return map;
         }
     }
 }

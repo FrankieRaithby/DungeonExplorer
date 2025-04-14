@@ -3,21 +3,24 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    public class Player : Creature
+    public class Player : Creature, IDamageable
     {
         /// <summary>
         /// Private Fields.
         /// </summary>
         private string _name;
+        private string _description;
         private int _health;
-        private List<Item> _inventory;
+        private Inventory _inventory;
+        private int _currentRoom;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Player(string name, int health, List<string> inventory):base(name, health)
+        public Player(string name, string description, int health, Inventory inventory, Room currentRoom) : base(name, description, health, currentRoom)
         {
             _name = name;
+            _description = description;
             _health = health;
             _inventory = inventory;
         }
@@ -25,63 +28,12 @@ namespace DungeonExplorer
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
-        public string Name
-        {
-            get { return _name; }
-            set 
-            {
-                if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-                    Console.WriteLine("Name cannot be empty.");
-                else
-                    _name = value; 
-            }
-        }
-        public int Health
-        {
-            get { return _health; }
-            set 
-            {
-                if (value < 0)
-                    Console.WriteLine("Health cannot be negative.");
-                else
-                    _health = value; 
-            }
-        }
-        public List<string> Inventory
-        {
-            get { return _inventory; }
-            set
-            {
-                    _inventory = value;
-            }
-        }
 
         /// <summary>
         /// This method gives the player an item into their inventory and clears the room's loot.
         /// </summary>
-        public void PickUpItem(string item, Room room)
-        {
-            Console.WriteLine($"You pick up the {item}.");
-            room.Loot.Remove(item);
-            Inventory.Add(item);
-            room.Loot.Clear();
-        }
 
-        /// <summary>
-        /// This method returns the player healt as a string.
-        /// </summary>
-        public string CurrentStatus()
-        {
-            return ($"You are at {Health} health.");
-        }
-
-        /// <summary>
-        /// This method returns the inventory list as a string.
-        /// </summary>
-        public string InventoryContents()
-        {
-            return ($"{Name}'s Inventory: {string.Join(", ", Inventory)}");
-        }
+       
 
         /// <summary>
         /// This method sets the player name.
@@ -141,18 +93,6 @@ namespace DungeonExplorer
                     Console.WriteLine("Invalid choice, please pick from the list");
                 }
             }
-        }
-
-        // No function as of yet.
-        public void UseItem()
-        {
-
-            //
-        }
-
-        public void Attack(Player hostile, int damage)
-        {
-            //
         }
     }
 }

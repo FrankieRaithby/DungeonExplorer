@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace DungeonExplorer
 {
-    internal class Inventory
+    public class Inventory
     {
         private List<Item> _items;
         private int _maxWeight;

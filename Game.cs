@@ -101,7 +101,7 @@ namespace DungeonExplorer
                             foreach (Item item in currentRoom.Loot)
                             {
                                 char letter = (char)('A' + i);
-                                loot[letter.ToString()] = item;
+                                loot[letter.ToString()] = item.GetName();
                                 i++;
                             }
 

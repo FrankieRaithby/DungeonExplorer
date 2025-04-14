@@ -33,9 +33,25 @@ namespace DungeonExplorer
             set { _currentWeight = value; }
         }
 
+        public List<Item> GetItems()
+        {
+            return Items;
+        }
+
+        public int GetMaxWeight()
+        {
+            return MaxWeight;
+        }
+
+        public int GetCurrentWeight()
+        {
+            return CurrentWeight;
+        }
+
+
         public void AddItem(Item item)
         {
-            if (item.Weight + CurrentWeight <= MaxWeight)
+            if (item.GetWeight() + CurrentWeight <= MaxWeight)
             {
                 Items.Add(item);
                 CurrentWeight += item.GetWeight();

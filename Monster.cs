@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public class Monster : Creature, IDamageable
+    internal class Monster : Creature, IDamageable
     {
         /// <summary>
         /// Private Fields.
@@ -32,14 +32,7 @@ namespace DungeonExplorer
         /// Public properties for accessing private fields.
         /// </summary>
 
-        /// <summary>
-        /// This method returns the monster healt as a string.
-        /// </summary>
-        public string CurrentStatus()
-        {
-            return ($"You are at {Health} health.");
-        }
-
+        
         public void Damage()
         {
             // Implement damage logic here

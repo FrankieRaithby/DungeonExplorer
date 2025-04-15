@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    public class Player : Creature, IDamageable
+    internal class Player : Creature, IDamageable
     {
         /// <summary>
         /// Private Fields.
@@ -29,10 +29,11 @@ namespace DungeonExplorer
         /// Public properties for accessing private fields.
         /// </summary>
 
-        /// <summary>
-        /// This method gives the player an item into their inventory and clears the room's loot.
-        /// </summary>
 
+        public void Damage()
+        {
+
+        }
        
 
         /// <summary>

@@ -51,6 +51,24 @@ namespace DungeonExplorer
             }
         }
 
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                    Console.WriteLine("Name cannot be empty.");
+                else
+                    _name = value;
+            }
+        }
+
+        public string GetName()
+        {
+            return Name;
+        }
+
+
         /// <summary>
         /// This method returns room's loot.
         /// </summary>

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonExplorer
 {
     public class GameMap
     {
-        private List<Room> rooms;
+        private List<Room> _rooms;
         private Dictionary<Room, (int x, int y)> mapDictionary;
 
         public GameMap()
@@ -15,7 +16,7 @@ namespace DungeonExplorer
             Room Room3 = new Room("Room3", "A room with a sleeping monster.", 0, 1, new List<Item>());
             Room Room4 = new Room("Room4", "A room with a hidden passage.", 1, 1, new List<Item>());
 
-            rooms = new List<Room>()
+            _rooms = new List<Room>()
             {
                 Room1,
                 Room2,
@@ -26,16 +27,27 @@ namespace DungeonExplorer
             mapDictionary = GetMapDictionary();
         }
 
+        public List<Room> Rooms
+        {
+            get { return _rooms; }
+            set { _rooms = value; }
+        }
+
         private Dictionary<Room, (int x, int y)> GetMapDictionary()
         {
             Dictionary<Room, (int x, int y)> mapDictionary = new Dictionary<Room, (int x, int y)>();
 
-            foreach (Room room in rooms)
+            foreach (Room room in Rooms)
             {
                 mapDictionary[room] = (room.GetX(), room.GetY());
             }
 
             return mapDictionary;
+        }
+
+        public Room GetRoom(string name)
+        {
+            return Rooms.Where(room => room.GetName().Equals(name)).Select(room => room).FirstOrDefault();
         }
 
         public Dictionary<string, Room> GetDirections(Player player)
@@ -69,11 +81,11 @@ namespace DungeonExplorer
             return directions;
         }
 
-        public string GetMap(Player player)
+        public string GetMap()
         {
             string map = "";
 
-            foreach (Room room in rooms)
+            foreach (Room room in Rooms)
             {
                 if (room.IsDiscovered())
                 {

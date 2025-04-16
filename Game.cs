@@ -14,7 +14,6 @@ namespace DungeonExplorer
         private List<Room> rooms;
 
         private Item item;
-        private Creature creature;
         private Inventory inventory;
         private GameMap gamemap;
 
@@ -23,7 +22,7 @@ namespace DungeonExplorer
             /// <summary>
             /// Intitialising player instance and multiple room instances.
             /// </summary>
-            player = new Player("Username", 250, new List<string>());
+            player = new Player("Username", "asd", 250, new Inventory(List<Item>), );
         }
         /// <summary>
         /// This method handles main game loop.

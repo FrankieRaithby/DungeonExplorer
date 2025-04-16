@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace DungeonExplorer
@@ -22,8 +23,17 @@ namespace DungeonExplorer
             /// <summary>
             /// Intitialising player instance and multiple room instances.
             /// </summary>
-            player = new Player("Username", "asd", 250, new Inventory(List<Item>), );
+            Inventory inventory = new Inventory(new List<Item>(), 150);
+            player = new Player("Username", "asd", 250, inventory);
         }
+
+        public string Player
+        {
+            get { return player.Name; }
+            set { player.Name = value; }
+        }
+
+
         /// <summary>
         /// This method handles main game loop.
         /// </summary>
@@ -83,11 +93,11 @@ namespace DungeonExplorer
                 {
                     case "A":
                         Console.WriteLine("\tYou have chosen A.");
-                        Console.WriteLine(player.InventoryContents());
+                        Console.WriteLine(Player.InventoryContents());
                         break;
                     case "B":
                         Console.WriteLine("\tYou have chosen B.");
-                        Console.WriteLine(player.CurrentStatus());
+                        Console.WriteLine(Player.CurrentStatus());
                         break;
                     case "C":
                         Console.WriteLine("\tYou have chosen C.");
@@ -108,7 +118,7 @@ namespace DungeonExplorer
                             string weapon = player.GetChoice(loot);
                             if (loot.ContainsKey(weapon))
                             {
-                                player.PickUpItem(loot[weapon], currentRoom);
+                                Player.PickUpItem(loot[weapon], currentRoom);
                                 Testing.CheckItem(player, loot[weapon]);
                             }
                         }

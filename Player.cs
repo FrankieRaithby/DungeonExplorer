@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DungeonExplorer
 {
-    internal class Player : Creature, IDamageable
+    public class Player : Creature, IDamageable
     {
         /// <summary>
         /// Private Fields.

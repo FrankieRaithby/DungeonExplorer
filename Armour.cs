@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Armour : Item
+    public class Armour : Item
     {
         private string _type;
         private int _defence;

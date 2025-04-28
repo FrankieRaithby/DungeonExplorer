@@ -9,6 +9,7 @@ namespace DungeonExplorer
         private List<Item> _items;
         private int _maxWeight;
         private int _currentWeight;
+        private List<Armour> armours;
 
         public Inventory(List<Item> items, int maxWeight)
         {
@@ -78,6 +79,15 @@ namespace DungeonExplorer
         public bool ItemExists(string name)
         {
             return Items.Exists(item => item.Name == name);
+        }
+        public Item GetItem(string name)
+        {
+            return Items.FirstOrDefault(item => item.Name == name);
+        }
+
+        public List<Armour> GetArmours()
+        {
+            return Items.OfType<Armour>().ToList();
         }
 
         private int CalculateCurrentWeight()

@@ -7,10 +7,10 @@ namespace DungeonExplorer
     public class Inventory
     {
         private List<Item> _items;
-        private int _maxWeight;
-        private int _currentWeight;
+        private float _maxWeight;
+        private float _currentWeight;
 
-        public Inventory(List<Item> items, int maxWeight)
+        public Inventory(List<Item> items, float maxWeight)
         {
             _items = items;
             _maxWeight = maxWeight;
@@ -22,12 +22,12 @@ namespace DungeonExplorer
             get { return _items; }
             set { _items = value; }
         }
-        public int MaxWeight
+        public float MaxWeight
         {
             get { return _maxWeight; }
             set { _maxWeight = value; }
         }
-        public int CurrentWeight
+        public float CurrentWeight
         {
             get { return _currentWeight; }
             set { _currentWeight = value; }
@@ -38,16 +38,27 @@ namespace DungeonExplorer
             return Items;
         }
 
-        public int GetMaxWeight()
+        public float GetMaxWeight()
         {
             return MaxWeight;
         }
 
-        public int GetCurrentWeight()
+        public float GetCurrentWeight()
         {
             return CurrentWeight;
         }
 
+        public void DisplayInventory()
+        {
+            Console.WriteLine("INVENTORY");
+            Console.WriteLine("---------");
+            Console.WriteLine($"{GetCurrentWeight()} / {GetMaxWeight()} Kg");
+            foreach (var item in Items)
+            {
+                Console.WriteLine($"\t- {item.GetName()} ({item.GetWeight()} Kg)");
+            }
+            Console.WriteLine($"Total Weight: {CurrentWeight}/{MaxWeight}");
+        }
 
         public void AddItem(Item item, Room room)
         {

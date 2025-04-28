@@ -33,6 +33,11 @@ namespace DungeonExplorer
             set { _rooms = value; }
         }
 
+        public List<Room> GetRooms()
+        {
+            return Rooms;
+        }
+
         private Dictionary<Room, (int x, int y)> GetMapDictionary()
         {
             Dictionary<Room, (int x, int y)> mapDictionary = new Dictionary<Room, (int x, int y)>();

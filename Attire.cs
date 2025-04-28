@@ -119,5 +119,16 @@ namespace DungeonExplorer
             return EquipedArmour.Sum(armour => armour.Defence);
         }
 
+        public void DisplayAttire()
+        {
+            Console.WriteLine("\nEQUIPED ARMOUR");
+            Console.WriteLine("--------------");
+            Console.WriteLine($"\tHelmet: {($"{Helmet?.GetName()} ({Helmet?.GetDefence()} DEF)") ?? "None"}");
+            Console.WriteLine($"\tChestplate: {($"{Chestplate?.GetName()} ({Chestplate?.GetDefence()} DEF)") ?? "None"}");
+            Console.WriteLine($"\tLeggings: {($"{Leggings?.GetName()} ({Leggings?.GetDefence()} DEF)") ?? "None"}");
+            Console.WriteLine($"\tBoots: {($"{Boots?.GetName()} ({Boots?.GetDefence()} DEF)") ?? "None"}");
+            Console.WriteLine($"\tTotal Defence: {CalculateDefence()}");
+        }
+
     }
 }

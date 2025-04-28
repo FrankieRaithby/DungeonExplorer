@@ -97,9 +97,14 @@ namespace DungeonExplorer
             return _y;
         }
 
-        public bool IsDiscovered()
+        public bool GetDiscovered()
         {
             return discovered;
+        }
+
+        public void SetDiscovered(bool value)
+        {
+            discovered = value;
         }
 
         /// <summary>

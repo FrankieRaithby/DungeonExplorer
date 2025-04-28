@@ -12,7 +12,7 @@ namespace DungeonExplorer
         private string _description;
         private int _health;
         private Inventory _inventory;
-        private int _currentRoom;
+        private Room _currentRoom;
 
         /// <summary>
         /// Parameterized Constructor.
@@ -65,6 +65,22 @@ namespace DungeonExplorer
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+        }
+
+        public void EnterRoom(Room room)
+        {
+            // Check if the room is valid
+            if (room != null)
+            {
+                _currentRoom = room;
+                Console.WriteLine($"You have entered {room.GetName()}.");
+                Console.WriteLine($"Description: {room.GetDescription()}");
+                room.SetDiscovered(true);
+            }
+            else
+            {
+                Console.WriteLine("Invalid room.");
             }
         }
 

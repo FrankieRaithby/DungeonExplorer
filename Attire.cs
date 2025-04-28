@@ -42,6 +42,22 @@ namespace DungeonExplorer
             set { _boots = value; }
         }
 
+        public Armour GetHelmet()
+        {
+            return Helmet;
+        }
+        public Armour GetChestplate()
+        {
+            return Chestplate;
+        }
+        public Armour GetLeggings()
+        {
+            return Leggings;
+        }
+        public Armour GetBoots()
+        {
+            return Boots;
+        }
 
 
         public void EquipArmour(Armour armour)

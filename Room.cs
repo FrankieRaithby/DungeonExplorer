@@ -13,18 +13,20 @@ namespace DungeonExplorer
         private int _x;
         private int _y;
         private List<Item> _loot;
+        private List<Monster> _monsters;
         private bool discovered;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Room(string name, string description, int x, int y, List<Item> loot)
+        public Room(string name, string description, int x, int y, List<Item> loot, List<Monster> monsters)
         {
             _name = name;
             _description = description;
             _x = x;
             _y = y;
             _loot = loot;
+            _monsters = monsters;
             discovered = false;
         }
 
@@ -63,6 +65,15 @@ namespace DungeonExplorer
             }
         }
 
+        public List<Monster> Monsters
+        {
+            get { return _monsters; }
+            set
+            {
+                _monsters = value;
+            }
+        }
+
         public string GetName()
         {
             return Name;
@@ -97,6 +108,12 @@ namespace DungeonExplorer
             return _y;
         }
 
+
+        public List<Monster> GetMonsters()
+        {
+            return Monsters;
+        }
+
         public bool GetDiscovered()
         {
             return discovered;
@@ -116,13 +133,28 @@ namespace DungeonExplorer
         {
             if (Loot.Count == 0)
             {
+                Console.WriteLine("There is nothing to scavenge in this room.");
                 return false;
             }
             else
             {
+                Console.WriteLine("You have found some loot in this room!");
                 return true;
             }
         }
-        
+
+        public bool HasMonsters()
+        {
+            if (Monsters.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("You are not alone in this room...");
+                return true;
+            }
+        }
+
     }
 }

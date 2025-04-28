@@ -11,10 +11,10 @@ namespace DungeonExplorer
         public GameMap()
         {
             // Initialize the map with rooms and their connections
-            Room Room1 = new Room("Room1", "A dark and spooky room.", 0, 0, new List<Item>());
-            Room Room2 = new Room("Room2", "A room with a treasure chest.", 1, 0, new List<Item>());
-            Room Room3 = new Room("Room3", "A room with a sleeping monster.", 0, 1, new List<Item>());
-            Room Room4 = new Room("Room4", "A room with a hidden passage.", 1, 1, new List<Item>());
+            Room Room1 = new Room("Entrance", "A dark and spooky room.", 0, 0, new List<Item>(), new List<Monster>());
+            Room Room2 = new Room("Room2", "A room with a treasure chest.", 1, 0, new List<Item>(), new List<Monster>());
+            Room Room3 = new Room("Room3", "A room with a sleeping monster.", 0, 1, new List<Item>(), new List<Monster>());
+            Room Room4 = new Room("Room4", "A room with a hidden passage.", 1, 1, new List<Item>(), new List<Monster>());
 
             _rooms = new List<Room>()
             {

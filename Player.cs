@@ -121,6 +121,7 @@ namespace DungeonExplorer
         public void DisplayStatus()
         {
             Console.WriteLine($"\n{GetName()}");
+            Console.WriteLine($"{GetDescription()}");
             Console.WriteLine("--------------");
             Console.WriteLine($"\tHealth: {GetHealth()}");
             Attire.DisplayAttire();

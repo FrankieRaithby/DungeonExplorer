@@ -8,19 +8,19 @@ namespace DungeonExplorer
 {
     public class Armour : Item
     {
-        private string _type;
+        private string _variant;
         private int _defence;
         
         public Armour(string name, string description, int weight, string type, int defence) : base(name, description, weight)
         {
-            _type = type;
+            _variant = type; // Helmet, Chestplate, Leggings, Boots
             _defence = defence;
         }
 
-        public string Type
+        public string Variant
         {
-            get { return _type; }
-            set { _type = value; }
+            get { return _variant; }
+            set { _variant = value; }
         }
 
         public int Defence
@@ -28,5 +28,16 @@ namespace DungeonExplorer
             get { return _defence; }
             set { _defence = value; }
         }
+
+        public string GetVariant()
+        {
+            return Variant;
+        }
+        public int GetDefence()
+        {
+            return Defence;
+        }
+
+
     }
 }

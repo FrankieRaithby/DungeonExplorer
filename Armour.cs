@@ -10,11 +10,13 @@ namespace DungeonExplorer
     {
         private string _variant;
         private int _defence;
+        private int _durability;
         
-        public Armour(string name, string description, int weight, string type, int defence) : base(name, description, weight)
+        public Armour(string name, string description, int weight, string type, int defence, int durability) : base(name, description, weight)
         {
             _variant = type; // Helmet, Chestplate, Leggings, Boots
             _defence = defence;
+            _durability = durability;
         }
 
         public string Variant
@@ -28,6 +30,11 @@ namespace DungeonExplorer
             get { return _defence; }
             set { _defence = value; }
         }
+        public int Durability
+        {
+            get { return _durability; }
+            set { _durability = value; }
+        }
 
         public string GetVariant()
         {
@@ -36,6 +43,10 @@ namespace DungeonExplorer
         public int GetDefence()
         {
             return Defence;
+        }
+        public int GetDurability()
+        {
+            return Durability;
         }
 
 

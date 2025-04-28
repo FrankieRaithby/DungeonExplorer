@@ -11,7 +11,6 @@ namespace DungeonExplorer
         private string _name;
         private string _description;
         private int _health;
-        private int _defence;
         private Inventory _inventory;
         private Attire _attire;
         private Room _currentRoom;

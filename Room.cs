@@ -107,6 +107,8 @@ namespace DungeonExplorer
             discovered = value;
         }
 
+
+
         /// <summary>
         /// This method returns true if room has loot, false if not.
         /// </summary>
@@ -121,5 +123,6 @@ namespace DungeonExplorer
                 return true;
             }
         }
+        
     }
 }

@@ -92,7 +92,7 @@ namespace DungeonExplorer
 
             foreach (Room room in Rooms)
             {
-                if (room.IsDiscovered())
+                if (room.GetDiscovered())
                 {
                     
                 }

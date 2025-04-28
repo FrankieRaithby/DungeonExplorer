@@ -9,6 +9,7 @@ namespace DungeonExplorer
 {
     public class Attire
     {
+        private int _defence;
         private Armour _helmet;
         private Armour _chestplate;
         private Armour _leggings;
@@ -16,6 +17,7 @@ namespace DungeonExplorer
 
         public Attire(Armour helmet, Armour chestplate, Armour leggings, Armour boots)
         {
+            _defence = CalculateDefence();
             _helmet = helmet;
             _chestplate = chestplate;
             _leggings = leggings;
@@ -77,6 +79,28 @@ namespace DungeonExplorer
                     break;
                 case "Boots":
                     Boots = armour;
+                    break;
+                default:
+                    Console.WriteLine("Invalid armour variant.");
+                    break;
+            }
+        }
+
+        public void UnequipArmour(string variant)
+        {
+            switch (variant)
+            {
+                case "Helmet":
+                    Helmet = null;
+                    break;
+                case "Chestplate":
+                    Chestplate = null;
+                    break;
+                case "Leggings":
+                    Leggings = null;
+                    break;
+                case "Boots":
+                    Boots = null;
                     break;
                 default:
                     Console.WriteLine("Invalid armour variant.");

@@ -27,11 +27,6 @@ namespace DungeonExplorer
             player = new Player("Username", "asd", 250, inventory);
         }
 
-        public string Player
-        {
-            get { return player.Name; }
-            set { player.Name = value; }
-        }
 
 
         /// <summary>

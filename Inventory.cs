@@ -49,10 +49,11 @@ namespace DungeonExplorer
         }
 
 
-        public void AddItem(Item item)
+        public void AddItem(Item item, Room room)
         {
             if (item.GetWeight() + CurrentWeight <= MaxWeight)
             {
+                room.Loot.Remove(item);
                 Items.Add(item);
                 CurrentWeight += item.GetWeight();
             }
@@ -62,10 +63,11 @@ namespace DungeonExplorer
             }
         }
 
-        public void RemoveItem(Item item)
+        public void RemoveItem(Item item, Room room)
         {
             if (Items.Contains(item))
             {
+                room.Loot.Add(item);
                 Items.Remove(item);
                 CurrentWeight -= item.GetWeight();
             }

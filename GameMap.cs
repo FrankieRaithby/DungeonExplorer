@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DungeonExplorer
@@ -74,12 +75,17 @@ namespace DungeonExplorer
             return Rooms.Where(room => room.GetName().Equals(name)).Select(room => room).FirstOrDefault();
         }
 
-        public Dictionary<string, Room> GetDirections(Player player)
+        public Dictionary<string, string> GetDirections(Player player)
         {
             Room playerRoom = player.GetCurrentRoom();
-            (int x, int y) playerPosition = mapDictionary[playerRoom];
+
+            if (!mapDictionary.TryGetValue(playerRoom, out var playerPosition))
+            {
+                Console.WriteLine("Unable to find room on map.");
+            }
 
             Dictionary<string, Room> directions = new Dictionary<string, Room>();
+
 
             foreach (KeyValuePair<Room, (int x, int y)> room in mapDictionary)
             {
@@ -102,7 +108,18 @@ namespace DungeonExplorer
                     directions["West"] = room.Key;
                 }
             }
-            return directions;
+
+            int i = 0;
+            Dictionary<string, string> choices = new Dictionary<string, string>();
+
+            foreach (KeyValuePair<string, Room> direction in directions)
+            {
+                char letter = (char)('A' + i);
+                choices[letter.ToString()] = $"{direction.Key} ({direction.Value.GetName()})";
+                i++;
+            }
+
+            return choices;
         }
 
         public string GetMap()

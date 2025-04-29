@@ -20,15 +20,15 @@ namespace DungeonExplorer
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Player(string name, string description, int health, Room currentRoom, Inventory inventory, Attire attire, int score) : base(name, description, health, currentRoom)
+        public Player(string name, string description, int health, Room currentRoom) : base(name, description, health, currentRoom)
         {
             _name = name;
             _description = description;
             _health = health;
-            _inventory = inventory;
-            _attire = attire;
+            _inventory = new Inventory(new List<Item>(), 150);
+            _attire = new Attire(null, null, null, null);
             _currentRoom = currentRoom;
-            _score = score;
+            _score = 0;
         }
 
         /// <summary>
@@ -121,11 +121,12 @@ namespace DungeonExplorer
             Attire.DisplayAttire();
         }
 
-            /// <summary>
-            /// This method gets user input for their choice.
-            /// </summary>
-            public string GetChoice(Dictionary<string, string> choices)
+        /// <summary>
+        /// This method gets user input for their choice.
+        /// </summary>
+        public string GetChoice(Dictionary<string, string> choices)
         {
+            Console.WriteLine("\n");
             // Collect UserInput
             while (true)
             {

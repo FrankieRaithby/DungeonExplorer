@@ -145,7 +145,7 @@ namespace DungeonExplorer
 
         public bool HasMonsters()
         {
-            if (Monsters.Count == 0)
+            if (GetMonsters().Count == 0)
             {
                 return false;
             }

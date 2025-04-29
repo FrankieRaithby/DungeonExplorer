@@ -12,23 +12,18 @@ namespace DungeonExplorer
     {
         private Player player;
         private GameMap gamemap;
-
-        private Inventory inventory;
-        private Attire attire;
         private Room currentRoom;
-        private int score;
 
         public Game()
         {
             /// <summary>
             /// Intitialising player instance and multiple room instances.
             /// </summary>
-            Inventory inventory = new Inventory(new List<Item>(), 150);
-            Attire attire = new Attire(null, null, null, null);
-            Room currentRoom = gamemap.GetRoom("Entrance");
-            int score = 0;
+            gamemap = new GameMap();
 
-            player = new Player("Username", "Human Player", 100, currentRoom, inventory, attire, score);
+            currentRoom = gamemap.GetRoom("Entrance");
+
+            player = new Player("Username", "Human Player", 250, currentRoom);
         }
 
 
@@ -55,22 +50,6 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
-                //Console.WriteLine(RoomNumber);
-                // Checks if player has gone through all rooms, otherwise escape.
-                //if (RoomNumber+1 > rooms.Count)
-                //{
-                //    Console.WriteLine("Congratulations, you have escaped the dungeon!");
-                //    playing = false;
-                //    break;
-                //}
-                //else
-                //{
-                //   currentRoom = rooms[RoomNumber];
-                //}
-
-                // Room description
-
-                // Default Choices
                 Dictionary<string, string> primaryChoices = new Dictionary<string, string>
                 {
                     { "A", "Scavenge Room" },

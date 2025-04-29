@@ -17,11 +17,11 @@ namespace DungeonExplorer
 
         public Attire(Armour helmet, Armour chestplate, Armour leggings, Armour boots)
         {
-            _defence = CalculateDefence();
             _helmet = helmet;
             _chestplate = chestplate;
             _leggings = leggings;
             _boots = boots;
+            _defence = CalculateDefence();
         }
         public Armour Helmet
         {
@@ -112,21 +112,21 @@ namespace DungeonExplorer
         {
             return items.OfType<Armour>().ToList();
         }
-
         private int CalculateDefence()
         {
             List<Armour> EquipedArmour = new List<Armour> { Helmet, Chestplate, Leggings, Boots };
-            return EquipedArmour.Sum(armour => armour.Defence);
+            return EquipedArmour.Where(a => a != null).Sum(a => a.Defence);
         }
+
 
         public void DisplayAttire()
         {
             Console.WriteLine("\nEQUIPED ARMOUR");
             Console.WriteLine("--------------");
-            Console.WriteLine($"\tHelmet: {($"{Helmet?.GetName()} ({Helmet?.GetDefence()} DEF)") ?? "None"}");
-            Console.WriteLine($"\tChestplate: {($"{Chestplate?.GetName()} ({Chestplate?.GetDefence()} DEF)") ?? "None"}");
-            Console.WriteLine($"\tLeggings: {($"{Leggings?.GetName()} ({Leggings?.GetDefence()} DEF)") ?? "None"}");
-            Console.WriteLine($"\tBoots: {($"{Boots?.GetName()} ({Boots?.GetDefence()} DEF)") ?? "None"}");
+            Console.WriteLine($"\tHelmet: {(Helmet != null ? $"{Helmet.GetName()} ({Helmet.GetDefence()} DEF)" : "None")}");
+            Console.WriteLine($"\tChestplate: {(Chestplate != null ? $"{Chestplate.GetName()} ({Chestplate.GetDefence()} DEF)" : "None")}");
+            Console.WriteLine($"\ttLeggings: {(Leggings != null ? $"{Leggings.GetName()} ({Leggings.GetDefence()} DEF)" : "None")}");
+            Console.WriteLine($"\tBoots: {(Boots != null ? $"{Boots.GetName()} ({Boots.GetDefence()} DEF)" : "None")}");
             Console.WriteLine($"\tTotal Defence: {CalculateDefence()}");
         }
 

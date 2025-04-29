@@ -111,7 +111,7 @@ namespace DungeonExplorer
                         bool finished = false;
 
                         // Inventory Management
-                        if (!finished)
+                        while (!finished)
                         {
                             Dictionary<string, string> InventoryChoices = new Dictionary<string, string>
                             {
@@ -145,11 +145,11 @@ namespace DungeonExplorer
                         break;
 
                     case "D":
-                        // Get Directions
-                        Room TravelRoom = gamemap.GetDirections(player);
-                        gamemap.Travel(player, TravelRoom);
-                        break;
-
+                            // Get Directions
+                            Room TravelRoom = gamemap.GetDirections(player);
+                            gamemap.Travel(player, TravelRoom);
+                            break;
+                        
 
                 }
                 

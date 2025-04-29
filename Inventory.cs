@@ -76,6 +76,12 @@ namespace DungeonExplorer
 
         public void DropItemMenu(Player player)
         {
+            if (player.Inventory.GetItems().Count == 0)
+            {
+                Console.WriteLine("No items to drop.");
+                return;
+            }
+
             Dictionary<string, string> items = new Dictionary<string, string>();
 
             int i = 0;
@@ -99,6 +105,12 @@ namespace DungeonExplorer
 
         public void UseItemMenu(Player player)
         {
+            if (player.GetInventory().GetItems().Count == 0)
+            {
+                Console.WriteLine("No items to use.");
+                return;
+            }
+
             Dictionary<string, string> useItems = new Dictionary<string, string>();
 
             int j = 0;

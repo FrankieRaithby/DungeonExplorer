@@ -14,17 +14,21 @@ namespace DungeonExplorer
         private Room _currentRoom;
         private Inventory _inventory;
         private Attire _attire;
+        private int _score;
 
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Player(string name, string description, int health, Room currentRoom, Inventory inventory, Attire attire) : base(name, description, health, currentRoom)
+        public Player(string name, string description, int health, Room currentRoom, Inventory inventory, Attire attire, int score) : base(name, description, health, currentRoom)
         {
             _name = name;
             _description = description;
             _health = health;
             _inventory = inventory;
+            _attire = attire;
+            _currentRoom = currentRoom;
+            _score = score;
         }
 
         /// <summary>
@@ -61,14 +65,19 @@ namespace DungeonExplorer
             get { return _attire; }
             set { _attire = value; }
         }
-
-
-
-        public void Damage()
+        public int Score
         {
-
+            get { return _score; }
+            set { _score = value; }
         }
-       
+
+        public int GetScore()
+        {
+            return _score;
+        }
+
+
+
 
         /// <summary>
         /// This method sets the player name.
@@ -124,6 +133,7 @@ namespace DungeonExplorer
             Console.WriteLine($"{GetDescription()}");
             Console.WriteLine("--------------");
             Console.WriteLine($"\tHealth: {GetHealth()}");
+            Console.WriteLine($"\tScore: {GetScore()}");
             Attire.DisplayAttire();
         }
 

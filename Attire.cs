@@ -121,11 +121,11 @@ namespace DungeonExplorer
 
         public void DisplayAttire()
         {
-            Console.WriteLine("\nEQUIPED ARMOUR");
-            Console.WriteLine("--------------");
+            Console.WriteLine("\n\tEQUIPED ARMOUR");
+            Console.WriteLine("\t--------------");
             Console.WriteLine($"\tHelmet: {(Helmet != null ? $"{Helmet.GetName()} ({Helmet.GetDefence()} DEF)" : "None")}");
             Console.WriteLine($"\tChestplate: {(Chestplate != null ? $"{Chestplate.GetName()} ({Chestplate.GetDefence()} DEF)" : "None")}");
-            Console.WriteLine($"\ttLeggings: {(Leggings != null ? $"{Leggings.GetName()} ({Leggings.GetDefence()} DEF)" : "None")}");
+            Console.WriteLine($"\tLeggings: {(Leggings != null ? $"{Leggings.GetName()} ({Leggings.GetDefence()} DEF)" : "None")}");
             Console.WriteLine($"\tBoots: {(Boots != null ? $"{Boots.GetName()} ({Boots.GetDefence()} DEF)" : "None")}");
             Console.WriteLine($"\tTotal Defence: {CalculateDefence()}");
         }

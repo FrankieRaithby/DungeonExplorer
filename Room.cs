@@ -124,12 +124,23 @@ namespace DungeonExplorer
             discovered = value;
         }
 
+        public string IfDiscovered()
+        {
+            if (GetDiscovered() == false)
+            {
+                SetDiscovered(true);
+                return "Unknown";
+            }
+            else
+            {
+                return "Discovered";
+            }
+        }
 
-
-        /// <summary>
-        /// This method returns true if room has loot, false if not.
-        /// </summary>
-        public bool HasLoot()
+            /// <summary>
+            /// This method returns true if room has loot, false if not.
+            /// </summary>
+            public bool HasLoot()
         {
             if (Loot.Count == 0)
             {

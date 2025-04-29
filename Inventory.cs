@@ -50,14 +50,14 @@ namespace DungeonExplorer
 
         public void DisplayInventory()
         {
-            Console.WriteLine("INVENTORY");
-            Console.WriteLine("---------");
-            Console.WriteLine($"{GetCurrentWeight()} / {GetMaxWeight()} Kg");
+            Console.WriteLine("\n\tINVENTORY");
+            Console.WriteLine("\t---------");
+            Console.WriteLine($"\t{GetCurrentWeight()} / {GetMaxWeight()} kg");
+            SortItemsByAscendingWeight();
             foreach (var item in Items)
             {
                 Console.WriteLine($"\t- {item.GetName()} ({item.GetWeight()} Kg)");
             }
-            Console.WriteLine($"Total Weight: {CurrentWeight}/{MaxWeight}");
         }
 
         public void AddItem(Item item, Room room)
@@ -74,7 +74,53 @@ namespace DungeonExplorer
             }
         }
 
-        public void RemoveItem(Item item, Room room)
+        public void DropItemMenu(Player player)
+        {
+            Dictionary<string, string> items = new Dictionary<string, string>();
+
+            int i = 0;
+            foreach (Item item in player.Inventory.GetItems())
+            {
+                char letter = (char)('A' + i);
+                items[letter.ToString()] = item.GetName();
+                i++;
+            }
+
+            Console.WriteLine("\tDrop an item:");
+
+            string ItemChosen = player.GetChoice(items);
+
+            if (items.ContainsKey(ItemChosen))
+            {
+                player.Inventory.DropItem(player.Inventory.GetItem(ItemChosen), player.GetCurrentRoom());
+                Testing.CheckItem(player, player.Inventory.GetItem(ItemChosen));
+            }
+        }
+
+        public void UseItemMenu(Player player)
+        {
+            Dictionary<string, string> useItems = new Dictionary<string, string>();
+
+            int j = 0;
+            foreach (Item item in player.GetInventory().GetItems())
+            {
+                char letter = (char)('A' + j);
+                useItems[letter.ToString()] = item.GetName();
+                j++;
+            }
+
+            Console.WriteLine("\tUse an item:");
+
+            string ItemUsed = player.GetChoice(useItems);
+
+            if (useItems.ContainsKey(ItemUsed))
+            {
+                player.GetInventory().GetItem(ItemUsed).UseItem();
+                Testing.CheckItem(player, player.GetInventory().GetItem(ItemUsed));
+            }
+        }
+
+        public void DropItem(Item item, Room room)
         {
             if (Items.Contains(item))
             {
@@ -97,7 +143,12 @@ namespace DungeonExplorer
             return Items.FirstOrDefault(item => item.Name == name);
         }
 
-        
+        public void SortItemsByAscendingWeight()
+        {
+            Items = Items.OrderBy(item => item.Weight).ToList();
+        }
+
+
 
         private int CalculateCurrentWeight()
         {

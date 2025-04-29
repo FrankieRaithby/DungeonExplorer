@@ -12,6 +12,7 @@
             _name = name;
             _description = description;
             _health = health;
+            _currentRoom = currentRoom;
         }
 
         public string Name

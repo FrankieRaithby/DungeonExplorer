@@ -54,10 +54,15 @@ namespace DungeonExplorer
         {
             return Inventory;
         }
+        public Attire GetAttire()
+        {
+            return Attire;
+        }
         public int GetScore()
         {
             return _score;
         }
+
 
 
 
@@ -113,9 +118,9 @@ namespace DungeonExplorer
 
         public void DisplayStatus()
         {
-            Console.WriteLine($"\n{GetName()}");
-            Console.WriteLine($"{GetDescription()}");
-            Console.WriteLine("--------------");
+            Console.WriteLine($"\n\t{GetName()}");
+            Console.WriteLine($"\t{GetDescription()}");
+            Console.WriteLine("\t--------------");
             Console.WriteLine($"\tHealth: {GetHealth()}");
             Console.WriteLine($"\tScore: {GetScore()}");
             Attire.DisplayAttire();

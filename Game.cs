@@ -16,13 +16,8 @@ namespace DungeonExplorer
 
         public Game()
         {
-            /// <summary>
-            /// Intitialising player instance and multiple room instances.
-            /// </summary>
             gamemap = new GameMap();
-
-            currentRoom = gamemap.GetRoom("Entrance");
-
+            currentRoom = gamemap.GetRoomByName("Entrance");
             player = new Player("Username", "Human Player", 250, currentRoom);
         }
 
@@ -43,6 +38,8 @@ namespace DungeonExplorer
             Console.WriteLine("There may be items in a room, but you are only allowed to pick one, so choose wisely.");
             Console.WriteLine("You only have 250 health, so always check your health.");
             Console.WriteLine("Some items are one use, so ensure you use them at the correct time.");
+
+            Console.WriteLine($"\n\t{player.CurrentRoom.GetName()}\n\t{player.CurrentRoom.GetDescription()}");
 
             // Playing Loop
             //int RoomNumber = 0;
@@ -123,13 +120,39 @@ namespace DungeonExplorer
                                 { "C", "View Inventory" },
                                 { "D", "Exit Inventory Menu" },
                             };
+
+                            string InventoryChoice = player.GetChoice(InventoryChoices);
+
+                            switch (InventoryChoice)
+                            {
+                                case "A":
+                                    player.Inventory.DropItemMenu(player);
+                                    break;
+                                case "B":
+                                    // Use Item
+                                    player.Inventory.UseItemMenu(player);
+                                    break;
+                                case "C":
+                                    // View Inventory
+                                    player.Inventory.DisplayInventory();
+                                    break;
+                                case "D":
+                                    // Exit Inventory Menu
+                                    finished = true;
+                                    break;
+                            }
                         }
                         break;
+
                     case "D":
                         // Get Directions
-                        gamemap.GetDirections(player);
+                        Room TravelRoom = gamemap.GetDirections(player);
+                        gamemap.Travel(player, TravelRoom);
                         break;
+
+
                 }
+                
 
 
 
@@ -153,8 +176,8 @@ namespace DungeonExplorer
 
 
 
-                    // game loop
-                }
+                // game loop
+            }
                     
 
 
@@ -171,7 +194,7 @@ namespace DungeonExplorer
 
 
 
-
+            
 
         }
     }

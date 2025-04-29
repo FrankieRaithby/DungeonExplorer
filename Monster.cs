@@ -16,6 +16,9 @@ namespace DungeonExplorer
         private int _health;
         private Inventory _inventory;
         private int _currentRoom;
+        private int _damage;
+        private int _defence;
+        private int _points;
 
         /// <summary>
         /// Parameterized Constructor.

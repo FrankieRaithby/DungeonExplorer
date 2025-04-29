@@ -7,7 +7,7 @@ namespace DungeonExplorer
     public class GameMap
     {
         private List<Room> _rooms;
-        private Dictionary<Room, (int x, int y)> mapDictionary;
+        private Dictionary<Room, (int x, int y)> RoomCoordinates;
 
         private Room Room1;
         private Room Room2;
@@ -41,10 +41,17 @@ namespace DungeonExplorer
                 Room1,
                 Room2,
                 Room3,
-                Room4
+                Room4,
+                Room5,
+                Room6,
+                Room7,
+                Room8,
+                Room9,
+                Room10,
+                Room11
             };
 
-            mapDictionary = GetMapDictionary();
+            RoomCoordinates = GetRoomCoordinates();
         }
 
         public List<Room> Rooms
@@ -58,7 +65,7 @@ namespace DungeonExplorer
             return Rooms;
         }
 
-        private Dictionary<Room, (int x, int y)> GetMapDictionary()
+        private Dictionary<Room, (int x, int y)> GetRoomCoordinates()
         {
             Dictionary<Room, (int x, int y)> mapDictionary = new Dictionary<Room, (int x, int y)>();
 
@@ -70,71 +77,89 @@ namespace DungeonExplorer
             return mapDictionary;
         }
 
-        public Room GetRoom(string name)
+        public Room GetRoomByName(string name)
         {
-            return Rooms.Where(room => room.GetName().Equals(name)).Select(room => room).FirstOrDefault();
+            return Rooms.FirstOrDefault(room => room.GetName().Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public Dictionary<string, string> GetDirections(Player player)
+        public Room GetRoomByCoordinate(int x, int y)
         {
-            Room playerRoom = player.GetCurrentRoom();
+            return Rooms.FirstOrDefault(room => room.GetX() == x && room.GetY() == y);
+        }
 
-            if (!mapDictionary.TryGetValue(playerRoom, out var playerPosition))
+        public Room GetDirections(Player player)
+        {
+            Room currentRoom = player.GetCurrentRoom();
+
+            if (currentRoom == null)
             {
-                Console.WriteLine("Unable to find room on map.");
+                Console.WriteLine("ERROR: Player's current room is null.");
+                return null;
+            }
+
+            if (!RoomCoordinates.TryGetValue(currentRoom, out var playerPosition))
+            {
+                Console.WriteLine($"Room '{currentRoom.GetName()}' not found in RoomCoordinates.");
+                return null;
             }
 
             Dictionary<string, Room> directions = new Dictionary<string, Room>();
 
+            Room North = GetRoomByCoordinate(playerPosition.x, playerPosition.y + 1);
+            Room East = GetRoomByCoordinate(playerPosition.x + 1, playerPosition.y);
+            Room South = GetRoomByCoordinate(playerPosition.x, playerPosition.y - 1);
+            Room West = GetRoomByCoordinate(playerPosition.x - 1, playerPosition.y);
 
-            foreach (KeyValuePair<Room, (int x, int y)> room in mapDictionary)
-            {
-                (int x, int y) position = room.Value;
+            if (North != null) directions["North"] = North;
+            if (East != null) directions["East"] = East;
+            if (South != null) directions["South"] = South;
+            if (West != null) directions["West"] = West;
 
-                if (position.x == playerPosition.x + 1 && position.y == playerPosition.y)
-                {
-                    directions["North"] = room.Key;
-                }
-                else if (position.x == playerPosition.x - 1 && position.y == playerPosition.y)
-                {
-                    directions["South"] = room.Key;
-                }
-                else if (position.x == playerPosition.x && position.y == playerPosition.y + 1)
-                {
-                    directions["East"] = room.Key;
-                }
-                else if (position.x == playerPosition.x && position.y == playerPosition.y - 1)
-                {
-                    directions["West"] = room.Key;
-                }
-            }
+            Dictionary<string, string> choiceLabels = new Dictionary<string, string>();
+            Dictionary<string, Room> choiceRooms = new Dictionary<string, Room>();
 
             int i = 0;
-            Dictionary<string, string> choices = new Dictionary<string, string>();
-
-            foreach (KeyValuePair<string, Room> direction in directions)
+            foreach (var direction in directions)
             {
-                char letter = (char)('A' + i);
-                choices[letter.ToString()] = $"{direction.Key} ({direction.Value.GetName()})";
+                string key = ((char)('A' + i)).ToString();
+                choiceLabels[key] = $"{direction.Value.GetName()} ({direction.Key}) [{direction.Value.IfDiscovered()}]";
+                choiceRooms[key] = direction.Value;
                 i++;
             }
 
-            return choices;
-        }
+            string playerChoice = player.GetChoice(choiceLabels);
 
-        public string GetMap()
-        {
-            string map = "";
-
-            foreach (Room room in Rooms)
+            if (choiceRooms.TryGetValue(playerChoice, out Room selectedRoom))
             {
-                if (room.GetDiscovered())
-                {
-                    
-                }
+                return selectedRoom;
             }
 
-            return map;
+            Console.WriteLine("Invalid direction choice.");
+            return null;
         }
+
+        public void Travel(Creature creature, Room room)
+        {
+            creature.CurrentRoom.SetDiscovered(true);
+            creature.CurrentRoom = room;
+            Console.WriteLine($"\n\t{creature.CurrentRoom.GetName()}\n\t{creature.CurrentRoom.GetDescription()}");
+        }
+
+        //public string GetMap()
+        //{
+        //    string map = "";
+
+        //    foreach (Room room in Rooms)
+        //    {
+        //        if (room.GetDiscovered())
+        //        {
+
+        //        }
+        //    }
+
+        //    return map;
+        //}
+
+
     }
 }

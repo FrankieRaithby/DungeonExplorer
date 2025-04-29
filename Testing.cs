@@ -8,9 +8,9 @@ namespace DungeonExplorer
         /// <summary>
         /// This method returns tests if player has item in his inventory.
         /// </summary>
-        public static void CheckItem(Player player, string item)
+        public static void CheckItem(Player player, Item item)
         {
-            Debug.Assert(player.Inventory.Contains(item), $"{item} cannot be found in the inventory.");
+            Debug.Assert(player.GetInventory().GetItems().Contains(item), $"{item} cannot be found in the inventory.");
         }
 
         /// <summary>

@@ -34,27 +34,6 @@ namespace DungeonExplorer
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
-
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value; }
-        }
-        public int Health
-        {
-            get { return _health; }
-            set { _health = value; }
-        }
-        public Room CurrentRoom
-        {
-            get { return _currentRoom; }
-            set { _currentRoom = value; }
-        }
         public Inventory Inventory
         {
             get { return _inventory; }
@@ -71,10 +50,15 @@ namespace DungeonExplorer
             set { _score = value; }
         }
 
+        public Inventory GetInventory()
+        {
+            return Inventory;
+        }
         public int GetScore()
         {
             return _score;
         }
+
 
 
 
@@ -164,5 +148,18 @@ namespace DungeonExplorer
                 }
             }
         }
+
+
+        public void Damage()
+        {
+
+        }
+
+
+
+
+
+
+
     }
 }

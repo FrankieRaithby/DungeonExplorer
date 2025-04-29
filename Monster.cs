@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Monster : Creature, IDamageable
+    public class Monster : Creature, IDamageable
     {
         /// <summary>
         /// Private Fields.

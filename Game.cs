@@ -11,12 +11,12 @@ namespace DungeonExplorer
     internal class Game
     {
         private Player player;
-        private Room currentRoom;
-        private List<Room> rooms;
-
-        private Item item;
-
         private GameMap gamemap;
+
+        private Inventory inventory;
+        private Attire attire;
+        private Room currentRoom;
+        private int score;
 
         public Game()
         {
@@ -26,7 +26,9 @@ namespace DungeonExplorer
             Inventory inventory = new Inventory(new List<Item>(), 150);
             Attire attire = new Attire(null, null, null, null);
             Room currentRoom = gamemap.GetRoom("Entrance");
-            player = new Player("Username", "Human Player", 100, currentRoom, inventory, attire);
+            int score = 0;
+
+            player = new Player("Username", "Human Player", 100, currentRoom, inventory, attire, score);
         }
 
 
@@ -89,65 +91,66 @@ namespace DungeonExplorer
                 // Gets user input for their choice
                 string Choice = player.GetChoice(primaryChoices);
                 // Functions for each choice
+
+                Console.WriteLine($"\nYou have chosen {Choice}.");
+
                 switch (Choice)
                 {
-                    Console.WriteLine($"\nYou have chosen {Choice}.");
-                case "A":
-                    if (currentRoom.HasMonsters())
-                    {
-                        // Battle Logic
-                        List<Monster> monsters = currentRoom.GetMonsters();
-                    }
-                    else
-                    {
-                        // Scavenge
-                        if (currentRoom.HasLoot())
+                    case "A":
+                        if (currentRoom.HasMonsters())
                         {
-                            // If room has loot
-
+                            // Battle Logic
+                            List<Monster> monsters = currentRoom.GetMonsters();
                         }
-                    }
-                    break;
-                case "B":
-                    // View Player Status
-                    player.DisplayStatus();
-
-                    // Attire Management
-                    Dictionary<string, string> AttireChoices = new Dictionary<string, string>
-                    {
-                        { "A", "View Spare Armour" },
-                        { "B", "Equip Armour" },
-                        { "C", "Unequip Armour" },
-                        { "D", "View Play Status" },
-                        { "E", "Exit Attire Menu" },
-                    };
-
-
-                    break;
-                case "C":
-                    // View Inventory
-                    player.Inventory.DisplayInventory();
-
-                    bool finished = false;
-
-                    // Inventory Management
-                    if (!finished)
-                    {
-                        Dictionary<string, string> InventoryChoices = new Dictionary<string, string>
+                        else
                         {
-                            { "A", "Drop Item" },
-                            { "B", "Use Item" },
-                            { "C", "View Inventory" },
-                            { "D", "Exit Inventory Menu" },
-                        };
-                    }
+                            // Scavenge
+                            if (currentRoom.HasLoot())
+                            {
+                                // If room has loot
 
-                    break;
+                            }
+                        }
+                        break;
+                    case "B":
+                        // View Player Status
+                        player.DisplayStatus();
+
+                        // Attire Management
+                        Dictionary<string, string> AttireChoices = new Dictionary<string, string>
+                        {
+                            { "A", "View Spare Armour" },
+                            { "B", "Equip Armour" },
+                            { "C", "Unequip Armour" },
+                            { "D", "View Play Status" },
+                            { "E", "Exit Attire Menu" },
+                        };
+
+
+                        break;
+                    case "C":
+                        // View Inventory
+                        player.Inventory.DisplayInventory();
+
+                        bool finished = false;
+
+                        // Inventory Management
+                        if (!finished)
+                        {
+                            Dictionary<string, string> InventoryChoices = new Dictionary<string, string>
+                            {
+                                { "A", "Drop Item" },
+                                { "B", "Use Item" },
+                                { "C", "View Inventory" },
+                                { "D", "Exit Inventory Menu" },
+                            };
+                        }
+                        break;
+                    case "D":
+                        // Get Directions
+                        gamemap.GetDirections(player);
+                        break;
                 }
-                case "D":
-                    // Get Directions
-                    gamemap.GetDirections(player);
-                    break;
 
 
 

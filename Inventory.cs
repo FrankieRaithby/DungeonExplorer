@@ -74,32 +74,91 @@ namespace DungeonExplorer
             }
         }
 
+        public void DropItem(Item item, Room room)
+        {
+            if (Items.Contains(item))
+            {
+                room.Loot.Add(item);
+                Items.Remove(item);
+                CurrentWeight -= item.GetWeight();
+            }
+            else
+            {
+                Console.WriteLine("Cannot remove item. Item not in inventory.");
+            }
+        }
+
+        public void PickUpItemMenu(Player player)
+        {
+            Room currentRoom = player.GetCurrentRoom();
+
+            if (currentRoom.Loot.Count == 0)
+            {
+                Console.WriteLine("No items to pick up.");
+                return;
+            }
+
+            Dictionary<string, string> itemChoices = new Dictionary<string, string>();
+            int i = 0;
+
+            foreach (Item item in currentRoom.Loot)
+            {
+                string letter = ((char)('A' + i)).ToString();
+                itemChoices[letter] = item.GetName();
+                i++;
+            }
+
+            Console.WriteLine("\tPick up an item:");
+
+            string ChosenItem = player.GetChoice(itemChoices);
+
+            if (itemChoices.ContainsKey(ChosenItem))
+            {
+                Item selectedItem = player.CurrentRoom.GetItemByName(itemChoices[ChosenItem]);
+                player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());                          
+                Console.WriteLine($"{selectedItem.GetName()} added to your inventory.");
+                Testing.CheckItemInInventory(player, selectedItem);
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
+            }
+        }
+
         public void DropItemMenu(Player player)
         {
+            Room currentRoom = player.GetCurrentRoom();
+
             if (player.Inventory.GetItems().Count == 0)
             {
                 Console.WriteLine("No items to drop.");
                 return;
             }
 
-            Dictionary<string, string> items = new Dictionary<string, string>();
-
+            Dictionary<string, string> itemChoices = new Dictionary<string, string>();
             int i = 0;
+
             foreach (Item item in player.Inventory.GetItems())
             {
-                char letter = (char)('A' + i);
-                items[letter.ToString()] = item.GetName();
+                string letter = ((char)('A' + i)).ToString();
+                itemChoices[letter] = item.GetName();
                 i++;
             }
 
             Console.WriteLine("\tDrop an item:");
 
-            string ItemChosen = player.GetChoice(items);
+            string ChosenItem = player.GetChoice(itemChoices);
 
-            if (items.ContainsKey(ItemChosen))
+            if (itemChoices.ContainsKey(ChosenItem))
             {
-                player.Inventory.DropItem(player.Inventory.GetItem(ItemChosen), player.GetCurrentRoom());
-                Testing.CheckItem(player, player.Inventory.GetItem(ItemChosen));
+                Item selectedItem = player.Inventory.GetItem(itemChoices[ChosenItem]);
+                player.Inventory.DropItem(selectedItem, player.GetCurrentRoom());
+                Console.WriteLine($"{selectedItem.GetName()} dropped.");
+                Testing.CheckItemInRoom(player.GetCurrentRoom(), selectedItem);
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
             }
         }
 
@@ -132,19 +191,7 @@ namespace DungeonExplorer
             }
         }
 
-        public void DropItem(Item item, Room room)
-        {
-            if (Items.Contains(item))
-            {
-                room.Loot.Add(item);
-                Items.Remove(item);
-                CurrentWeight -= item.GetWeight();
-            }
-            else
-            {
-                Console.WriteLine("Cannot remove item. Item not in inventory.");
-            }
-        }
+        
 
         public bool ItemExists(string name)
         {
@@ -162,7 +209,7 @@ namespace DungeonExplorer
 
 
 
-        private int CalculateCurrentWeight()
+        private float CalculateCurrentWeight()
         {
             return Items.Sum(item => item.Weight);
         }

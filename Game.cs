@@ -83,7 +83,7 @@ namespace DungeonExplorer
                             // Scavenge
                             if (currentRoom.HasLoot())
                             {
-                                // If room has loot
+                                player.Inventory.PickUpItemMenu(player);
 
                             }
                         }

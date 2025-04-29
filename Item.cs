@@ -9,12 +9,12 @@ namespace DungeonExplorer
         /// </summary>
         private string _name;
         private string _description;
-        private int _weight;
+        private float _weight;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Item(string name, string description, int weight)
+        public Item(string name, string description, float weight)
         {
             _name = name;
             _description = description;
@@ -34,7 +34,7 @@ namespace DungeonExplorer
             get { return _description; }
             set { _description = value; }
         }
-        public int Weight
+        public float Weight
         {
             get { return _weight; }
             set { _weight = value; }
@@ -59,7 +59,7 @@ namespace DungeonExplorer
         /// <summary>
         /// Returns description of Item instance.
         /// </summary>
-        public int GetWeight()
+        public float GetWeight()
         {
             return Weight;
         }

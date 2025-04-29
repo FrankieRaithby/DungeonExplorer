@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonExplorer
 {
@@ -135,6 +136,11 @@ namespace DungeonExplorer
             {
                 return "Discovered";
             }
+        }
+
+        public Item GetItemByName(string name)
+        {
+            return Loot.FirstOrDefault(item => item.GetName().Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
             /// <summary>

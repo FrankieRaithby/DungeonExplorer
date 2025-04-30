@@ -1,87 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonExplorer
 {
-    public class Player
+    public class Player : Creature, IDamageable
     {
         /// <summary>
         /// Private Fields.
         /// </summary>
         private string _name;
+        private string _description;
         private int _health;
-        private List<string> _inventory;
+        private Room _currentRoom;
+        private Inventory _inventory;
+        private Attire _attire;
+        private int _score;
+        private Statistics _statistics;
+
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Player(string name, int health, List<string> inventory) 
+        public Player(string name, string description, int health, Room currentRoom) : base(name, description, health)
         {
             _name = name;
+            _description = description;
             _health = health;
-            _inventory = inventory;
+            _inventory = new Inventory(new List<Item>(), 150);
+            _attire = new Attire(null, null, null, null);
+            _currentRoom = currentRoom;
+            _score = 0;
+            _statistics = new Statistics();
         }
 
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
-        public string Name
+        public Statistics Statistics
         {
-            get { return _name; }
-            set 
-            {
-                if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
-                    Console.WriteLine("Name cannot be empty.");
-                else
-                    _name = value; 
-            }
+            get { return _statistics; }
+            set { _statistics = value; }
         }
-        public int Health
+        public Room CurrentRoom
         {
-            get { return _health; }
-            set 
-            {
-                if (value < 0)
-                    Console.WriteLine("Health cannot be negative.");
-                else
-                    _health = value; 
-            }
+            get { return _currentRoom; }
+            set { _currentRoom = value; }
         }
-        public List<string> Inventory
+        public Inventory Inventory
         {
             get { return _inventory; }
-            set
-            {
-                    _inventory = value;
-            }
+            set { _inventory = value; }
+        }
+        public Attire Attire
+        {
+            get { return _attire; }
+            set { _attire = value; }
+        }
+        public int Score
+        {
+            get { return _score; }
+            set { _score = value; }
+        }
+        public Room GetCurrentRoom()
+        {
+            return CurrentRoom;
+        }
+        public Inventory GetInventory()
+        {
+            return Inventory;
+        }
+        public Attire GetAttire()
+        {
+            return Attire;
+        }
+        public int GetScore()
+        {
+            return _score;
         }
 
-        /// <summary>
-        /// This method gives the player an item into their inventory and clears the room's loot.
-        /// </summary>
-        public void PickUpItem(string item, Room room)
-        {
-            Console.WriteLine($"You pick up the {item}.");
-            room.Loot.Remove(item);
-            Inventory.Add(item);
-            room.Loot.Clear();
-        }
 
-        /// <summary>
-        /// This method returns the player healt as a string.
-        /// </summary>
-        public string CurrentStatus()
-        {
-            return ($"You are at {Health} health.");
-        }
 
-        /// <summary>
-        /// This method returns the inventory list as a string.
-        /// </summary>
-        public string InventoryContents()
-        {
-            return ($"{Name}'s Inventory: {string.Join(", ", Inventory)}");
-        }
+
+
 
         /// <summary>
         /// This method sets the player name.
@@ -115,11 +116,131 @@ namespace DungeonExplorer
             }
         }
 
+        public void EnterRoom(Room room)
+        {
+            // Check if the room is valid
+            if (room != null)
+            {
+                _currentRoom = room;
+                Console.WriteLine($"You have entered {room.GetName()}.");
+                Console.WriteLine($"Description: {room.GetDescription()}");
+                room.SetDiscovered(true);
+            }
+            else
+            {
+                Console.WriteLine("Invalid room.");
+            }
+        }
+
+        public void DisplayStatus()
+        {
+            Console.WriteLine($"\n\t{GetName()}");
+            Console.WriteLine($"\t{GetDescription()}");
+            Console.WriteLine("\t--------------");
+            Console.WriteLine($"\tHealth: {GetHealth()}");
+            Console.WriteLine($"\tScore: {GetScore()}");
+            Attire.DisplayAttire();
+        }
+
+        public void SolvePuzzle(int puzzleIndex)
+        {
+            if (puzzleIndex == 1)
+            {
+                Puzzle.BinaryCodePuzzle();
+            }
+            else if (puzzleIndex == 2)
+            {
+                Puzzle.TileOrderPuzzle();
+            }
+            else
+            {
+                Puzzle.NumberCodePuzzle();
+            }
+        }
+
+        public void BattleMenu(Player player, GameMap gamemap)
+        {
+            if (player.CurrentRoom.GetMonsters() == null)
+            {
+                Console.WriteLine("\tNo monsters in this room.");
+                return;
+            }
+
+            List<Monster> monsters = SortMonsterAscendingStrength(CurrentRoom.GetMonsters());
+
+            Console.WriteLine("\n\tChoose a monster to attack\n");
+
+            foreach (Monster monster in monsters)
+            {
+                monster.GetMonsterInfo();
+            }
+
+            Dictionary<string, string> monsterChoices = new Dictionary<string, string>();
+
+            int i1 = 0;
+            foreach (Monster monster in monsters)
+            {
+                string letter = ((char)('A' + i1)).ToString();
+                monsterChoices[letter] = monster.GetName();
+                i1++;
+            }
+
+            string chosenMonster = player.GetChoice(monsterChoices);
+            Monster monsterToAttack = null;
+
+            if (monsterChoices.ContainsKey(chosenMonster))
+            {
+                monsterToAttack = player.CurrentRoom.GetMonsterByName(monsterChoices[chosenMonster]);
+            }
+
+
+            Console.WriteLine("\n\tChoose a weapon to attack with\n");
+
+            List<Weapon> weapons = Inventory.GetWeapons();
+            Weapon weaponToUse = null;
+
+            if (weapons == null || weapons.Count == 0)
+            {
+                Console.WriteLine("\tNo weapons available.");
+            }
+            else
+            {
+                foreach (Weapon weapon in weapons)
+                {
+                    weapon.GetWeaponInfo();
+                }
+
+                Dictionary<string, string> weaponChoices = new Dictionary<string, string>();
+
+                int i2 = 0;
+                foreach (Weapon weapon in weapons)
+                {
+                    string letter = ((char)('A' + i2)).ToString();
+                    weaponChoices[letter] = weapon.GetName();
+                    i2++;
+                }
+
+                string chosenWeapon = player.GetChoice(weaponChoices);
+
+
+                if (weaponChoices.ContainsKey(chosenWeapon))
+                {
+                    weaponToUse = player.Inventory.GetWeaponByName(weaponChoices[chosenWeapon]);
+                }
+            }
+
+            
+
+            Attack(monsterToAttack, weaponToUse, gamemap);
+
+        }
+
         /// <summary>
         /// This method gets user input for their choice.
         /// </summary>
         public string GetChoice(Dictionary<string, string> choices)
         {
+            Console.WriteLine("\n");
             // Collect UserInput
             while (true)
             {
@@ -138,21 +259,60 @@ namespace DungeonExplorer
                 }
                 else
                 {
-                    Console.WriteLine("Invalid choice, please pick from the list");
+                    Console.WriteLine("\tInvalid choice, please pick from the list");
                 }
             }
         }
 
-        // No function as of yet.
-        public void UseItem()
-        {
 
-            //
+        public void Damage(int damage)
+        {
+            Health -= damage;
+            Console.WriteLine($"You have taken {damage} damage.");
+            if (Health <= 0)
+            {
+                Console.WriteLine("You have been defeated!");
+                // Handle player defeat (e.g., end game, respawn, etc.)
+            }
         }
 
-        public void Attack(Player hostile, int damage)
+        public void Attack(Monster target, Weapon weapon, GameMap gamemap)
         {
-            //
+            if (weapon == null)
+            {
+                weapon = new Weapon("Fists", "Brute Force", 0, 10, "Melee", 1000);
+            }
+
+            target.DealDamage(weapon);
+            if (weapon.GetName() != "Firsts")
+            {
+                weapon.DecreaseDurability(20);
+            }
+            
+            if (target.IsAlive())
+            {
+                Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");
+                target.Attack(this);
+                target.Flee(this, gamemap);
+            }
+            else
+            {
+                Console.WriteLine($"\t{target.GetName()} has been defeated!");
+                Score += target.GetPoints();
+                Console.WriteLine($"\tYou have gained {target.GetPoints()} points!");
+                CurrentRoom.GetMonsters().Remove(target);
+                Statistics.IncrementMonstersKilled();
+            }
         }
+
+
+        public List<Monster> SortMonsterAscendingStrength(List<Monster> monsters)
+        {
+            // Sort the list of monsters by strength in ascending order
+            return monsters.OrderBy(monster => monster.Strength).ToList();
+        }
+
+
+
     }
 }

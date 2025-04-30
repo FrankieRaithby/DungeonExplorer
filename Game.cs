@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace DungeonExplorer
@@ -10,32 +11,25 @@ namespace DungeonExplorer
     internal class Game
     {
         private Player player;
+        private GameMap gamemap;
         private Room currentRoom;
-        private List<Room> rooms;
-
-        private Item item;
+        private Statistics statistics;
 
         public Game()
         {
-            /// <summary>
-            /// Intitialising player instance and multiple room instances.
-            /// </summary>
-            player = new Player("Username", 250, new List<string>());
-            rooms = new List<Room>
-            {
-                new Room("The Abandoned Armory – Rusted weapons and shattered shields litter the floor, with dust thick on every surface.", new List<string>{"Dagger", "Sword", "Bow"}),
-                new Room("The Old Workshop – Shelves sag under the weight of dust-covered vials, and the faint smell of chemicals lingers in the air.", new List<string>{"Torch", "Chisel"}),
-                new Room("The Echoing Hall – Every step taken here repeats tenfold, bouncing off the cold stone walls.", new List<string>{"Key", "Hammer"}),
-                new Room("The Crumbling Chapel – A worn altar stands beneath a faded fresco, its colors dulled by time and neglect.", new List<string>{"Shield", "Dagger"}),
-                new Room("The Forgotten Tomb – Rows of stone sarcophagi line the walls, their lids slightly ajar in the dim light.", new List<string>{"Invisibility Potion", "Health Potion", "Bone"}),
-                new Room("The Mirror Room – The walls are lined with tall, warped mirrors, their surfaces clouded with age.", new List<string>{"Book", "White Pearl", "Staff"}),
-            };
+            gamemap = new GameMap();
+            currentRoom = gamemap.GetRoomByName("Entrance");
+            player = new Player("Username", "Human Player", 250, currentRoom);
         }
+
+
+
         /// <summary>
         /// This method handles main game loop.
         /// </summary>
         public void Start()
         {
+            
             // Player Character Creation
             player.SetName();
             Testing.CheckName(player);
@@ -47,88 +41,257 @@ namespace DungeonExplorer
             Console.WriteLine("You only have 250 health, so always check your health.");
             Console.WriteLine("Some items are one use, so ensure you use them at the correct time.");
 
+            Console.WriteLine($"\n\t{currentRoom.GetName()}\n\t{currentRoom.GetDescription()}");
+
             // Playing Loop
-            int RoomNumber = 0;
-            bool scavenged = false;
+            //int RoomNumber = 0;
+            //bool scavenged = false;
             bool playing = true;
             while (playing)
             {
-                Console.WriteLine(RoomNumber);
-                // Checks if player has gone through all rooms, otherwise escape.
-                if (RoomNumber+1 > rooms.Count)
+                if (player.GetHealth() <= 0)
                 {
-                    Console.WriteLine("Congratulations, you have escaped the dungeon!");
+                    Console.WriteLine("You have died. Game Over.");
                     playing = false;
                     break;
                 }
-                else
+                bool allMonstersDefeated = true;
+
+                foreach (var room in gamemap.GetRooms())
                 {
-                    currentRoom = rooms[RoomNumber];
+                    foreach (var monster in room.GetMonsters())
+                    {
+                        if (monster.IsAlive())
+                        {
+                            allMonstersDefeated = false;
+                            break;
+                        }
+                    }
+
+                    if (!allMonstersDefeated)
+                        break;
                 }
 
-                // Room description
-                Console.WriteLine($"\n{currentRoom.GetDescription()}");
-
-                // Default Choices
-                Dictionary<string, string> choices = new Dictionary<string, string>
+                if (allMonstersDefeated)
                 {
-                    { "A", "View Inventory" },
-                    { "B", "View Current Status" },
-                    { "C", "Scavenge Room" },
+                    Console.WriteLine("You have defeated all enemies. Victory is yours!");
+                    playing = false;
+                    break;
+                }
+
+                bool allRoomsDiscovered = true;
+                foreach (var room in gamemap.GetRooms())
+                {
+                    if (!room.GetDiscovered())
+                    {
+                        allRoomsDiscovered = false;
+                        break;
+                    }
+                }
+                if (allRoomsDiscovered)
+                {
+                    Console.WriteLine("You have discovered all rooms. Victory is yours!");
+                    playing = false;
+                    break;
+                }
+
+                Dictionary<string, string> primaryChoices = new Dictionary<string, string>
+                {
+                    { "A", "Scavenge Room" },
+                    { "B", "View Player & Attire" },
+                    { "C", "View Inventory" },
+                    { "D", "Get Statistics" }
                 };
 
-                // Changes choice [C] if room has been looted.
-                if (scavenged)
+                //Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
+
+                // Check for Monsters
+                if (currentRoom.HasMonsters())
                 {
-                    choices["C"] = "Next Room";
+                    primaryChoices["A"] = "To Battle";
+                }
+                else if (currentRoom.GetPuzzle() != 0)
+                {
+                    primaryChoices["A"] = "Decode Puzzle";
+                }
+                else
+                {
+                    primaryChoices["E"] = "Get Directions";
                 }
 
                 // Gets user input for their choice
-                string Choice = player.GetChoice(choices);
-                // Functions for each choice
+                string Choice = player.GetChoice(primaryChoices);
+                // Functions for each choic
+
+                Console.WriteLine($"\nYou have chosen {Choice}.");
+
                 switch (Choice)
                 {
                     case "A":
-                        Console.WriteLine("\tYou have chosen A.");
-                        Console.WriteLine(player.InventoryContents());
+                        if (currentRoom.HasMonsters())
+                        {
+                            // Battle Logic
+                            player.BattleMenu(player, gamemap);
+                        }
+                        else if (currentRoom.GetPuzzle() != 0)
+                        {
+                            // Puzzle Logic
+                            int puzzle = currentRoom.GetPuzzle();
+                            player.SolvePuzzle(puzzle);
+                            currentRoom.SetPuzzle(0);
+                        }
+                        else
+                        {
+                            // Scavenge
+                            if (currentRoom.HasLoot())
+                            {
+                                player.Inventory.PickUpItemMenu(player);
+
+                            }
+                        }
                         break;
                     case "B":
-                        Console.WriteLine("\tYou have chosen B.");
-                        Console.WriteLine(player.CurrentStatus());
+                        // View Player Status
+                        player.DisplayStatus();
+
+                        // Attire Management
+                        bool finished = false;
+                        while (!finished)
+                        {
+                            Dictionary<string, string> AttireChoices = new Dictionary<string, string>
+                        {
+                            { "A", "View Spare Armour" },
+                            { "B", "Equip Armour" },
+                            { "C", "Unequip Armour" },
+                            { "D", "View Play Status" },
+                            { "E", "Exit Attire Menu" },
+                        };
+
+                            string AttireChoice = player.GetChoice(AttireChoices);
+
+                            switch (AttireChoice)
+                            {
+                                case "A":
+                                    // View Spare Armour
+                                    player.Attire.DisplaySpareArmour(player);
+                                    break;
+                                case "B":
+                                    // Equip Armour
+                                    player.Attire.EquipArmour(player);
+                                    break;
+                                case "C":
+                                    // Unequip Armour
+                                    player.Attire.UnequipArmour(player);
+                                    break;
+                                case "D":
+                                    // View Player Status
+                                    player.DisplayStatus();
+                                    break;
+                                case "E":
+                                    // Exit Attire Menu
+                                    finished = true;
+                                    break;
+                            }
+                        }
+                        
+
                         break;
                     case "C":
-                        Console.WriteLine("\tYou have chosen C.");
-                        // Boolean check if room has loot
-                        if (currentRoom.HasLoot())
-                        {
-                            Dictionary<string, string> loot = new Dictionary<string, string>();
+                        // View Inventory
+                        player.Inventory.DisplayInventory();
 
-                            int i = 0;
-                            foreach (string item in currentRoom.Loot)
-                            {
-                                char letter = (char)('A' + i);
-                                loot[letter.ToString()] = item;
-                                i++;
-                            }
+                        bool finished2 = false;
 
-                            Console.WriteLine("Pick up an item:");
-                            string weapon = player.GetChoice(loot);
-                            if (loot.ContainsKey(weapon))
-                            {
-                                player.PickUpItem(loot[weapon], currentRoom);
-                                Testing.CheckItem(player, loot[weapon]);
-                            }
-                        }
-                        scavenged = true;
-                        if (choices["C"] == "Next Room")
+                        // Inventory Management
+                        while (!finished2)
                         {
-                            Console.WriteLine("You proceed to the next room.");
-                            scavenged = false;
-                            RoomNumber++;
+                            Dictionary<string, string> InventoryChoices = new Dictionary<string, string>
+                            {
+                                { "A", "Drop Item" },
+                                { "B", "Use Item" },
+                                { "C", "View Inventory" },
+                                { "D", "Exit Inventory Menu" },
+                            };
+
+                            string InventoryChoice = player.GetChoice(InventoryChoices);
+
+                            switch (InventoryChoice)
+                            {
+                                case "A":
+                                    player.Inventory.DropItemMenu(player);
+                                    break;
+                                case "B":
+                                    // Use Item
+                                    player.Inventory.UseItemMenu(player);
+                                    break;
+                                case "C":
+                                    // View Inventory
+                                    player.Inventory.DisplayInventory();
+                                    break;
+                                case "D":
+                                    // Exit Inventory Menu
+                                    finished2 = true;
+                                    break;
+                            }
                         }
                         break;
+                    case "D":
+                        // Get Statistics
+                        player.Statistics.DisplayStatistics();
+                        break;
+                    case "E":
+                        // Get Directions
+                        Room TravelRoom = gamemap.GetDirections(player);
+                        gamemap.Travel(player, TravelRoom);
+                        currentRoom = player.GetCurrentRoom();
+                        break;
+                        
+
                 }
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // game loop
             }
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
         }
     }
 }

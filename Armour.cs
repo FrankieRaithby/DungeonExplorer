@@ -49,6 +49,11 @@ namespace DungeonExplorer
             return Durability;
         }
 
+        public override void UseItem(Player player)
+        {
+            Console.WriteLine($"\tCan only use armour on attire menu.");
+        }
+
 
     }
 }

@@ -7,14 +7,12 @@ namespace DungeonExplorer
         private string _name;
         private string _description;
         private int _health;
-        private Room _currentRoom;
 
-        public Creature(string name, string description, int health, Room currentRoom)
+        public Creature(string name, string description, int health)
         {
             _name = name;
             _description = description;
             _health = health;
-            _currentRoom = currentRoom;
         }
 
         public string Name
@@ -34,11 +32,6 @@ namespace DungeonExplorer
             get { return _health; }
             set { _health = value; }
         }
-        public Room CurrentRoom
-        {
-            get { return _currentRoom; }
-            set { _currentRoom = value; }
-        }
 
         public string GetName()
         {
@@ -52,15 +45,15 @@ namespace DungeonExplorer
         {
             return Health;
         }
-        public Room GetCurrentRoom()
-        {
-            return CurrentRoom;
-        }
 
         public virtual void Attack(Creature target)
         {
-            // Implement attack logic here
             Console.WriteLine(target.GetName() + " is attacked by " + Name);
+        }
+
+        public bool IsAlive()
+        {
+            return Health > 0;
         }
     }
 }

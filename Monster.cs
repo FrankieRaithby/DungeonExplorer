@@ -15,7 +15,6 @@ namespace DungeonExplorer
         private string _name;
         private string _description;
         private int _health;
-        private Room _currentRoom;
         private int _hitpoints;
         private int _strength;
         private int _points;
@@ -23,12 +22,11 @@ namespace DungeonExplorer
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Monster(string name, string description, int health, Room currentRoom, int hitpoints, int strength, int points) : base(name, description, health, currentRoom)
+        public Monster(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health)
         {
             _name = name;
             _description = description;
             _health = health;
-            _currentRoom = currentRoom;
             _hitpoints = hitpoints;
             _strength = strength;
             _points = points;
@@ -72,7 +70,6 @@ namespace DungeonExplorer
             Console.WriteLine($"Name: {Name}");
             Console.WriteLine($"Description: {Description}");
             Console.WriteLine($"Health: {Health}");
-            Console.WriteLine($"Current Room: {CurrentRoom.Name}");
             Console.WriteLine($"Hitpoints: {Hitpoints}");
             Console.WriteLine($"Strength: {Strength}");
             Console.WriteLine($"Points: {Points}");
@@ -89,8 +86,8 @@ namespace DungeonExplorer
         public void Flee(GameMap gamemap)
         {
             Random random = new Random();
-            int randomIndex = random.Next(0, gamemap.GetRooms().Count);
-            CurrentRoom = gamemap.GetRooms()[randomIndex];
+            int randomIndex = random.Next(0, gamemap.GetRooms().Count +1);
+            gamemap.GetRooms()[randomIndex].Monsters.Add(this);
         }
 
         public void Damage(int damage)
@@ -99,10 +96,7 @@ namespace DungeonExplorer
             Health -= damage;
         }
 
-        public bool IsAlive()
-        {
-            return Health > 0;
-        }
+        
 
     }
 

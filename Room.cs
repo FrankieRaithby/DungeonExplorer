@@ -169,12 +169,12 @@ namespace DungeonExplorer
         {
             if (Loot.Count == 0)
             {
-                Console.WriteLine("There is nothing to scavenge in this room.");
+                Console.WriteLine("\tThere is nothing to scavenge in this room.");
                 return false;
             }
             else
             {
-                Console.WriteLine("You have found some loot in this room!");
+                Console.WriteLine("\tYou have found some loot in this room!");
                 return true;
             }
         }

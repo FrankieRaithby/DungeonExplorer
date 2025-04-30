@@ -21,7 +21,7 @@ namespace DungeonExplorer
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Player(string name, string description, int health, Room currentRoom) : base(name, description, health, currentRoom)
+        public Player(string name, string description, int health, Room currentRoom) : base(name, description, health)
         {
             _name = name;
             _description = description;
@@ -35,6 +35,11 @@ namespace DungeonExplorer
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
+        public Room CurrentRoom
+        {
+            get { return _currentRoom; }
+            set { _currentRoom = value; }
+        }
         public Inventory Inventory
         {
             get { return _inventory; }
@@ -50,7 +55,10 @@ namespace DungeonExplorer
             get { return _score; }
             set { _score = value; }
         }
-
+        public Room GetCurrentRoom()
+        {
+            return CurrentRoom;
+        }
         public Inventory GetInventory()
         {
             return Inventory;
@@ -153,7 +161,7 @@ namespace DungeonExplorer
 
             List<Monster> monsters = SortMonsterAscendingStrength(CurrentRoom.GetMonsters());
 
-            Console.WriteLine("\n\tChoose a monster to attack");
+            Console.WriteLine("\n\tChoose a monster to attack\n");
 
             foreach (Monster monster in monsters)
             {
@@ -181,7 +189,7 @@ namespace DungeonExplorer
             }
 
 
-            Console.WriteLine("\n\tChoose a weapon to attack with");
+            Console.WriteLine("\n\tChoose a weapon to attack with\n");
 
             List<Weapon> weapons = Inventory.GetWeapons();
             Weapon weaponToUse = null;
@@ -266,7 +274,7 @@ namespace DungeonExplorer
         public void Attack(Monster target, Weapon weapon)
         {
             Random random = new Random();
-            int Roll = random.Next(0, 1);
+            int Roll = random.Next(0, 2);
 
             if (weapon == null)
             {
@@ -280,12 +288,11 @@ namespace DungeonExplorer
             {
                 Console.WriteLine("\tCritical Hit!");
                 damage = damage * 2; 
-                weapon.Durability -= 5; // Reduce weapon 
+                weapon.Durability -= 5;
             }
             else
             {
                 Console.WriteLine("\tNormal Hit!");
-                damage = damage * 2;
                 weapon.Durability -= 10; 
             }
 

@@ -186,8 +186,12 @@ namespace DungeonExplorer
 
             if (useItems.ContainsKey(ItemUsed))
             {
-                player.GetInventory().GetItem(ItemUsed).UseItem();
-                //Testing.CheckItem(player, player.GetInventory().GetItem(ItemUsed));
+                Item selectedItem = player.Inventory.GetItem(useItems[ItemUsed]);
+                selectedItem.UseItem(player);
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
             }
         }
 

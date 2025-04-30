@@ -37,9 +37,6 @@ namespace DungeonExplorer
             // Rules
             Console.WriteLine("RULES:");
             Console.WriteLine("You are trapped within the dungeon and must traverse each room.");
-            Console.WriteLine("There may be items in a room, but you are only allowed to pick one, so choose wisely.");
-            Console.WriteLine("You only have 250 health, so always check your health.");
-            Console.WriteLine("Some items are one use, so ensure you use them at the correct time.");
 
             Console.WriteLine($"\n\t{currentRoom.GetName()}\n\t{currentRoom.GetDescription()}");
 
@@ -100,7 +97,7 @@ namespace DungeonExplorer
                     { "A", "Scavenge Room" },
                     { "B", "View Player & Attire" },
                     { "C", "View Inventory" },
-                    { "D", "Get Statistics" }
+                    { "D", "View Statistics" }
                 };
 
                 //Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
@@ -138,7 +135,6 @@ namespace DungeonExplorer
                             // Puzzle Logic
                             int puzzle = currentRoom.GetPuzzle();
                             player.SolvePuzzle(puzzle);
-                            currentRoom.SetPuzzle(0);
                         }
                         else
                         {
@@ -236,7 +232,7 @@ namespace DungeonExplorer
                         }
                         break;
                     case "D":
-                        // Get Statistics
+                        // View Statistics
                         player.Statistics.DisplayStatistics();
                         break;
                     case "E":

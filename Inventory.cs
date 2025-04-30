@@ -118,7 +118,7 @@ namespace DungeonExplorer
             if (itemChoices.ContainsKey(ChosenItem))
             {
                 Item selectedItem = player.CurrentRoom.GetItemByName(itemChoices[ChosenItem]);
-                player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());     
+                player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());                          
                 player.Statistics.IncrementItemsCollected();
             }
             else
@@ -206,7 +206,7 @@ namespace DungeonExplorer
                     return Items.OfType<Weapon>().ToList();
                 }
             }
-            return null;
+            return new List<Weapon>();
         }
 
         public List<Armour> GetArmours()
@@ -215,10 +215,10 @@ namespace DungeonExplorer
             {
                 if (item is Armour)
                 {
-                    return Items.OfType<Armour>().ToList();
+                    return Items.OfType<Armour>().ToList(); 
                 }
             }
-            return null;
+            return new List<Armour>();
         }
 
         public Weapon GetWeaponByName(string name)

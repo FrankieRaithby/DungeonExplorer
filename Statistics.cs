@@ -8,50 +8,51 @@ namespace DungeonExplorer
 {
     public class Statistics
     {
-        private int _monstersKilled;
-        private int _itemsCollected;
         private int _roomsDiscovered;
+        private int _monstersDefeated;
+        private int _itemsCollected;
 
         public Statistics()
         {
-            _monstersKilled = 0;
-            _itemsCollected = 0;
             _roomsDiscovered = 0;
+            _monstersDefeated = 0;
+            _itemsCollected = 0;
         }
-        public int MonstersKilled
+
+        public int RoomsDiscovered
         {
-            get { return _monstersKilled; }
-            set { _monstersKilled = value; }
+            get { return _roomsDiscovered; }
+            set { _roomsDiscovered = value; }
+        }
+        public int MonstersDefeated
+        {
+            get { return _monstersDefeated; }
+            set { _monstersDefeated = value; }
         }
         public int ItemsCollected
         {
             get { return _itemsCollected; }
             set { _itemsCollected = value; }
         }
-        public int RoomsDiscovered
+        public void IncrementRoomsDiscovered()
         {
-            get { return _roomsDiscovered; }
-            set { _roomsDiscovered = value; }
+            _roomsDiscovered++;
         }
-        public void IncrementMonstersKilled()
+        public void IncrementMonstersDefeated()
         {
-            MonstersKilled++;
+            _monstersDefeated++;
         }
         public void IncrementItemsCollected()
         {
-            ItemsCollected++;
-        }
-        public void IncrementRoomsDiscovered()
-        {
-            RoomsDiscovered++;
+            _itemsCollected++;
         }
 
         public void DisplayStatistics()
         {
             Console.WriteLine("Game Statistics:");
-            Console.WriteLine($"Monsters Killed: {MonstersKilled}");
-            Console.WriteLine($"Items Collected: {ItemsCollected}");
-            Console.WriteLine($"Rooms Discovered: {RoomsDiscovered}");
+            Console.WriteLine($"Rooms Discovered: {_roomsDiscovered}");
+            Console.WriteLine($"Monsters Defeated: {_monstersDefeated}");
+            Console.WriteLine($"Items Collected: {_itemsCollected}");
         }
     }
 }

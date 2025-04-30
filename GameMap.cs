@@ -179,11 +179,11 @@ namespace DungeonExplorer
                 {
                     int random1 = random.Next(0, 7);
                     if (random1 == 0)
-                        room.Monsters.Add(new Dragon("Dragon", "A fierce dragon.", 40, 20, 10, 60));
+                        room.Monsters.Add(new Dragon("Dragon", "A fierce dragon.", 100, 20, 10, 60));
                     else if (random1 == 1)
-                        room.Monsters.Add(new Goblin("Goblin", "A sneaky Goblin.", 10, 5, 2, 20));
+                        room.Monsters.Add(new Goblin("Goblin", "A sneaky Goblin.", 40, 5, 2, 20));
                     else if (random1 == 2)
-                        room.Monsters.Add(new Minotaur("Minotaur", "A rampaging Minotaur.", 10, 10, 5, 40));
+                        room.Monsters.Add(new Minotaur("Minotaur", "A rampaging Minotaur.", 80, 10, 5, 40));
                 }
             }
 

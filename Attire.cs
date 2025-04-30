@@ -77,6 +77,11 @@ namespace DungeonExplorer
             DisplayAttire();
             Console.WriteLine("\n\tSpare Armour");
             Console.WriteLine("\t------------");
+            if (player.Inventory.GetArmours().Count == 0)
+            {
+                Console.WriteLine("\tNo spare armours.");
+                return;
+            }
             foreach (Armour item in player.Inventory.GetArmours())
             {
                 Console.WriteLine($"\t- {item.GetName()} ({item.GetDefence()} DEF) ({item.GetWeight()} Kg) ({item.GetDurability()}%)");

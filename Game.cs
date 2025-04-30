@@ -57,7 +57,7 @@ namespace DungeonExplorer
                     { "C", "View Inventory" },
                 };
 
-                Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
+                //Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
 
                 // Check for Monsters
                 if (currentRoom.HasMonsters())

@@ -37,6 +37,11 @@ namespace DungeonExplorer
             set { _durability = value; }
         }
 
+        public int GetDamage()
+        {
+            return Damage;
+        }
+
         public void GetWeaponInfo()
         {
             Console.WriteLine($"Weapon Name: {Name}");

@@ -253,14 +253,60 @@ namespace DungeonExplorer
         }
 
 
-        public void Damage()
+        public void Damage(int damage)
         {
-
+            Health -= damage;
         }
 
         public void Attack(Monster target, Weapon weapon)
         {
-            
+            Random random = new Random();
+            int Roll = random.Next(0, 1);
+            int damage = weapon.GetDamage();
+
+            // Critical hit or normal hit
+            if (Roll == 1)
+            {
+                Console.WriteLine("Critical Hit!");
+                damage = damage * 2; 
+                weapon.Durability -= 5; // Reduce weapon 
+            }
+            else
+            {
+                Console.WriteLine("Normal Hit!");
+                damage = damage * 2;
+                weapon.Durability -= 10; 
+            }
+
+            // Ranged attack bonus
+            if (target is Dragon dragon)
+            {
+                if (dragon.IsFlying)
+                {
+                    if (weapon.Attack == "Ranged")
+                    {
+                        damage = (int)(damage * 1.5);
+                    }
+                    else
+                    {
+                        damage = 0;
+                    }
+                }
+            }
+
+
+            target.Damage(damage);
+            if (target.IsAlive())
+            {
+                Console.WriteLine($"{target.GetName()} has {target.GetHealth()} health remaining.");
+            }
+            else
+            {
+                Console.WriteLine($"{target.GetName()} has been defeated!");
+                Score += target.GetPoints();
+                Console.WriteLine($"You have gained {target.GetPoints()} points!");
+                target.CurrentRoom.GetMonsters().Remove(target);
+            }
         }
 
 

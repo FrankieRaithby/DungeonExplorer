@@ -82,11 +82,17 @@ namespace DungeonExplorer
             CurrentRoom = gamemap.GetRooms()[randomIndex];
         }
 
-        public void Damage()
+        public void Damage(int damage)
         {
-            // Implement damage logic here
-            throw new NotImplementedException();
+            Console.WriteLine($"You attack the {Name}, dealing {damage} damage.");
+            Health -= damage;
         }
+
+        public bool IsAlive()
+        {
+            return Health > 0;
+        }
+
     }
 
     public class Dragon : Monster, IFlyable

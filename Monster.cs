@@ -18,6 +18,7 @@ namespace DungeonExplorer
         private Inventory _inventory;
         private int _currentRoom;
         private int _damage;
+        private int _strength;
         private int _points;
 
         /// <summary>
@@ -40,6 +41,13 @@ namespace DungeonExplorer
         public override void Attack(Creature target)
         {
             
+        }
+
+        public void Flee(GameMap gamemap)
+        {
+            Random random = new Random();
+            int randomIndex = random.Next(0, gamemap.GetRooms().Count);
+            CurrentRoom = gamemap.GetRooms()[randomIndex];
         }
 
         public void Damage()

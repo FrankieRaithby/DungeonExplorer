@@ -184,6 +184,11 @@ namespace DungeonExplorer
             return Puzzle;
         }
 
+        public void SetPuzzle(int puzzle)
+        {
+            Puzzle = puzzle;
+        }
+
         public bool HasMonsters()
         {
             if (GetMonsters().Count == 0)

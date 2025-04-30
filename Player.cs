@@ -126,6 +126,22 @@ namespace DungeonExplorer
             Attire.DisplayAttire();
         }
 
+        public void SolvePuzzle(int puzzleIndex)
+        {
+            if (puzzleIndex == 1)
+            {
+                Puzzle.UpsideDownPuzzle();
+            }
+            else if (puzzleIndex == 2)
+            {
+                Puzzle.TileOrderPuzzle();
+            }
+            else
+            {
+                Puzzle.NumberCodePuzzle();
+            }
+        }
+
         /// <summary>
         /// This method gets user input for their choice.
         /// </summary>

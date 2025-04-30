@@ -27,7 +27,7 @@ namespace DungeonExplorer
             else
             {
                 Console.WriteLine("Incorrect. Try again.");
-                NumberCode();
+                NumberCodePuzzle();
             }
         }
 
@@ -46,7 +46,7 @@ namespace DungeonExplorer
             else
             {
                 Console.WriteLine("Incorrect. Try again.");
-                NumberCode();
+                TileOrderPuzzle();
             }
         }
 
@@ -64,7 +64,7 @@ namespace DungeonExplorer
             else
             {
                 Console.WriteLine("Incorrect. Try again.");
-                NumberCode();
+                UpsideDownPuzzle();
             }
         }
 

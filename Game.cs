@@ -28,6 +28,7 @@ namespace DungeonExplorer
         /// </summary>
         public void Start()
         {
+            
             // Player Character Creation
             player.SetName();
             Testing.CheckName(player);
@@ -39,7 +40,7 @@ namespace DungeonExplorer
             Console.WriteLine("You only have 250 health, so always check your health.");
             Console.WriteLine("Some items are one use, so ensure you use them at the correct time.");
 
-            Console.WriteLine($"\n\t{player.CurrentRoom.GetName()}\n\t{player.CurrentRoom.GetDescription()}");
+            Console.WriteLine($"\n\t{currentRoom.GetName()}\n\t{currentRoom.GetDescription()}");
 
             // Playing Loop
             //int RoomNumber = 0;
@@ -47,12 +48,16 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
+                
+
                 Dictionary<string, string> primaryChoices = new Dictionary<string, string>
                 {
                     { "A", "Scavenge Room" },
                     { "B", "View Player Status" },
                     { "C", "View Inventory" },
                 };
+
+                Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
 
                 // Check for Monsters
                 if (currentRoom.HasMonsters())
@@ -61,20 +66,7 @@ namespace DungeonExplorer
                 }
                 else if (currentRoom.GetPuzzle() != 0)
                 {
-                    int puzzleIndex = currentRoom.GetPuzzle();
-
-                    if (puzzleIndex == 1)
-                    {
-                        Puzzle.UpsideDownPuzzle();
-                    }
-                    else if (puzzleIndex == 2)
-                    {
-                        Puzzle.TileOrderPuzzle();
-                    }
-                    else
-                    {
-                        Puzzle.NumberCodePuzzle();
-                    }
+                    primaryChoices["A"] = "Decode Puzzle";
                 }
                 else
                 {
@@ -94,6 +86,12 @@ namespace DungeonExplorer
                         {
                             // Battle Logic
                             List<Monster> monsters = currentRoom.GetMonsters();
+                        }
+                        else if (currentRoom.GetPuzzle() != 0)
+                        {
+                            // Puzzle Logic
+                            int puzzle = currentRoom.GetPuzzle();
+                            player.SolvePuzzle(puzzle);
                         }
                         else
                         {
@@ -162,10 +160,11 @@ namespace DungeonExplorer
                         break;
 
                     case "D":
-                            // Get Directions
-                            Room TravelRoom = gamemap.GetDirections(player);
-                            gamemap.Travel(player, TravelRoom);
-                            break;
+                        // Get Directions
+                        Room TravelRoom = gamemap.GetDirections(player);
+                        gamemap.Travel(player, TravelRoom);
+                        currentRoom = player.GetCurrentRoom();
+                        break;
                         
 
                 }

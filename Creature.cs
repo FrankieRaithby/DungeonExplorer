@@ -1,4 +1,6 @@
-﻿namespace DungeonExplorer
+﻿using System;
+
+namespace DungeonExplorer
 {
     public abstract class Creature
     {
@@ -53,6 +55,12 @@
         public Room GetCurrentRoom()
         {
             return CurrentRoom;
+        }
+
+        public virtual void Attack(Creature target)
+        {
+            // Implement attack logic here
+            Console.WriteLine(target.GetName() + " is attacked by " + Name);
         }
     }
 }

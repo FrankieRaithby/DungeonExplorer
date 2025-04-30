@@ -187,7 +187,7 @@ namespace DungeonExplorer
             if (useItems.ContainsKey(ItemUsed))
             {
                 player.GetInventory().GetItem(ItemUsed).UseItem();
-                Testing.CheckItem(player, player.GetInventory().GetItem(ItemUsed));
+                //Testing.CheckItem(player, player.GetInventory().GetItem(ItemUsed));
             }
         }
 

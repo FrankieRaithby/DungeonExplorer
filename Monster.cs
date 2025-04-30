@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,25 +18,30 @@ namespace DungeonExplorer
         private Inventory _inventory;
         private int _currentRoom;
         private int _damage;
-        private int _defence;
         private int _points;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Monster(string name, string description, int health, Inventory inventory, Room currentRoom) : base(name, description, health, currentRoom)
+        public Monster(string name, string description, int health, Inventory inventory, Room currentRoom, int damage, int points) : base(name, description, health, currentRoom)
         {
             _name = name;
             _description = description;
             _health = health;
             _inventory = inventory;
+            _damage = damage;
+            _points = points;
         }
 
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
 
-        
+        public override void Attack(Creature target)
+        {
+            
+        }
+
         public void Damage()
         {
             // Implement damage logic here

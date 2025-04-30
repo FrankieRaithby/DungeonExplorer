@@ -161,6 +161,21 @@ namespace DungeonExplorer
 
         }
 
+        public override void Attack(Creature target)
+        {
+            if (target is Monster monster)
+            {
+                Console.WriteLine($"{Name} attacks {monster.GetName()}!");
+                // Implement attack logic here
+                // For example, reduce monster's health
+                monster.Health -= 10; // Example damage value
+                Console.WriteLine($"{monster.GetName()} now has {monster.Health} health left.");
+            }
+            else
+            {
+                Console.WriteLine("Target is not a valid monster.");
+            }
+        }
 
 
 

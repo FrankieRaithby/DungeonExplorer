@@ -13,6 +13,7 @@ namespace DungeonExplorer
         private Player player;
         private GameMap gamemap;
         private Room currentRoom;
+        private Statistics statistics;
 
         public Game()
         {
@@ -75,10 +76,26 @@ namespace DungeonExplorer
                     break;
                 }
 
+                bool allRoomsDiscovered = true;
+                foreach (var room in gamemap.GetRooms())
+                {
+                    if (!room.GetDiscovered())
+                    {
+                        allRoomsDiscovered = false;
+                        break;
+                    }
+                }
+                if (allRoomsDiscovered)
+                {
+                    Console.WriteLine("You have discovered all rooms. Victory is yours!");
+                    playing = false;
+                    break;
+                }
+
                 Dictionary<string, string> primaryChoices = new Dictionary<string, string>
                 {
                     { "A", "Scavenge Room" },
-                    { "B", "View Player Status" },
+                    { "B", "View Player & Attire" },
                     { "C", "View Inventory" },
                     { "D", "View Statistics" }
                 };
@@ -101,7 +118,7 @@ namespace DungeonExplorer
 
                 // Gets user input for their choice
                 string Choice = player.GetChoice(primaryChoices);
-                // Functions for each choice
+                // Functions for each choic
 
                 Console.WriteLine($"\nYou have chosen {Choice}.");
 
@@ -152,7 +169,7 @@ namespace DungeonExplorer
                             {
                                 case "A":
                                     // View Spare Armour
-                                    player.Attire.DisplaySpareArmour();
+                                    player.Attire.DisplaySpareArmour(player);
                                     break;
                                 case "B":
                                     // Equip Armour

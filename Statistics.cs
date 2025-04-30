@@ -34,7 +34,6 @@ namespace DungeonExplorer
             get { return _itemsCollected; }
             set { _itemsCollected = value; }
         }
-
         public void IncrementRoomsDiscovered()
         {
             _roomsDiscovered++;

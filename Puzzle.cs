@@ -37,9 +37,10 @@ namespace DungeonExplorer
             
             Console.WriteLine("You find 4 pressure plates: Red, Blue, Green & Yellow. Step on them in the correct order.");
             Console.WriteLine("Clue: Sunlight over ocean, then leaves, then blood.");
-            string answer = Console.ReadLine();
+            Console.WriteLine("Example: RGBY");
+            string answer = Console.ReadLine().ToLower();
 
-            if (answer == "382")
+            if (answer == "YBGR")
             {
                 Console.WriteLine("Correct! You may proceed.");
             }

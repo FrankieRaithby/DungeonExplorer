@@ -33,16 +33,16 @@ namespace DungeonExplorer
 
 
             Room1 = new Room("Entrance", "A dark and spooky hall.", 0, 0, items1, new List<Monster>(), 0);
-            Room2 = new Room("Library", "A room with a treasure chest.", 1, 0, new List<Item>(), new List<Monster>(), 0);
-            Room3 = new Room("Room3", "A room with a sleeping monster.", 0, 1, new List<Item>(), new List<Monster>(), 1);
-            Room4 = new Room("Room4", "A room with a hidden passage.", 1, 1, new List<Item>(), new List<Monster>(), 0);
-            Room5 = new Room("Room5", "A room with a puzzle.", 2, 0, new List<Item>(), new List<Monster>(), 0);
-            Room6 = new Room("Room6", "A room with a trap.", 0, 2, new List<Item>(), new List<Monster>(), 0);
-            Room7 = new Room("Room7", "A room with a treasure map.", 1, 2, new List<Item>(), new List<Monster>(), 2);
-            Room8 = new Room("Room8", "A room with a hidden door.", 2, 1, new List<Item>(), new List<Monster>(), 0);
-            Room9 = new Room("Room9", "A room with a riddle.", 2, 2, new List<Item>(), new List<Monster>(), 0);
-            Room10 = new Room("Room10", "A room with a monster.", 3, 0, new List<Item>(), new List<Monster>(), 3);
-            Room11 = new Room("Room11", "A room with a treasure chest.", 3, 1, new List<Item>(), new List<Monster>(), 0);
+            Room2 = new Room("Chamber of Whispers", "Voices echo from unseen, ancient mouths.", 1, 0, new List<Item>(), new List<Monster>(), 0);
+            Room3 = new Room("Forgotten Forge", "Cold anvil rests beneath broken tools.", 0, 1, new List<Item>(), new List<Monster>(), 1);
+            Room4 = new Room("Hall of Echoes", "Every step repeats with haunting delay.", 1, 1, new List<Item>(), new List<Monster>(), 0);
+            Room5 = new Room("Crypt of the Fallen", "Resting place of heroes turned to dust.", 2, 0, new List<Item>(), new List<Monster>(), 0);
+            Room6 = new Room("Wailing Vault", "Crying winds seep from sealed cracks.", 0, 2, new List<Item>(), new List<Monster>(), 0);
+            Room7 = new Room("Emberwatch Spire", "Ash drifts in heat-scarred air.", 1, 2, new List<Item>(), new List<Monster>(), 2);
+            Room8 = new Room("Obsidian Gallery", "Black glass walls reflect shifting shapes.", 2, 1, new List<Item>(), new List<Monster>(), 0);
+            Room9 = new Room("Ashen Crossroads", "Paths split beneath layers of soot.", 2, 2, new List<Item>(), new List<Monster>(), 0);
+            Room10 = new Room("Sealed Sanctum", "Runes glow on a silent door.", 3, 0, new List<Item>(), new List<Monster>(), 3);
+            Room11 = new Room("Rifted Maw", "Ground splits into a yawning void.", 3, 1, new List<Item>(), new List<Monster>(), 0);
 
             _rooms = new List<Room>()
             {

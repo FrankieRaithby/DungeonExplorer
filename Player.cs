@@ -262,6 +262,12 @@ namespace DungeonExplorer
         {
             Random random = new Random();
             int Roll = random.Next(0, 1);
+
+            if (weapon == null)
+            {
+                weapon = new Weapon("Fists", "Brute Force", 0, 10, "Melee", 1000);
+            }
+
             int damage = weapon.GetDamage();
 
             // Critical hit or normal hit

@@ -11,7 +11,7 @@ namespace DungeonExplorer
         private string _variant;
         private int _defence;
         private int _durability;
-        
+
         public Armour(string name, string description, int weight, string type, int defence, int durability) : base(name, description, weight)
         {
             _variant = type; // Helmet, Chestplate, Leggings, Boots
@@ -66,4 +66,5 @@ namespace DungeonExplorer
                 Console.WriteLine($"\t{Name} is broken and cannot be used.");
             }
         }
+    }
 }

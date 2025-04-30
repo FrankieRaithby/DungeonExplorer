@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace DungeonExplorer
@@ -8,9 +9,9 @@ namespace DungeonExplorer
         /// <summary>
         /// This method returns tests if player has item in his inventory.
         /// </summary>
-        public static void CheckItemInInventory(Player player, Item item)
+        public static void CheckItemInInventory(List<Item> items, Item item)
         {
-            Debug.Assert(player.GetInventory().GetItems().Contains(item), $"{item} cannot be found in the inventory.");
+            Debug.Assert(items.Contains(item), $"{item} cannot be found in the inventory.");
         }
 
         public static void CheckItemInRoom(Room room, Item item)

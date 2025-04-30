@@ -13,6 +13,7 @@ namespace DungeonExplorer
         private Player player;
         private GameMap gamemap;
         private Room currentRoom;
+        private Statistics statistics;
 
         public Game()
         {
@@ -78,11 +79,28 @@ namespace DungeonExplorer
                     break;
                 }
 
+                bool allRoomsDiscovered = true;
+                foreach (var room in gamemap.GetRooms())
+                {
+                    if (!room.GetDiscovered())
+                    {
+                        allRoomsDiscovered = false;
+                        break;
+                    }
+                }
+                if (allRoomsDiscovered)
+                {
+                    Console.WriteLine("You have discovered all rooms. Victory is yours!");
+                    playing = false;
+                    break;
+                }
+
                 Dictionary<string, string> primaryChoices = new Dictionary<string, string>
                 {
                     { "A", "Scavenge Room" },
-                    { "B", "View Player Status" },
+                    { "B", "View Player & Attire" },
                     { "C", "View Inventory" },
+                    { "D", "Get Statistics" }
                 };
 
                 //Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
@@ -98,12 +116,12 @@ namespace DungeonExplorer
                 }
                 else
                 {
-                    primaryChoices["D"] = "Get Directions";
+                    primaryChoices["E"] = "Get Directions";
                 }
 
                 // Gets user input for their choice
                 string Choice = player.GetChoice(primaryChoices);
-                // Functions for each choice
+                // Functions for each choic
 
                 Console.WriteLine($"\nYou have chosen {Choice}.");
 
@@ -155,7 +173,7 @@ namespace DungeonExplorer
                             {
                                 case "A":
                                     // View Spare Armour
-                                    player.Attire.DisplaySpareArmour();
+                                    player.Attire.DisplaySpareArmour(player);
                                     break;
                                 case "B":
                                     // Equip Armour
@@ -217,8 +235,11 @@ namespace DungeonExplorer
                             }
                         }
                         break;
-
                     case "D":
+                        // Get Statistics
+                        player.Statistics.DisplayStatistics();
+                        break;
+                    case "E":
                         // Get Directions
                         Room TravelRoom = gamemap.GetDirections(player);
                         gamemap.Travel(player, TravelRoom);

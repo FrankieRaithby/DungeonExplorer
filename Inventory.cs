@@ -67,6 +67,8 @@ namespace DungeonExplorer
                 room.Loot.Remove(item);
                 Items.Add(item);
                 CurrentWeight += item.GetWeight();
+                Console.WriteLine($"{item.GetName()} added to your inventory.");
+                Testing.CheckItemInInventory(Items, item);
             }
             else
             {
@@ -116,9 +118,8 @@ namespace DungeonExplorer
             if (itemChoices.ContainsKey(ChosenItem))
             {
                 Item selectedItem = player.CurrentRoom.GetItemByName(itemChoices[ChosenItem]);
-                player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());                          
-                Console.WriteLine($"{selectedItem.GetName()} added to your inventory.");
-                Testing.CheckItemInInventory(player, selectedItem);
+                player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());     
+                player.Statistics.IncrementItemsCollected();
             }
             else
             {

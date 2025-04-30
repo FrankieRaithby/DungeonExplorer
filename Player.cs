@@ -16,6 +16,7 @@ namespace DungeonExplorer
         private Inventory _inventory;
         private Attire _attire;
         private int _score;
+        private Statistics _statistics;
 
 
         /// <summary>
@@ -30,11 +31,17 @@ namespace DungeonExplorer
             _attire = new Attire(null, null, null, null);
             _currentRoom = currentRoom;
             _score = 0;
+            _statistics = new Statistics();
         }
 
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
+        public Statistics Statistics
+        {
+            get { return _statistics; }
+            set { _statistics = value; }
+        }
         public Room CurrentRoom
         {
             get { return _currentRoom; }
@@ -271,8 +278,6 @@ namespace DungeonExplorer
 
         public void Attack(Monster target, Weapon weapon, GameMap gamemap)
         {
-            
-
             if (weapon == null)
             {
                 weapon = new Weapon("Fists", "Brute Force", 0, 10, "Melee", 1000);
@@ -287,7 +292,8 @@ namespace DungeonExplorer
             if (target.IsAlive())
             {
                 Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");
-                target.Flee(gamemap);
+                target.Attack(this);
+                target.Flee(this, gamemap);
             }
             else
             {
@@ -295,6 +301,7 @@ namespace DungeonExplorer
                 Score += target.GetPoints();
                 Console.WriteLine($"\tYou have gained {target.GetPoints()} points!");
                 CurrentRoom.GetMonsters().Remove(target);
+                Statistics.IncrementMonstersKilled();
             }
         }
 

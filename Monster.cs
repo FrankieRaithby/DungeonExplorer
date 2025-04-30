@@ -112,11 +112,11 @@ namespace DungeonExplorer
         {
             if (IsFlying)
             {
-                Console.WriteLine($"{Name} swoops down to attack {target.Name}!");
+                Console.WriteLine($"\t{Name} breathes fire from the sky onto {target.Name}!");
             }
             else
             {
-                Console.WriteLine($"{Name} attacks {target.Name}!");
+                Console.WriteLine($"\t{Name} uses claws to attack {target.Name}!");
             }
         }
 

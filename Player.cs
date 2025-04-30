@@ -256,6 +256,12 @@ namespace DungeonExplorer
         public void Damage(int damage)
         {
             Health -= damage;
+            Console.WriteLine($"You have taken {damage} damage.");
+            if (Health <= 0)
+            {
+                Console.WriteLine("You have been defeated!");
+                // Handle player defeat (e.g., end game, respawn, etc.)
+            }
         }
 
         public void Attack(Monster target, Weapon weapon)

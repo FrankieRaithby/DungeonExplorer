@@ -119,7 +119,6 @@ namespace DungeonExplorer
             {
                 Item selectedItem = player.CurrentRoom.GetItemByName(itemChoices[ChosenItem]);
                 player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());                          
-                Console.WriteLine($"{selectedItem.GetName()} added to your inventory.");
                 player.Statistics.IncrementItemsCollected();
             }
             else
@@ -207,7 +206,7 @@ namespace DungeonExplorer
                     return Items.OfType<Weapon>().ToList();
                 }
             }
-            return null;
+            return new List<Weapon>();
         }
 
         public List<Armour> GetArmours()
@@ -219,7 +218,7 @@ namespace DungeonExplorer
                     return Items.OfType<Armour>().ToList(); 
                 }
             }
-            return null;
+            return new List<Armour>();
         }
 
         public Weapon GetWeaponByName(string name)

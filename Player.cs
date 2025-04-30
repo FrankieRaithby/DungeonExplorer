@@ -9,9 +9,6 @@ namespace DungeonExplorer
         /// <summary>
         /// Private Fields.
         /// </summary>
-        private string _name;
-        private string _description;
-        private int _health;
         private Room _currentRoom;
         private Inventory _inventory;
         private Attire _attire;
@@ -23,9 +20,6 @@ namespace DungeonExplorer
         /// </summary>
         public Player(string name, string description, int health, Room currentRoom) : base(name, description, health)
         {
-            _name = name;
-            _description = description;
-            _health = health;
             _inventory = new Inventory(new List<Item>(), 150);
             _attire = new Attire(null, null, null, null);
             _currentRoom = currentRoom;
@@ -118,6 +112,7 @@ namespace DungeonExplorer
                 Console.WriteLine($"You have entered {room.GetName()}.");
                 Console.WriteLine($"Description: {room.GetDescription()}");
                 room.SetDiscovered(true);
+                Statistics.IncrementRoomsDiscovered();
             }
             else
             {
@@ -140,14 +135,17 @@ namespace DungeonExplorer
             if (puzzleIndex == 1)
             {
                 Puzzle.BinaryCodePuzzle();
+                CurrentRoom.SetPuzzle(0);
             }
             else if (puzzleIndex == 2)
             {
                 Puzzle.TileOrderPuzzle();
+                CurrentRoom.SetPuzzle(0);
             }
             else
             {
                 Puzzle.NumberCodePuzzle();
+                CurrentRoom.SetPuzzle(0);
             }
         }
 

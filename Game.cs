@@ -120,7 +120,6 @@ namespace DungeonExplorer
                             // Puzzle Logic
                             int puzzle = currentRoom.GetPuzzle();
                             player.SolvePuzzle(puzzle);
-                            currentRoom.SetPuzzle(0);
                         }
                         else
                         {

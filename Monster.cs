@@ -13,9 +13,6 @@ namespace DungeonExplorer
         /// <summary>
         /// Private Fields.
         /// </summary>
-        private string _name;
-        private string _description;
-        private int _health;
         private int _hitpoints;
         private int _strength;
         private int _points;
@@ -25,9 +22,6 @@ namespace DungeonExplorer
         /// </summary>
         public Monster(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health)
         {
-            _name = name;
-            _description = description;
-            _health = health;
             _hitpoints = hitpoints;
             _strength = strength;
             _points = points;

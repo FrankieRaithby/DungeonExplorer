@@ -2,13 +2,13 @@
 
 namespace DungeonExplorer
 {
-    public abstract class Creature
+     public class Creature
     {
-        private string _name;
-        private string _description;
-        private int _health;
+        protected string _name;
+        protected string _description;
+        protected int _health;
 
-        public Creature(string name, string description, int health)
+        protected Creature(string name, string description, int health)
         {
             _name = name;
             _description = description;

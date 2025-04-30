@@ -7,9 +7,9 @@ namespace DungeonExplorer
         /// <summary>
         /// Private Fields.
         /// </summary>
-        private string _name;
-        private string _description;
-        private float _weight;
+        protected string _name;
+        protected string _description;
+        protected float _weight;
 
         /// <summary>
         /// Parameterized Constructor.

@@ -15,23 +15,52 @@ namespace DungeonExplorer
         private string _name;
         private string _description;
         private int _health;
-        private Inventory _inventory;
-        private int _currentRoom;
-        private int _damage;
+        private Room _currentRoom;
+        private int _hitpoints;
         private int _strength;
         private int _points;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Monster(string name, string description, int health, Inventory inventory, Room currentRoom, int damage, int points) : base(name, description, health, currentRoom)
+        public Monster(string name, string description, int health, Room currentRoom, int hitpoints, int strength, int points) : base(name, description, health, currentRoom)
         {
             _name = name;
             _description = description;
             _health = health;
-            _inventory = inventory;
-            _damage = damage;
+            _currentRoom = currentRoom;
+            _hitpoints = hitpoints;
+            _strength = strength;
             _points = points;
+        }
+
+        public int Hitpoints
+        {
+            get { return _hitpoints; }
+            set { _hitpoints = value; }
+        }
+        public int Strength
+        {
+            get { return _strength; }
+            set { _strength = value; }
+        }
+        public int Points
+        {
+            get { return _points; }
+            set { _points = value; }
+        }
+
+        public int GetHitpoints()
+        {
+            return Hitpoints;
+        }
+        public int GetStrength()
+        {
+            return Strength;
+        }
+        public int GetPoints()
+        {
+            return Points;
         }
 
         /// <summary>
@@ -40,7 +69,10 @@ namespace DungeonExplorer
 
         public override void Attack(Creature target)
         {
-            
+
+            target.Health -= Hitpoints;
+
+            Console.WriteLine($"{Name} attacks {target.Name} for {_hitpoints} damage!");
         }
 
         public void Flee(GameMap gamemap)

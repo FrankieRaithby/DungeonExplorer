@@ -59,6 +59,23 @@ namespace DungeonExplorer
                 {
                     primaryChoices["A"] = "To Battle";
                 }
+                else if (currentRoom.GetPuzzle() != 0)
+                {
+                    int puzzleIndex = currentRoom.GetPuzzle();
+
+                    if (puzzleIndex == 1)
+                    {
+                        Puzzle.UpsideDownPuzzle();
+                    }
+                    else if (puzzleIndex == 2)
+                    {
+                        Puzzle.TileOrderPuzzle();
+                    }
+                    else
+                    {
+                        Puzzle.NumberCodePuzzle();
+                    }
+                }
                 else
                 {
                     primaryChoices["D"] = "Get Directions";

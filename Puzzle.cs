@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Puzzle
+    public class Puzzle
     {
 
 
 
 
-        public static void NumberCode()
+        public static void NumberCodePuzzle()
         {
             //Console.WriteLine("This room requires a puzzle to be solved to scavenge...");
             Console.WriteLine("A chest requires a 3-digit code.");

@@ -15,12 +15,13 @@ namespace DungeonExplorer
         private int _y;
         private List<Item> _loot;
         private List<Monster> _monsters;
-        private bool discovered;
+        private bool _discovered;
+        private int _puzzle;
 
         /// <summary>
         /// Parameterized Constructor.
         /// </summary>
-        public Room(string name, string description, int x, int y, List<Item> loot, List<Monster> monsters)
+        public Room(string name, string description, int x, int y, List<Item> loot, List<Monster> monsters, int puzzle)
         {
             _name = name;
             _description = description;
@@ -28,7 +29,8 @@ namespace DungeonExplorer
             _y = y;
             _loot = loot;
             _monsters = monsters;
-            discovered = false;
+            _discovered = false;
+            _puzzle = puzzle;
         }
 
         /// <summary>
@@ -66,6 +68,16 @@ namespace DungeonExplorer
             }
         }
 
+
+        public int Puzzle
+        {
+            get { return _puzzle; }
+            set
+            {
+                _puzzle = value;
+            }
+        }
+
         public List<Monster> Monsters
         {
             get { return _monsters; }
@@ -73,6 +85,12 @@ namespace DungeonExplorer
             {
                 _monsters = value;
             }
+        }
+
+        public bool Discovered
+        {
+            get { return _discovered; }
+            set { _discovered = value;}
         }
 
         public string GetName()
@@ -110,6 +128,7 @@ namespace DungeonExplorer
         }
 
 
+
         public List<Monster> GetMonsters()
         {
             return Monsters;
@@ -117,12 +136,12 @@ namespace DungeonExplorer
 
         public bool GetDiscovered()
         {
-            return discovered;
+            return _discovered;
         }
 
         public void SetDiscovered(bool value)
         {
-            discovered = value;
+            Discovered = value;
         }
 
         public string IfDiscovered()
@@ -143,10 +162,10 @@ namespace DungeonExplorer
             return Loot.FirstOrDefault(item => item.GetName().Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-            /// <summary>
-            /// This method returns true if room has loot, false if not.
-            /// </summary>
-            public bool HasLoot()
+        /// <summary>
+        /// This method returns true if room has loot, false if not.
+        /// </summary>
+        public bool HasLoot()
         {
             if (Loot.Count == 0)
             {
@@ -158,6 +177,11 @@ namespace DungeonExplorer
                 Console.WriteLine("You have found some loot in this room!");
                 return true;
             }
+        }
+
+        public int GetPuzzle()
+        {
+            return Puzzle;
         }
 
         public bool HasMonsters()

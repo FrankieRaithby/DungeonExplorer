@@ -54,7 +54,7 @@ namespace DungeonExplorer
         }
 
 
-        public override void UseItem()
+        public override void UseItem(Player player)
         {
             Console.WriteLine($"Using weapon: {Name}, Damage: {Damage}, Durability: {Durability}");
         }

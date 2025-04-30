@@ -165,9 +165,7 @@ namespace DungeonExplorer
 
             foreach (Monster monster in monsters)
             {
-                Console.WriteLine($"\t[{monster.GetName()}] - {monster.GetDescription()}");
-                Console.WriteLine($"\t{monster.GetStrength()} STR, {monster.GetHitpoints()} HIT, {monster.GetPoints()} PTS\n\t{monster.GetHealth()} Health");
-                Console.WriteLine("\t--------------");
+                monster.GetMonsterInfo();
             }
 
             Dictionary<string, string> monsterChoices = new Dictionary<string, string>();
@@ -273,47 +271,14 @@ namespace DungeonExplorer
 
         public void Attack(Monster target, Weapon weapon, GameMap gamemap)
         {
-            Random random = new Random();
-            int Roll = random.Next(0, 2);
+            
 
             if (weapon == null)
             {
                 weapon = new Weapon("Fists", "Brute Force", 0, 10, "Melee", 1000);
             }
 
-            int damage = weapon.GetDamage();
-
-            // Critical hit or normal hit
-            if (Roll == 1)
-            {
-                Console.WriteLine("\tCritical Hit!");
-                damage = damage * 2; 
-                weapon.Durability -= 5;
-            }
-            else
-            {
-                Console.WriteLine("\tNormal Hit!");
-                weapon.Durability -= 10; 
-            }
-
-            // Ranged attack bonus
-            if (target is Dragon dragon)
-            {
-                if (dragon.IsFlying)
-                {
-                    if (weapon.Attack == "Ranged")
-                    {
-                        damage = (int)(damage * 1.5);
-                    }
-                    else
-                    {
-                        damage = 0;
-                    }
-                }
-            }
-
-
-            target.Damage(damage);
+            target.DealDamage(weapon);
             if (target.IsAlive())
             {
                 Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");

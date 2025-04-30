@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DungeonExplorer
@@ -67,19 +68,13 @@ namespace DungeonExplorer
         /// 
         public virtual void GetMonsterInfo()
         {
-            Console.WriteLine($"Name: {Name}");
-            Console.WriteLine($"Description: {Description}");
-            Console.WriteLine($"Health: {Health}");
-            Console.WriteLine($"Hitpoints: {Hitpoints}");
-            Console.WriteLine($"Strength: {Strength}");
-            Console.WriteLine($"Points: {Points}");
+            Console.WriteLine($"\t[{Name}] - {Description}");
+            Console.WriteLine($"\t{Strength} STR, {Hitpoints} HIT, {Points} PTS\n\t{Health} Health");
+            Console.WriteLine("\t--------------");
         }
-
         public override void Attack(Creature target)
         {
-
             target.Health -= Hitpoints;
-
             Console.WriteLine($"{Name} attacks {target.Name} for {_hitpoints} damage!");
         }
 
@@ -112,10 +107,13 @@ namespace DungeonExplorer
             
                 
         }
-
-        public void Damage(int damage)
+        public virtual void DealDamage(Weapon weapon)
         {
-            Console.WriteLine($"You attack the {Name}, dealing {damage} damage.");
+            throw new NotImplementedException();
+        }
+
+            public void Damage(int damage)
+        {
             Health -= damage;
         }
 
@@ -136,6 +134,14 @@ namespace DungeonExplorer
             set { _isFlying = value; }
         }
 
+        public override void GetMonsterInfo()
+        {
+            Console.WriteLine($"\t[{Name}] - {Description}");
+            Console.WriteLine($"\t{Strength} STR, {Hitpoints} HIT, {Points} PTS\n\t{Health} Health");
+            Console.WriteLine($"\tFlying: {IsFlying}");
+            Console.WriteLine("\t--------------");
+        }
+
         public override void Attack(Creature target)
         {
             if (IsFlying)
@@ -146,6 +152,44 @@ namespace DungeonExplorer
             {
                 Console.WriteLine($"\t{Name} uses claws to attack {target.Name}!");
             }
+        }
+
+        public override void DealDamage(Weapon weapon)
+        {
+            Random random = new Random();
+            int Roll = random.Next(0, 2);
+
+            int damage = weapon.GetDamage();
+
+            // Critical hit or normal hit
+            if (Roll == 1)
+            {
+                Console.WriteLine("\tCritical Hit!");
+                damage = damage * 2;
+                weapon.Durability -= 5;
+            }
+            else
+            {
+                Console.WriteLine("\tNormal Hit!");
+                weapon.Durability -= 10;
+            }
+
+            // Check if the weapon is ranged and the dragon is flying
+            if (IsFlying)
+            {
+                if (weapon.Attack == "Ranged")
+                {
+                    Console.WriteLine($"\t{Name} is flying and the weapon is ranged. Damage dealt: {damage}");
+                    damage = (int)(damage * 1.5);
+                }
+                else
+                {
+                    Console.WriteLine("\tDragon is flying, but the weapon is not ranged. No damage dealt.");
+                    damage = 0;
+                }
+            }
+
+            Damage(damage);
         }
 
         public void Fly()
@@ -165,17 +209,63 @@ namespace DungeonExplorer
 
     public class Goblin : Monster
     {
+        private bool _isStealthy;
         public Goblin(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health, hitpoints, strength, points)
         {
+            _isStealthy = true;
         }
-
+        public bool IsStealthy
+        {
+            get { return _isStealthy; }
+            set { _isStealthy = value; }
+        }
+        public override void GetMonsterInfo()
+        {
+            Console.WriteLine($"\t[{Name}] - {Description}");
+            Console.WriteLine($"\t{Strength} STR, {Hitpoints} HIT, {Points} PTS\n\t{Health} Health");
+            Console.WriteLine($"\tStealth: {IsStealthy}");
+            Console.WriteLine("\t--------------");
+        }
         public override void Attack(Creature target)
         {
             Console.WriteLine($"\t{Name} attacks {target.Name} with a dagger!");
         }
     }
 
-    
+    public class Minotaur : Monster
+    {
+        private bool _isRunning;
+        public Minotaur(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health, hitpoints, strength, points)
+        {
+            _isRunning = false;
+        }
+        public bool IsRunning
+        {
+            get { return _isRunning; }
+            set { _isRunning = value; }
+        }
+        public void Run()
+        {
+            IsRunning = true;
+            Console.WriteLine($"{Name} is running!");
+        }
+        public void Stop()
+        {
+            IsRunning = false;
+            Console.WriteLine($"{Name} has stopped running.");
+        }
+        public override void GetMonsterInfo()
+        {
+            Console.WriteLine($"\t[{Name}] - {Description}");
+            Console.WriteLine($"\t{Strength} STR, {Hitpoints} HIT, {Points} PTS\n\t{Health} Health");
+            Console.WriteLine($"\tRunning: {IsRunning}");
+            Console.WriteLine("\t--------------");
+        }
+        public override void Attack(Creature target)
+        {
+            Console.WriteLine($"\t{Name} charges at {target.Name} with its horns!");
+        }
+    }
 
 
 }

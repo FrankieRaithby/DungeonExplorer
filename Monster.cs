@@ -88,4 +88,48 @@ namespace DungeonExplorer
             throw new NotImplementedException();
         }
     }
+
+    public class Dragon : Monster, IFlyable
+    {
+        private bool _isFlying;
+        public Dragon(string name, string description, int health, Room currentRoom, int hitpoints, int strength, int points) : base(name, description, health, currentRoom, hitpoints, strength, points)
+        {
+            _isFlying = false;
+        }
+        public bool IsFlying
+        {
+            get { return _isFlying; }
+            set { _isFlying = value; }
+        }
+
+        public override void Attack(Creature target)
+        {
+            if (IsFlying)
+            {
+                Console.WriteLine($"{Name} swoops down to attack {target.Name}!");
+            }
+            else
+            {
+                Console.WriteLine($"{Name} attacks {target.Name}!");
+            }
+        }
+
+        public void Fly()
+        {
+            IsFlying = true;
+            Console.WriteLine($"{Name} is flying!");
+        }
+
+        public void Land()
+        {
+            IsFlying = false;
+            Console.WriteLine($"{Name} has landed.");
+        }
+    }
+
+
+
+
+
+
 }

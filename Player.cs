@@ -173,7 +173,7 @@ namespace DungeonExplorer
             }
 
             string chosenMonster = player.GetChoice(monsterChoices);
-            Monster monsterToAttack;
+            Monster monsterToAttack = null;
 
             if (monsterChoices.ContainsKey(chosenMonster))
             {
@@ -184,6 +184,7 @@ namespace DungeonExplorer
             Console.WriteLine("Choose a weapon to attack with");
 
             List<Weapon> weapons = Inventory.GetWeapons();
+            Weapon weaponToUse = null;
 
             if (weapons == null || weapons.Count == 0)
             {
@@ -192,32 +193,33 @@ namespace DungeonExplorer
             }
             else
             {
+                foreach (Weapon weapon in weapons)
+                {
+                    weapon.GetWeaponInfo();
+                }
 
+                Dictionary<string, string> weaponChoices = new Dictionary<string, string>();
+
+                int i2 = 0;
+                foreach (Weapon weapon in weapons)
+                {
+                    string letter = ((char)('A' + i2)).ToString();
+                    weaponChoices[letter] = weapon.GetName();
+                    i2++;
+                }
+
+                string chosenWeapon = player.GetChoice(weaponChoices);
+
+
+                if (weaponChoices.ContainsKey(chosenWeapon))
+                {
+                    weaponToUse = player.Inventory.GetWeaponByName(weaponChoices[chosenWeapon]);
+                }
             }
 
-            foreach (Weapon weapon in weapons)
-            {
-                weapon.GetWeaponInfo();
-            }
-
-            Dictionary<string, string> weaponChoices = new Dictionary<string, string>();
             
-            int i2 = 0;
-            foreach (Weapon weapon in weapons)
-            {
-                string letter = ((char)('A' + i2)).ToString();
-                weaponChoices[letter] = weapon.GetName();
-                i2++;
-            }
 
-            string chosenWeapon = player.GetChoice(weaponChoices);
-            Weapon weaponToUse;
-
-            if (weaponChoices.ContainsKey(chosenWeapon))
-            {
-                weaponToUse = player.Inventory.GetWeaponByName(weaponChoices[chosenWeapon]);
-            }
-
+            Attack(monsterToAttack, weaponToUse);
 
         }
 
@@ -256,20 +258,9 @@ namespace DungeonExplorer
 
         }
 
-        public override void Attack(Creature target)
+        public void Attack(Monster target, Weapon weapon)
         {
-            if (target is Monster monster)
-            {
-                Console.WriteLine($"{Name} attacks {monster.GetName()}!");
-                // Implement attack logic here
-                // For example, reduce monster's health
-                monster.Health -= 10; // Example damage value
-                Console.WriteLine($"{monster.GetName()} now has {monster.Health} health left.");
-            }
-            else
-            {
-                Console.WriteLine("Target is not a valid monster.");
-            }
+            
         }
 
 

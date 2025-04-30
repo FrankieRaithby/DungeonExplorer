@@ -47,5 +47,13 @@ namespace DungeonExplorer
         {
             _itemsCollected++;
         }
+
+        public void DisplayStatistics()
+        {
+            Console.WriteLine("Game Statistics:");
+            Console.WriteLine($"Rooms Discovered: {_roomsDiscovered}");
+            Console.WriteLine($"Monsters Defeated: {_monstersDefeated}");
+            Console.WriteLine($"Items Collected: {_itemsCollected}");
+        }
     }
 }

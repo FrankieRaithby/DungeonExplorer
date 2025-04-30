@@ -118,6 +118,7 @@ namespace DungeonExplorer
                 Item selectedItem = player.CurrentRoom.GetItemByName(itemChoices[ChosenItem]);
                 player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());                          
                 Console.WriteLine($"{selectedItem.GetName()} added to your inventory.");
+                player.Statistics.IncrementItemsCollected();
                 Testing.CheckItemInInventory(player, selectedItem);
             }
             else

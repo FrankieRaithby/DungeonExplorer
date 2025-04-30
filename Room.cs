@@ -148,7 +148,6 @@ namespace DungeonExplorer
         {
             if (GetDiscovered() == false)
             {
-                SetDiscovered(true);
                 return "Unknown";
             }
             else

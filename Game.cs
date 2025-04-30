@@ -83,6 +83,7 @@ namespace DungeonExplorer
                     { "A", "Scavenge Room" },
                     { "B", "View Player Status" },
                     { "C", "View Inventory" },
+                    { "D", "View Statistics" }
                 };
 
                 //Console.WriteLine(currentRoom.Name + currentRoom.GetPuzzle());
@@ -98,7 +99,7 @@ namespace DungeonExplorer
                 }
                 else
                 {
-                    primaryChoices["D"] = "Get Directions";
+                    primaryChoices["E"] = "Get Directions";
                 }
 
                 // Gets user input for their choice
@@ -216,8 +217,11 @@ namespace DungeonExplorer
                             }
                         }
                         break;
-
                     case "D":
+                        // View Statistics
+                        player.DisplayStatistics();
+                        break;
+                    case "E":
                         // Get Directions
                         Room TravelRoom = gamemap.GetDirections(player);
                         gamemap.Travel(player, TravelRoom);

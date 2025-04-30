@@ -300,6 +300,7 @@ namespace DungeonExplorer
                 Score += target.GetPoints();
                 Console.WriteLine($"\tYou have gained {target.GetPoints()} points!");
                 CurrentRoom.GetMonsters().Remove(target);
+                Statistics.IncrementMonstersDefeated();
             }
         }
 

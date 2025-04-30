@@ -13,6 +13,7 @@ namespace DungeonExplorer
         private Inventory _inventory;
         private Attire _attire;
         private int _score;
+        private Statistics _statistics;
 
 
         /// <summary>
@@ -24,11 +25,17 @@ namespace DungeonExplorer
             _attire = new Attire(null, null, null, null);
             _currentRoom = currentRoom;
             _score = 0;
+            _statistics = new Statistics();
         }
 
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
+        public Statistics Statistics
+        {
+            get { return _statistics; }
+            set { _statistics = value; }
+        }
         public Room CurrentRoom
         {
             get { return _currentRoom; }

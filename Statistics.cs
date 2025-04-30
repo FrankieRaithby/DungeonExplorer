@@ -6,7 +6,46 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Statistics
+    public class Statistics
     {
+        private int _roomsDiscovered;
+        private int _monstersDefeated;
+        private int _itemsCollected;
+
+        public Statistics()
+        {
+            _roomsDiscovered = 0;
+            _monstersDefeated = 0;
+            _itemsCollected = 0;
+        }
+
+        public int RoomsDiscovered
+        {
+            get { return _roomsDiscovered; }
+            set { _roomsDiscovered = value; }
+        }
+        public int MonstersDefeated
+        {
+            get { return _monstersDefeated; }
+            set { _monstersDefeated = value; }
+        }
+        public int ItemsCollected
+        {
+            get { return _itemsCollected; }
+            set { _itemsCollected = value; }
+        }
+
+        public void IncrementRoomsDiscovered()
+        {
+            _roomsDiscovered++;
+        }
+        public void IncrementMonstersDefeated()
+        {
+            _monstersDefeated++;
+        }
+        public void IncrementItemsCollected()
+        {
+            _itemsCollected++;
+        }
     }
 }

@@ -261,13 +261,19 @@ namespace DungeonExplorer
         {
             if (weapon == null)
             {
-                weapon = new Weapon("Fists", "Brute Force", 0, 10, "Melee", 1000);
+                weapon = new Weapon("Fists", "Brute Force", 0, 40, "Melee", 1000);
             }
 
             target.DealDamage(weapon);
-            if (weapon.GetName() != "Firsts")
+            if (weapon.GetName() != "Fists")
             {
                 weapon.DecreaseDurability(20);
+                if (weapon.Durability <= 0)
+                {
+                    Console.WriteLine($"\tYour {weapon.GetName()} has broken!");
+                    weapon.DeleteItem(this);
+                    weapon = null;
+                }
             }
             
             if (target.IsAlive())

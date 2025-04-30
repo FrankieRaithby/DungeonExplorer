@@ -219,13 +219,17 @@ namespace DungeonExplorer
                         break;
                     case "D":
                         // View Statistics
-                        player.DisplayStatistics();
+                        player.Statistics.DisplayStatistics();
                         break;
                     case "E":
                         // Get Directions
                         Room TravelRoom = gamemap.GetDirections(player);
                         gamemap.Travel(player, TravelRoom);
-                        currentRoom = player.GetCurrentRoom();
+                        if (!TravelRoom.Discovered)
+                        {
+                            currentRoom = player.GetCurrentRoom();
+                        }
+
                         break;
                         
 

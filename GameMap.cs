@@ -275,8 +275,13 @@ namespace DungeonExplorer
 
         public void Travel(Player player, Room room)
         {
-            player.CurrentRoom.SetDiscovered(true);
-            player.Statistics.IncrementRoomsDiscovered();
+            
+            if (room.Discovered == false)
+            {
+                player.CurrentRoom.SetDiscovered(true);
+                player.Statistics.IncrementRoomsDiscovered();
+            }
+            
             player.CurrentRoom = room;
             Console.WriteLine($"\n\t{player.CurrentRoom.GetName()}\n\t{player.CurrentRoom.GetDescription()}");
         }

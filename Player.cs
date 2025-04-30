@@ -110,23 +110,6 @@ namespace DungeonExplorer
             }
         }
 
-        public void EnterRoom(Room room)
-        {
-            // Check if the room is valid
-            if (room != null)
-            {
-                _currentRoom = room;
-                Console.WriteLine($"You have entered {room.GetName()}.");
-                Console.WriteLine($"Description: {room.GetDescription()}");
-                room.SetDiscovered(true);
-                Statistics.IncrementRoomsDiscovered();
-            }
-            else
-            {
-                Console.WriteLine("Invalid room.");
-            }
-        }
-
         public void DisplayStatus()
         {
             Console.WriteLine($"\n\t{GetName()}");

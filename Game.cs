@@ -225,11 +225,7 @@ namespace DungeonExplorer
                         // Get Directions
                         Room TravelRoom = gamemap.GetDirections(player);
                         gamemap.Travel(player, TravelRoom);
-                        if (!TravelRoom.Discovered)
-                        {
-                            currentRoom = player.GetCurrentRoom();
-                        }
-
+                        currentRoom = player.GetCurrentRoom();
                         break;
                         
 

@@ -64,7 +64,7 @@ namespace DungeonExplorer
             return Weight;
         }
 
-        public virtual void UseItem()
+        public virtual void UseItem(Player player)
         {
             Console.WriteLine("Using item: " + Name);
         }

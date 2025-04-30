@@ -35,12 +35,22 @@ namespace DungeonExplorer
             return Bonus;
         }
 
-        public override void UseItem()
+        public override void UseItem(Player player)
         {
-            throw new NotImplementedException("This item cannot be used.");
+            if (Variant == "Health")
+            {
+                player.Health += Bonus;
+                Console.WriteLine($"{player.Name} used {Name} and restored {Bonus} health.");
+            }
+            else if (Variant == "Strength")
+            {
+                player.Score += Bonus;
+                Console.WriteLine($"{player.Name} used {Name} and gained {Bonus} points.");
+            }
+            else
+            {
+                Console.WriteLine($"{player.Name} used {Name}, but nothing happened.");
+            }
         }
     }
-
-
-
 }

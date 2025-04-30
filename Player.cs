@@ -259,8 +259,6 @@ namespace DungeonExplorer
 
         public void Attack(Monster target, Weapon weapon, GameMap gamemap)
         {
-            
-
             if (weapon == null)
             {
                 weapon = new Weapon("Fists", "Brute Force", 0, 10, "Melee", 1000);
@@ -275,7 +273,8 @@ namespace DungeonExplorer
             if (target.IsAlive())
             {
                 Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");
-                target.Flee(gamemap);
+                target.Attack(this);
+                target.Flee(this, gamemap);
             }
             else
             {

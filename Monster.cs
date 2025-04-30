@@ -73,7 +73,7 @@ namespace DungeonExplorer
             {
                 int defence = player.Attire.GetDefence();
 
-                int damage = Hitpoints - defence;
+                int damage = Math.Max(0, Hitpoints - defence);
             }
 
             target.Health -= Hitpoints;
@@ -81,7 +81,7 @@ namespace DungeonExplorer
             Console.WriteLine($"{Name} attacks {target.Name} for {Hitpoints} damage!");
         }
 
-        public void Flee(GameMap gamemap)
+        public void Flee(Player player, GameMap gamemap)
         {
             if (Health <= 0)
             {
@@ -97,7 +97,8 @@ namespace DungeonExplorer
                 if (fleeChance <= 2)
                 {
                     Console.WriteLine($"\t{Name} successfully fled!");
-                    int randomIndex = random.Next(0, gamemap.GetRooms().Count + 1);
+                    int randomIndex = random.Next(0, gamemap.GetRooms().Count);
+                    player.CurrentRoom.Monsters.Remove(this);
                     gamemap.GetRooms()[randomIndex].Monsters.Add(this);
                     return;
                 }
@@ -143,18 +144,6 @@ namespace DungeonExplorer
             Console.WriteLine($"\t{Strength} STR, {Hitpoints} HIT, {Points} PTS\n\t{Health} Health");
             Console.WriteLine($"\tFlying: {IsFlying}");
             Console.WriteLine("\t--------------");
-        }
-
-        public override void Attack(Creature target)
-        {
-            if (IsFlying)
-            {
-                Console.WriteLine($"\t{Name} breathes fire from the sky onto {target.Name}!");
-            }
-            else
-            {
-                Console.WriteLine($"\t{Name} uses claws to attack {target.Name}!");
-            }
         }
 
         public override void DealDamage(Weapon weapon)
@@ -229,10 +218,6 @@ namespace DungeonExplorer
             Console.WriteLine($"\tStealth: {IsStealthy}");
             Console.WriteLine("\t--------------");
         }
-        public override void Attack(Creature target)
-        {
-            Console.WriteLine($"\t{Name} attacks {target.Name} with a dagger!");
-        }
 
         public override void DealDamage(Weapon weapon)
         {
@@ -297,10 +282,6 @@ namespace DungeonExplorer
             Console.WriteLine($"\t{Strength} STR, {Hitpoints} HIT, {Points} PTS\n\t{Health} Health");
             Console.WriteLine($"\tRunning: {IsRunning}");
             Console.WriteLine("\t--------------");
-        }
-        public override void Attack(Creature target)
-        {
-            Console.WriteLine($"\t{Name} charges at {target.Name} with its horns!");
         }
 
         public override void DealDamage(Weapon weapon)

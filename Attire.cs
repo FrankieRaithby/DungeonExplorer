@@ -72,13 +72,14 @@ namespace DungeonExplorer
             return Defence;
         }
 
-        public void DisplaySpareArmour()
+        public void DisplaySpareArmour(Player player)
         {
+            DisplayAttire();
             Console.WriteLine("\n\tSpare Armour");
             Console.WriteLine("\t------------");
-            foreach (var item in GetArmours())
+            foreach (Armour item in player.Inventory.GetArmours())
             {
-                Console.WriteLine($"\t- {item.GetName()} ({item.GetDefence()} DEF) ({item.GetWeight()} Kg)");
+                Console.WriteLine($"\t- {item.GetName()} ({item.GetDefence()} DEF) ({item.GetWeight()} Kg) ({item.GetDurability()}%)");
             }
         }
 
@@ -93,7 +94,7 @@ namespace DungeonExplorer
             Dictionary<string, string> armourChoices = new Dictionary<string, string>();
             int i = 0;
 
-            foreach (Item item in player.Inventory.GetArmours())
+            foreach (Armour item in player.Inventory.GetArmours())
             {
                 string letter = ((char)('A' + i)).ToString();
                 armourChoices[letter] = item.GetName();
@@ -114,18 +115,38 @@ namespace DungeonExplorer
                     switch (variant)
                     {
                         case "Helmet":
+                            if (Helmet != null)
+                            {
+                                Console.WriteLine($"\tYou already have a helmet equipped. Unequip it first.");
+                                return;
+                            }
                             Helmet = selectedItem;
                             selectedItem.DeleteItem(player);
                             break;
                         case "Chestplate":
+                            if (Chestplate != null)
+                            {
+                                Console.WriteLine($"\tYou already have a chestplate equipped. Unequip it first.");
+                                return;
+                            }
                             Chestplate = selectedItem;
                             selectedItem.DeleteItem(player);
                             break;
                         case "Leggings":
+                            if (Leggings != null)
+                            {
+                                Console.WriteLine($"\tYou already have leggings equipped. Unequip it first.");
+                                return;
+                            }
                             Leggings = selectedItem;
                             selectedItem.DeleteItem(player);
                             break;
                         case "Boots":
+                            if (Boots != null)
+                            {
+                                Console.WriteLine($"\tYou already have boots equipped. Unequip it first.");
+                                return;
+                            }
                             Boots = selectedItem;
                             selectedItem.DeleteItem(player);
                             break;
@@ -174,19 +195,39 @@ namespace DungeonExplorer
                     switch (variant)
                     {
                         case "Helmet":
+                            if (Helmet == null)
+                            {
+                                Console.WriteLine($"\tYou don't have a helmet equipped.");
+                                return;
+                            }
                             Helmet = null;
                             player.Inventory.Items.Add(selectedItem);
                             break;
                         case "Chestplate":
+                            if (Chestplate == null)
+                            {
+                                Console.WriteLine($"\tYou don't have a chestplate equipped.");
+                                return;
+                            }
                             Chestplate = null;
                             player.Inventory.Items.Add(selectedItem);
                             break;
                         case "Leggings":
+                            if (Leggings == null)
+                            {
+                                Console.WriteLine($"\tYou don't have leggings equipped.");
+                                return;
+                            }
                             Leggings = null;
                             player.Inventory.Items.Add(selectedItem);
                             break;
                         case "Boots":
                             Boots = null;
+                            if (Boots == null)
+                            {
+                                Console.WriteLine($"\tYou don't have boots equipped.");
+                                return;
+                            }
                             player.Inventory.Items.Add(selectedItem);
                             break;
                         default:
@@ -238,10 +279,10 @@ namespace DungeonExplorer
         {
             Console.WriteLine("\n\tEQUIPED ARMOUR");
             Console.WriteLine("\t--------------");
-            Console.WriteLine($"\tHelmet: {(Helmet != null ? $"{Helmet.GetName()} ({Helmet.GetDefence()} DEF)" : "None")}");
-            Console.WriteLine($"\tChestplate: {(Chestplate != null ? $"{Chestplate.GetName()} ({Chestplate.GetDefence()} DEF)" : "None")}");
-            Console.WriteLine($"\tLeggings: {(Leggings != null ? $"{Leggings.GetName()} ({Leggings.GetDefence()} DEF)" : "None")}");
-            Console.WriteLine($"\tBoots: {(Boots != null ? $"{Boots.GetName()} ({Boots.GetDefence()} DEF)" : "None")}");
+            Console.WriteLine($"\tHelmet: {(Helmet != null ? $"{Helmet.GetName()} ({Helmet.GetDefence()} DEF) ({Helmet.GetDurability()}%)" : "None")}");
+            Console.WriteLine($"\tChestplate: {(Chestplate != null ? $"{Chestplate.GetName()} ({Chestplate.GetDefence()} DEF) ({Chestplate.GetDurability()}%)" : "None")}");
+            Console.WriteLine($"\tLeggings: {(Leggings != null ? $"{Leggings.GetName()} ({Leggings.GetDefence()} DEF) ({Leggings.GetDurability()}%)" : "None")}");
+            Console.WriteLine($"\tBoots: {(Boots != null ? $"{Boots.GetName()} ({Boots.GetDefence()} DEF) ({Boots.GetDurability()}%)" : "None")}");
             Console.WriteLine($"\tTotal Defence: {CalculateDefence()}");
         }
 

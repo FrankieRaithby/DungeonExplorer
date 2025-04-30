@@ -60,20 +60,20 @@ namespace DungeonExplorer
             RoomCoordinates = GetRoomCoordinates();
 
             // weight, type, defence, durability
-            Item armour1 = new Armour("Leather Helmet", "A sturdy leather Helmet.", 15, "Helmet", 10, 100);
-            Item armour2 = new Armour("Leather Chestplate", "A sturdy leather Chestplate.", 30, "Chestplate", 30, 100);
-            Item armour3 = new Armour("Leather Leggings", "A sturdy leather Leggings.", 20, "Leggings", 20, 100);
-            Item armour4 = new Armour("Leather Boots", "A sturdy leather Boots.", 15, "Boots", 10, 100);
+            Item armour1 = new Armour("Leather Helmet", "A sturdy leather Helmet.", 15, "Helmet", 1, 40);
+            Item armour2 = new Armour("Leather Chestplate", "A sturdy leather Chestplate.", 30, "Chestplate", 3, 40);
+            Item armour3 = new Armour("Leather Leggings", "A sturdy leather Leggings.", 20, "Leggings", 2, 40);
+            Item armour4 = new Armour("Leather Boots", "A sturdy leather Boots.", 15, "Boots", 1, 40);
 
-            Item armour5 = new Armour("Iron Helmet", "A sturdy Iron Helmet.", 20, "Helmet", 20, 100);
-            Item armour6 = new Armour("Iron Chestplate", "A sturdy Iron Chestplate.", 40, "Chestplate", 60, 100);
-            Item armour7 = new Armour("Iron Leggings", "A sturdy Iron Leggings.", 30, "Leggings", 40, 100);
-            Item armour8 = new Armour("Iron Boots", "A sturdy Iron Boots.", 20, "Boots", 20, 100);
+            Item armour5 = new Armour("Iron Helmet", "A sturdy Iron Helmet.", 20, "Helmet", 2, 60);
+            Item armour6 = new Armour("Iron Chestplate", "A sturdy Iron Chestplate.", 40, "Chestplate", 4, 60);
+            Item armour7 = new Armour("Iron Leggings", "A sturdy Iron Leggings.", 30, "Leggings", 3, 60);
+            Item armour8 = new Armour("Iron Boots", "A sturdy Iron Boots.", 20, "Boots", 2, 60);
 
-            Item armour9 = new Armour("Steel Helmet", "A sturdy Steel Helmet.", 25, "Helmet", 40, 100);
-            Item armour10 = new Armour("Steel Chestplate", "A sturdy Steel Chestplate.", 50, "Chestplate", 120, 100);
-            Item armour11 = new Armour("Steel Leggings", "A sturdy Steel Leggings.", 40, "Leggings", 80, 100);
-            Item armour12 = new Armour("Steel Boots", "A sturdy Steel Boots.", 25, "Boots", 40, 100);
+            Item armour9 = new Armour("Steel Helmet", "A sturdy Steel Helmet.", 25, "Helmet", 3, 80);
+            Item armour10 = new Armour("Steel Chestplate", "A sturdy Steel Chestplate.", 50, "Chestplate", 5, 80);
+            Item armour11 = new Armour("Steel Leggings", "A sturdy Steel Leggings.", 40, "Leggings", 4, 80);
+            Item armour12 = new Armour("Steel Boots", "A sturdy Steel Boots.", 25, "Boots", 3, 80);
 
             // weight, damage, attack, durability
             Item weapon1 = new Weapon("Epipharnes' Kopis", "A sharp sword.", 20, 40, "Melee", 100);
@@ -275,13 +275,11 @@ namespace DungeonExplorer
 
         public void Travel(Player player, Room room)
         {
-            
-            if (room.Discovered == false)
+            if (player.CurrentRoom.GetDiscovered() == false)
             {
                 player.CurrentRoom.SetDiscovered(true);
                 player.Statistics.IncrementRoomsDiscovered();
             }
-            
             player.CurrentRoom = room;
             Console.WriteLine($"\n\t{player.CurrentRoom.GetName()}\n\t{player.CurrentRoom.GetDescription()}");
         }

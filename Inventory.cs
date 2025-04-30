@@ -67,6 +67,8 @@ namespace DungeonExplorer
                 room.Loot.Remove(item);
                 Items.Add(item);
                 CurrentWeight += item.GetWeight();
+                Console.WriteLine($"{item.GetName()} added to your inventory.");
+                Testing.CheckItemInInventory(Items, item);
             }
             else
             {

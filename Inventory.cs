@@ -191,7 +191,22 @@ namespace DungeonExplorer
             }
         }
 
-        
+        public List<Weapon> GetWeapons()
+        {
+            foreach (Item item in Items)
+            {
+                if (item is Weapon)
+                {
+                    return Items.OfType<Weapon>().ToList();
+                }
+            }
+            return null;
+        }
+
+        public Weapon GetWeaponByName(string name)
+        {
+            return Items.OfType<Weapon>().FirstOrDefault(item => item.Name == name);
+        }
 
         public bool ItemExists(string name)
         {

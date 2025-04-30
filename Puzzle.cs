@@ -50,11 +50,11 @@ namespace DungeonExplorer
             }
         }
 
-        public static void UpsideDownPuzzle()
+        public static void BinaryCodePuzzle()
         {
 
-            Console.WriteLine("Speak the secret code that is written upside down on the wall.");
-            Console.WriteLine("Clue: ˙ƃuᴉɯɯɐɹƃoɹd sᴉ ǝpoɔ ʇǝɹɔǝs ǝɥ┴");
+            Console.WriteLine("Speak the secret code that is written as 1s and 0s.");
+            Console.WriteLine("Clue: 01010100 01101000 01100101 00100000 01110011 01100101 01100011 01110010 01100101 01110100 00100000 01100011 01101111 01100100 01100101 00100000 01101001 01110011 00100000 01110000 01110010 01101111 01100111 01110010 01100001 01101101 01101101 01101001 01101110 01100111");
             string answer = Console.ReadLine().ToLower();
 
             if (answer == "programming")
@@ -64,7 +64,7 @@ namespace DungeonExplorer
             else
             {
                 Console.WriteLine("Incorrect. Try again.");
-                UpsideDownPuzzle();
+                BinaryCodePuzzle();
             }
         }
 

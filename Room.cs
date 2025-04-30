@@ -202,5 +202,10 @@ namespace DungeonExplorer
             }
         }
 
+        public Monster GetMonsterByName(string name)
+        {
+            return Monsters.FirstOrDefault(monster => monster.GetName().Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }

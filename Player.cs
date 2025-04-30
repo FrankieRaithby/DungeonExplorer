@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DungeonExplorer
 {
@@ -130,7 +131,7 @@ namespace DungeonExplorer
         {
             if (puzzleIndex == 1)
             {
-                Puzzle.UpsideDownPuzzle();
+                Puzzle.BinaryCodePuzzle();
             }
             else if (puzzleIndex == 2)
             {
@@ -140,6 +141,84 @@ namespace DungeonExplorer
             {
                 Puzzle.NumberCodePuzzle();
             }
+        }
+
+        public void BattleMenu(Player player)
+        {
+            if (player.CurrentRoom.GetMonsters() == null)
+            {
+                Console.WriteLine("No monsters in this room.");
+                return;
+            }
+
+            List<Monster> monsters = SortMonsterAscendingStrength(CurrentRoom.GetMonsters());
+
+            Console.WriteLine("Choose a monster to attack");
+
+            foreach (Monster monster in monsters)
+            {
+                Console.WriteLine($"\t[{monster.GetName()}] - {monster.GetDescription()}");
+                Console.WriteLine($"\t{monster.GetStrength()} STR, {monster.GetHitpoints()} HIT, {monster.GetPoints()} PTS\n\t{monster.GetHealth()} Health");
+                Console.WriteLine("\t--------------");
+            }
+
+            Dictionary<string, string> monsterChoices = new Dictionary<string, string>();
+
+            int i1 = 0;
+            foreach (Monster monster in monsters)
+            {
+                string letter = ((char)('A' + i1)).ToString();
+                monsterChoices[letter] = monster.GetName();
+                i1++;
+            }
+
+            string chosenMonster = player.GetChoice(monsterChoices);
+            Monster monsterToAttack;
+
+            if (monsterChoices.ContainsKey(chosenMonster))
+            {
+                monsterToAttack = player.CurrentRoom.GetMonsterByName(monsterChoices[chosenMonster]);
+            }
+
+
+            Console.WriteLine("Choose a weapon to attack with");
+
+            List<Weapon> weapons = Inventory.GetWeapons();
+
+            if (weapons == null || weapons.Count == 0)
+            {
+                Console.WriteLine("No weapons available.");
+                return;
+            }
+            else
+            {
+
+            }
+
+            foreach (Weapon weapon in weapons)
+            {
+                weapon.GetWeaponInfo();
+            }
+
+            Dictionary<string, string> weaponChoices = new Dictionary<string, string>();
+            
+            int i2 = 0;
+            foreach (Weapon weapon in weapons)
+            {
+                string letter = ((char)('A' + i2)).ToString();
+                weaponChoices[letter] = weapon.GetName();
+                i2++;
+            }
+
+            string chosenWeapon = player.GetChoice(weaponChoices);
+            Weapon weaponToUse;
+
+            if (weaponChoices.ContainsKey(chosenWeapon))
+            {
+                weaponToUse = player.Inventory.GetWeaponByName(weaponChoices[chosenWeapon]);
+            }
+
+
         }
 
         /// <summary>
@@ -194,7 +273,11 @@ namespace DungeonExplorer
         }
 
 
-
+        public List<Monster> SortMonsterAscendingStrength(List<Monster> monsters)
+        {
+            // Sort the list of monsters by strength in ascending order
+            return monsters.OrderBy(monster => monster.Strength).ToList();
+        }
 
 
 

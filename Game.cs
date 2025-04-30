@@ -85,7 +85,7 @@ namespace DungeonExplorer
                         if (currentRoom.HasMonsters())
                         {
                             // Battle Logic
-                            List<Monster> monsters = currentRoom.GetMonsters();
+                            player.BattleMenu(player);
                         }
                         else if (currentRoom.GetPuzzle() != 0)
                         {

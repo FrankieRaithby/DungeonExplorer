@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    internal class Weapon : Item
+    public class Weapon : Item
     {
         private int _damage;
         private string _attack;
@@ -37,7 +37,17 @@ namespace DungeonExplorer
             set { _durability = value; }
         }
 
-        
+        public void GetWeaponInfo()
+        {
+            Console.WriteLine($"Weapon Name: {Name}");
+            Console.WriteLine($"Description: {Description}");
+            Console.WriteLine($"Weight: {Weight} kg");
+            Console.WriteLine($"Damage: {Damage}");
+            Console.WriteLine($"Attack Type: {Attack}");
+            Console.WriteLine($"Durability: {Durability}");
+            Console.WriteLine("------------------------------");
+        }
+
 
         public override void UseItem()
         {

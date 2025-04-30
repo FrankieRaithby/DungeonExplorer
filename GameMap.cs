@@ -43,6 +43,10 @@ namespace DungeonExplorer
             Room10 = new Room("Sealed Sanctum", "Runes glow on a silent door.", 3, 0, new List<Item>(), new List<Monster>(), 3);
             Room11 = new Room("Rifted Maw", "Ground splits into a yawning void.", 3, 1, new List<Item>(), new List<Monster>(), 0);
 
+            
+
+
+
             _rooms = new List<Room>()
             {
                 Room1,
@@ -59,6 +63,28 @@ namespace DungeonExplorer
             };
 
             RoomCoordinates = GetRoomCoordinates();
+
+            Item armour1 = new Armour("Leather Helmet", "A sturdy leather Helmet.", 5, "Helmet", 10, 100);
+            Item armour2 = new Armour("Leather Chestplate", "A sturdy leather Chestplate.", 5, "Chestplate", 10, 100);
+            Item armour3 = new Armour("Leather Leggings", "A sturdy leather Leggings.", 5, "Leggings", 10, 100);
+            Item armour4 = new Armour("Leather Boots", "A sturdy leather Boots.", 5, "Boots", 10, 100);
+
+            // weight, damage, attack, durability
+            Item weapon1 = new Weapon("Epipharnes' Kopis", "A sharp sword.", 20, 40, "Melee", 100);
+            Item weapon2 = new Weapon("Epdorus' Dagger", "A sharp dagger.", 5, 25, "Melee", 100);
+            Item weapon3 = new Weapon("Epitheos' Dory", "A sharp dory.", 40, 50, "Melee", 100);
+            Item weapon4 = new Weapon("Antigonous' Dagger", "A sharp dagger.", 4, 20, "Melee", 100);
+            Item weapon5 = new Weapon("Terkleius' Greatsword", "A sharp sword.", 60, 80, "Melee", 100);
+
+            Item weapon6 = new Weapon("Epidias' Bow", "A sharp bow.", 15, 30, "Ranged", 100);
+            Item weapon7 = new Weapon("Epixios' Staff", "A sharp staff.", 20, 50, "Ranged", 100);
+            Item weapon8 = new Weapon("Hippocrates' Bow", "A sharp bow.", 10, 20, "Ranged", 100);
+            Item weapon9 = new Weapon("Apollomedes' Crossbow", "A sharp staff.", 20, 40, "Ranged", 100);
+            
+
+
+
+
             Monster Monster1 = new Dragon("Dragon", "A fierce dragon.", 100, 50, 20, 100);
             Room2.Monsters.Add(Monster1);
             

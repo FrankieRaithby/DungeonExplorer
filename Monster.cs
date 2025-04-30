@@ -66,6 +66,17 @@ namespace DungeonExplorer
         /// <summary>
         /// Public properties for accessing private fields.
         /// </summary>
+        /// 
+        public virtual void GetMonsterInfo()
+        {
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Description: {Description}");
+            Console.WriteLine($"Health: {Health}");
+            Console.WriteLine($"Current Room: {CurrentRoom.Name}");
+            Console.WriteLine($"Hitpoints: {Hitpoints}");
+            Console.WriteLine($"Strength: {Strength}");
+            Console.WriteLine($"Points: {Points}");
+        }
 
         public override void Attack(Creature target)
         {
@@ -135,7 +146,19 @@ namespace DungeonExplorer
 
 
 
+    public class Goblin : Monster
+    {
+        public Goblin(string name, string description, int health, Room currentRoom, int hitpoints, int strength, int points) : base(name, description, health, currentRoom, hitpoints, strength, points)
+        {
+        }
 
+        public override void Attack(Creature target)
+        {
+            Console.WriteLine($"\t{Name} attacks {target.Name} with a dagger!");
+        }
+    }
+
+    
 
 
 }

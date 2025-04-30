@@ -197,7 +197,7 @@ namespace DungeonExplorer
             }
             else
             {
-                Console.WriteLine("You are not alone in this room...");
+                Console.WriteLine("\tYou are not alone in this room...");
                 return true;
             }
         }

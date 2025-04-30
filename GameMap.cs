@@ -30,8 +30,7 @@ namespace DungeonExplorer
                 new Item("Key", "A rusty key.", 0.5f),
             };
 
-
-
+            
             Room1 = new Room("Entrance", "A dark and spooky hall.", 0, 0, items1, new List<Monster>(), 0);
             Room2 = new Room("Chamber of Whispers", "Voices echo from unseen, ancient mouths.", 1, 0, new List<Item>(), new List<Monster>(), 0);
             Room3 = new Room("Forgotten Forge", "Cold anvil rests beneath broken tools.", 0, 1, new List<Item>(), new List<Monster>(), 1);
@@ -60,6 +59,10 @@ namespace DungeonExplorer
             };
 
             RoomCoordinates = GetRoomCoordinates();
+            Monster Monster1 = new Dragon("Dragon", "A fierce dragon.", 100, Room2, 50, 20, 100);
+            Room2.Monsters.Add(Monster1);
+            
+
         }
 
         public List<Room> Rooms

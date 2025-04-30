@@ -147,13 +147,13 @@ namespace DungeonExplorer
         {
             if (player.CurrentRoom.GetMonsters() == null)
             {
-                Console.WriteLine("No monsters in this room.");
+                Console.WriteLine("\tNo monsters in this room.");
                 return;
             }
 
             List<Monster> monsters = SortMonsterAscendingStrength(CurrentRoom.GetMonsters());
 
-            Console.WriteLine("Choose a monster to attack");
+            Console.WriteLine("\n\tChoose a monster to attack");
 
             foreach (Monster monster in monsters)
             {
@@ -181,15 +181,14 @@ namespace DungeonExplorer
             }
 
 
-            Console.WriteLine("Choose a weapon to attack with");
+            Console.WriteLine("\n\tChoose a weapon to attack with");
 
             List<Weapon> weapons = Inventory.GetWeapons();
             Weapon weaponToUse = null;
 
             if (weapons == null || weapons.Count == 0)
             {
-                Console.WriteLine("No weapons available.");
-                return;
+                Console.WriteLine("\tNo weapons available.");
             }
             else
             {
@@ -247,7 +246,7 @@ namespace DungeonExplorer
                 }
                 else
                 {
-                    Console.WriteLine("Invalid choice, please pick from the list");
+                    Console.WriteLine("\tInvalid choice, please pick from the list");
                 }
             }
         }
@@ -279,13 +278,13 @@ namespace DungeonExplorer
             // Critical hit or normal hit
             if (Roll == 1)
             {
-                Console.WriteLine("Critical Hit!");
+                Console.WriteLine("\tCritical Hit!");
                 damage = damage * 2; 
                 weapon.Durability -= 5; // Reduce weapon 
             }
             else
             {
-                Console.WriteLine("Normal Hit!");
+                Console.WriteLine("\tNormal Hit!");
                 damage = damage * 2;
                 weapon.Durability -= 10; 
             }
@@ -310,13 +309,13 @@ namespace DungeonExplorer
             target.Damage(damage);
             if (target.IsAlive())
             {
-                Console.WriteLine($"{target.GetName()} has {target.GetHealth()} health remaining.");
+                Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");
             }
             else
             {
-                Console.WriteLine($"{target.GetName()} has been defeated!");
+                Console.WriteLine($"\t{target.GetName()} has been defeated!");
                 Score += target.GetPoints();
-                Console.WriteLine($"You have gained {target.GetPoints()} points!");
+                Console.WriteLine($"\tYou have gained {target.GetPoints()} points!");
                 target.CurrentRoom.GetMonsters().Remove(target);
             }
         }

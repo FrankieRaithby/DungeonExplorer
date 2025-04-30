@@ -59,7 +59,7 @@ namespace DungeonExplorer
             };
 
             RoomCoordinates = GetRoomCoordinates();
-            Monster Monster1 = new Dragon("Dragon", "A fierce dragon.", 100, Room2, 50, 20, 100);
+            Monster Monster1 = new Dragon("Dragon", "A fierce dragon.", 100, 50, 20, 100);
             Room2.Monsters.Add(Monster1);
             
 
@@ -149,11 +149,11 @@ namespace DungeonExplorer
             return null;
         }
 
-        public void Travel(Creature creature, Room room)
+        public void Travel(Player player, Room room)
         {
-            creature.CurrentRoom.SetDiscovered(true);
-            creature.CurrentRoom = room;
-            Console.WriteLine($"\n\t{creature.CurrentRoom.GetName()}\n\t{creature.CurrentRoom.GetDescription()}");
+            player.CurrentRoom.SetDiscovered(true);
+            player.CurrentRoom = room;
+            Console.WriteLine($"\n\t{player.CurrentRoom.GetName()}\n\t{player.CurrentRoom.GetDescription()}");
         }
 
         //public string GetMap()

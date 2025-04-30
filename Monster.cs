@@ -85,9 +85,32 @@ namespace DungeonExplorer
 
         public void Flee(GameMap gamemap)
         {
-            Random random = new Random();
-            int randomIndex = random.Next(0, gamemap.GetRooms().Count +1);
-            gamemap.GetRooms()[randomIndex].Monsters.Add(this);
+            if (Health <= 0)
+            {
+                Console.WriteLine($"{Name} is dead and cannot flee.");
+                return;
+            }
+
+            if (Health <= 10)
+            {
+                Console.WriteLine($"\n\t{Name} is fleeing from the battle!");
+                Random random = new Random();
+                int fleeChance = random.Next(1, 6);
+                if (fleeChance <= 2)
+                {
+                    Console.WriteLine($"\t{Name} successfully fled!");
+                    int randomIndex = random.Next(0, gamemap.GetRooms().Count + 1);
+                    gamemap.GetRooms()[randomIndex].Monsters.Add(this);
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine($"\t{Name} failed to flee!");
+                    return;
+                }
+            }
+            
+                
         }
 
         public void Damage(int damage)
@@ -103,7 +126,7 @@ namespace DungeonExplorer
     public class Dragon : Monster, IFlyable
     {
         private bool _isFlying;
-        public Dragon(string name, string description, int health, Room currentRoom, int hitpoints, int strength, int points) : base(name, description, health, currentRoom, hitpoints, strength, points)
+        public Dragon(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health, hitpoints, strength, points)
         {
             _isFlying = false;
         }
@@ -142,7 +165,7 @@ namespace DungeonExplorer
 
     public class Goblin : Monster
     {
-        public Goblin(string name, string description, int health, Room currentRoom, int hitpoints, int strength, int points) : base(name, description, health, currentRoom, hitpoints, strength, points)
+        public Goblin(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health, hitpoints, strength, points)
         {
         }
 

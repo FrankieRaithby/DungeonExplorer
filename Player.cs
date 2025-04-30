@@ -151,7 +151,7 @@ namespace DungeonExplorer
             }
         }
 
-        public void BattleMenu(Player player)
+        public void BattleMenu(Player player, GameMap gamemap)
         {
             if (player.CurrentRoom.GetMonsters() == null)
             {
@@ -226,7 +226,7 @@ namespace DungeonExplorer
 
             
 
-            Attack(monsterToAttack, weaponToUse);
+            Attack(monsterToAttack, weaponToUse, gamemap);
 
         }
 
@@ -271,7 +271,7 @@ namespace DungeonExplorer
             }
         }
 
-        public void Attack(Monster target, Weapon weapon)
+        public void Attack(Monster target, Weapon weapon, GameMap gamemap)
         {
             Random random = new Random();
             int Roll = random.Next(0, 2);
@@ -317,13 +317,14 @@ namespace DungeonExplorer
             if (target.IsAlive())
             {
                 Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");
+                target.Flee(gamemap);
             }
             else
             {
                 Console.WriteLine($"\t{target.GetName()} has been defeated!");
                 Score += target.GetPoints();
                 Console.WriteLine($"\tYou have gained {target.GetPoints()} points!");
-                target.CurrentRoom.GetMonsters().Remove(target);
+                CurrentRoom.GetMonsters().Remove(target);
             }
         }
 

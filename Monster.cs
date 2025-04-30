@@ -230,6 +230,42 @@ namespace DungeonExplorer
         {
             Console.WriteLine($"\t{Name} attacks {target.Name} with a dagger!");
         }
+
+        public override void DealDamage(Weapon weapon)
+        {
+            Random random = new Random();
+            int Roll = random.Next(0, 2);
+
+            int damage = weapon.GetDamage();
+
+            // Critical hit or normal hit
+            if (Roll == 1)
+            {
+                Console.WriteLine("\tCritical Hit!");
+                damage = damage * 2;
+                weapon.Durability -= 5;
+            }
+            else
+            {
+                Console.WriteLine("\tNormal Hit!");
+                weapon.Durability -= 10;
+            }
+
+            // Check if the weapon is ranged and the dragon is flying
+            if (IsStealthy)
+            {
+                Console.WriteLine($"\t{Name} is in stealth mode and cannot be attacked!");
+                damage = 0;
+                IsStealthy = false;
+            }
+            else
+            {
+                Console.WriteLine($"\t{Name} is not in stealth mode. Damage dealt: {damage}");
+                IsStealthy = true;
+            }
+
+            Damage(damage);
+        }
     }
 
     public class Minotaur : Monster
@@ -264,6 +300,48 @@ namespace DungeonExplorer
         public override void Attack(Creature target)
         {
             Console.WriteLine($"\t{Name} charges at {target.Name} with its horns!");
+        }
+
+        public override void DealDamage(Weapon weapon)
+        {
+            Random random = new Random();
+            int Roll = random.Next(0, 2);
+
+            int damage = weapon.GetDamage();
+
+            // Critical hit or normal hit
+            if (Roll == 1)
+            {
+                Console.WriteLine("\tCritical Hit!");
+                damage = damage * 2;
+                weapon.Durability -= 5;
+            }
+            else
+            {
+                Console.WriteLine("\tNormal Hit!");
+                weapon.Durability -= 10;
+            }
+
+            // Check if the weapon is ranged and the minotaur running
+            if (IsRunning)
+            {
+                if (weapon.Attack == "Ranged")
+                {
+                    Console.WriteLine($"\t{Name} is running and the weapon is ranged. Damage dealt: {damage}");
+                    damage = (int)(damage * 1.5);
+                }
+                else
+                {
+                    Console.WriteLine("\tMinotaur is running, but the weapon is not ranged. No damage dealt.");
+                    damage = 0;
+                }
+            }
+            else
+            {
+                IsRunning = true;
+            }
+
+            Damage(damage);
         }
     }
 

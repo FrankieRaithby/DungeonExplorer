@@ -44,19 +44,19 @@ namespace DungeonExplorer
 
         public void GetWeaponInfo()
         {
-            Console.WriteLine($"Weapon Name: {Name}");
-            Console.WriteLine($"Description: {Description}");
-            Console.WriteLine($"Weight: {Weight} kg");
-            Console.WriteLine($"Damage: {Damage}");
-            Console.WriteLine($"Attack Type: {Attack}");
-            Console.WriteLine($"Durability: {Durability}");
-            Console.WriteLine("------------------------------");
+            Console.WriteLine($"\tWeapon Name: {Name}");
+            Console.WriteLine($"\tDescription: {Description}");
+            Console.WriteLine($"\tWeight: {Weight} kg");
+            Console.WriteLine($"\tDamage: {Damage}");
+            Console.WriteLine($"\tAttack Type: {Attack}");
+            Console.WriteLine($"\tDurability: {Durability}");
+            Console.WriteLine("\t------------------------------");
         }
 
 
         public override void UseItem(Player player)
         {
-            Console.WriteLine($"Using weapon: {Name}, Damage: {Damage}, Durability: {Durability}");
+            Console.WriteLine($"\tCan only use weapon on monsters.");
         }
     }
 }

@@ -121,7 +121,7 @@ namespace DungeonExplorer
                 player.Inventory.AddItem(selectedItem, player.GetCurrentRoom());                          
                 Console.WriteLine($"{selectedItem.GetName()} added to your inventory.");
                 player.Statistics.IncrementItemsCollected();
-                Testing.CheckItemInInventory(player, selectedItem);
+                Testing.CheckItemInInventory(Items, selectedItem);
             }
             else
             {

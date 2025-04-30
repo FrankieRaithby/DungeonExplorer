@@ -217,7 +217,7 @@ namespace DungeonExplorer
             {
                 if (item is Armour)
                 {
-                    return Items.OfType<Armour>().ToList();
+                    return Items.OfType<Armour>().ToList(); 
                 }
             }
             return null;

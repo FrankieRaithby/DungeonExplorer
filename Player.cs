@@ -279,6 +279,11 @@ namespace DungeonExplorer
             }
 
             target.DealDamage(weapon);
+            if (weapon.GetName() != "Firsts")
+            {
+                weapon.DecreaseDurability(20);
+            }
+            
             if (target.IsAlive())
             {
                 Console.WriteLine($"\t{target.GetName()} has {target.GetHealth()} health remaining.");

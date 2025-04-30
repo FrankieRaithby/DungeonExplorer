@@ -74,8 +74,17 @@ namespace DungeonExplorer
         }
         public override void Attack(Creature target)
         {
+            
+            if (target is Player player)
+            {
+                int defence = player.Attire.GetDefence();
+
+                int damage = Hitpoints - defence;
+            }
+
             target.Health -= Hitpoints;
-            Console.WriteLine($"{Name} attacks {target.Name} for {_hitpoints} damage!");
+
+            Console.WriteLine($"{Name} attacks {target.Name} for {Hitpoints} damage!");
         }
 
         public void Flee(GameMap gamemap)
@@ -207,7 +216,7 @@ namespace DungeonExplorer
 
 
 
-    public class Goblin : Monster
+    public class Goblin : Monster, IStealthy
     {
         private bool _isStealthy;
         public Goblin(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health, hitpoints, strength, points)
@@ -256,19 +265,27 @@ namespace DungeonExplorer
             {
                 Console.WriteLine($"\t{Name} is in stealth mode and cannot be attacked!");
                 damage = 0;
-                IsStealthy = false;
+                Appear();
             }
             else
             {
                 Console.WriteLine($"\t{Name} is not in stealth mode. Damage dealt: {damage}");
-                IsStealthy = true;
+                Sneak();
             }
 
             Damage(damage);
         }
+        public void Appear()
+        {
+            IsStealthy = false;
+        }
+        public void Sneak()
+        {
+            IsStealthy = true;
+        }
     }
 
-    public class Minotaur : Monster
+    public class Minotaur : Monster, IRunning
     {
         private bool _isRunning;
         public Minotaur(string name, string description, int health, int hitpoints, int strength, int points) : base(name, description, health, hitpoints, strength, points)
@@ -279,16 +296,6 @@ namespace DungeonExplorer
         {
             get { return _isRunning; }
             set { _isRunning = value; }
-        }
-        public void Run()
-        {
-            IsRunning = true;
-            Console.WriteLine($"{Name} is running!");
-        }
-        public void Stop()
-        {
-            IsRunning = false;
-            Console.WriteLine($"{Name} has stopped running.");
         }
         public override void GetMonsterInfo()
         {
@@ -335,14 +342,25 @@ namespace DungeonExplorer
                     Console.WriteLine("\tMinotaur is running, but the weapon is not ranged. No damage dealt.");
                     damage = 0;
                 }
+                Stop();
             }
             else
             {
-                IsRunning = true;
+                Run();
             }
 
             Damage(damage);
         }
+
+        public void Run()
+        {
+            IsRunning = true;
+        }
+        public void Stop()
+        {
+            IsRunning = false;
+        }
+
     }
 
 

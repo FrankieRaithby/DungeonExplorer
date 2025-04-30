@@ -52,7 +52,7 @@ namespace DungeonExplorer
         {
             Console.WriteLine("\n\tINVENTORY");
             Console.WriteLine("\t---------");
-            Console.WriteLine($"\t{GetCurrentWeight()} / {GetMaxWeight()} kg");
+            Console.WriteLine($"\t{CalculateCurrentWeight()} / {GetMaxWeight()} kg");
             SortItemsByAscendingWeight();
             foreach (var item in Items)
             {
@@ -73,6 +73,7 @@ namespace DungeonExplorer
                 Console.WriteLine("Cannot add item. Inventory weight limit exceeded.");
             }
         }
+
 
         public void DropItem(Item item, Room room)
         {
@@ -202,6 +203,18 @@ namespace DungeonExplorer
                 if (item is Weapon)
                 {
                     return Items.OfType<Weapon>().ToList();
+                }
+            }
+            return null;
+        }
+
+        public List<Armour> GetArmours()
+        {
+            foreach (Item item in Items)
+            {
+                if (item is Armour)
+                {
+                    return Items.OfType<Armour>().ToList();
                 }
             }
             return null;

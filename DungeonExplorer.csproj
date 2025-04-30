@@ -51,8 +51,11 @@
     <Compile Include="GameMap.cs" />
     <Compile Include="ICollectible.cs" />
     <Compile Include="IDamageable.cs" />
+    <Compile Include="IDurability.cs" />
     <Compile Include="IFlyable.cs" />
     <Compile Include="Inventory.cs" />
+    <Compile Include="IRunning.cs" />
+    <Compile Include="IStealthy.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="Player.cs" />

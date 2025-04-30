@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public class Armour : Item
+    public class Armour : Item, IDurability
     {
         private string _variant;
         private int _defence;
@@ -54,6 +54,16 @@ namespace DungeonExplorer
             Console.WriteLine($"\tCan only use armour on attire menu.");
         }
 
-
-    }
+        public void DecreaseDurability(int damage)
+        {
+            if (Durability > 0)
+            {
+                Durability -= damage;
+                Console.WriteLine($"\t{Name} durability decreased to {Durability}.");
+            }
+            else
+            {
+                Console.WriteLine($"\t{Name} is broken and cannot be used.");
+            }
+        }
 }

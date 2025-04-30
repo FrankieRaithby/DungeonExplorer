@@ -41,11 +41,13 @@ namespace DungeonExplorer
             {
                 player.Health += Bonus;
                 Console.WriteLine($"{player.Name} used {Name} and restored {Bonus} health.");
+                this.DeleteItem(player);
             }
-            else if (Variant == "Strength")
+            else if (Variant == "Points")
             {
                 player.Score += Bonus;
                 Console.WriteLine($"{player.Name} used {Name} and gained {Bonus} points.");
+                this.DeleteItem(player);
             }
             else
             {

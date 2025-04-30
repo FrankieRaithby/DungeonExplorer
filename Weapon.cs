@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DungeonExplorer
 {
-    public class Weapon : Item
+    public class Weapon : Item, IDurability
     {
         private int _damage;
         private string _attack;
@@ -57,6 +57,19 @@ namespace DungeonExplorer
         public override void UseItem(Player player)
         {
             Console.WriteLine($"\tCan only use weapon on monsters.");
+        }
+
+        public void DecreaseDurability(int damage)
+        {
+            if (Durability > 0)
+            {
+                Durability -= damage;
+                Console.WriteLine($"\t{Name} durability decreased to {Durability}.");
+            }
+            else
+            {
+                Console.WriteLine($"\t{Name} is broken and cannot be used.");
+            }
         }
     }
 }

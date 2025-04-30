@@ -24,14 +24,9 @@ namespace DungeonExplorer
         public GameMap()
         {
             // Initialize the map with rooms and their connections
+            Random random = new Random();
 
-            List<Item> items1 = new List<Item>()
-            {
-                new Item("Key", "A rusty key.", 0.5f),
-            };
-
-            
-            Room1 = new Room("Entrance", "A dark and spooky hall.", 0, 0, items1, new List<Monster>(), 0);
+            Room1 = new Room("Entrance", "A dark and spooky hall.", 0, 0, new List<Item>(), new List<Monster>(), 0);
             Room2 = new Room("Chamber of Whispers", "Voices echo from unseen, ancient mouths.", 1, 0, new List<Item>(), new List<Monster>(), 0);
             Room3 = new Room("Forgotten Forge", "Cold anvil rests beneath broken tools.", 0, 1, new List<Item>(), new List<Monster>(), 1);
             Room4 = new Room("Hall of Echoes", "Every step repeats with haunting delay.", 1, 1, new List<Item>(), new List<Monster>(), 0);
@@ -43,7 +38,7 @@ namespace DungeonExplorer
             Room10 = new Room("Sealed Sanctum", "Runes glow on a silent door.", 3, 0, new List<Item>(), new List<Monster>(), 3);
             Room11 = new Room("Rifted Maw", "Ground splits into a yawning void.", 3, 1, new List<Item>(), new List<Monster>(), 0);
 
-            
+
 
 
 
@@ -92,27 +87,61 @@ namespace DungeonExplorer
             Item weapon8 = new Weapon("Hippocrates' Bow", "A sharp bow.", 10, 20, "Ranged", 100);
             Item weapon9 = new Weapon("Apollomedes' Crossbow", "A sharp staff.", 20, 40, "Ranged", 100);
 
-            Item SmallHealthPotion = new Potion("Small Health Potion", "A potion that restores health.", 1, "Health", 10);
-            Item LargeHealthPotion = new Potion("Small Health Potion", "A potion that restores health.", 4, "Health", 40);
+            List<Item> weapons = new List<Item>()
+            {
+                weapon1,
+                weapon2,
+                weapon3,
+                weapon4,
+                weapon5,
+                weapon6,
+                weapon7,
+                weapon8,
+                weapon9
+            };
 
-            Item SmallPointsPotion = new Potion("Small Points Potion", "A potion that increases score.", 1, "Health", 10);
-            Item LargePointsPotion = new Potion("Small Points Potion", "A potion that increases score.", 4, "Health", 40);
+            List<Item> armours = new List<Item>()
+            {
+                armour1,
+                armour2,
+                armour3,
+                armour4,
+                armour5,
+                armour6,
+                armour7,
+                armour8,
+                armour9,
+                armour10,
+                armour11,
+                armour12
+            };
+
+            // Randomly assign loot to rooms
+            foreach (Armour armour in armours)
+            {
+                int randomArmour = random.Next(0, Rooms.Count);
+                Rooms[randomArmour].Loot.Add(armour);
+            }
+            foreach (Weapon weapon in weapons)
+            {
+                int randomWeapon = random.Next(0, Rooms.Count);
+                Rooms[randomWeapon].Loot.Add(weapon);
+            }
 
 
             foreach (Room room in Rooms)
             {
-                Random random = new Random();
                 int random1 = random.Next(0, 3);
                 if (random1 == 0)
                 {
                     int random2 = random.Next(0, 2);
                     if (random2 == 0)
                     {
-                        room.Loot.Add(SmallHealthPotion);
+                        room.Loot.Add(new Potion("Small Health Potion", "A potion that restores health.", 1, "Health", 10));
                     }
                     else if (random2 == 1)
                     {
-                        room.Loot.Add(LargeHealthPotion);
+                        room.Loot.Add(new Potion("Small Health Potion", "A potion that restores health.", 4, "Health", 40));
                     }
                 }
                 else if (random1 == 1)
@@ -120,7 +149,7 @@ namespace DungeonExplorer
                     int random2 = random.Next(0, 2);
                     if (random2 == 0)
                     {
-                        room.Loot.Add(armour1);
+                        room.Loot.Add(armour1); // need to randomise
                     }
                     else if (random2 == 1)
                     {
@@ -132,19 +161,31 @@ namespace DungeonExplorer
                     int random2 = random.Next(0, 2);
                     if (random2 == 0)
                     {
-                        room.Loot.Add(SmallPointsPotion);
+                        room.Loot.Add(new Potion("Small Points Potion", "A potion that increases score.", 1, "Points", 10));
                     }
                     else if (random2 == 1)
                     {
-                        room.Loot.Add(LargePointsPotion);
+                        room.Loot.Add(new Potion("Large Points Potion", "A potion that increases score.", 4, "Points", 40));
                     }
                 }
             }
 
-
-            Monster Monster1 = new Dragon("Dragon", "A fierce dragon.", 100, 50, 20, 100);
-            Room2.Monsters.Add(Monster1);
+            // health, hitpoints, strength, health
             
+
+            for (int i = 0; i < 3; i++)
+            {
+                foreach (Room room in Rooms)
+                {
+                    int random1 = random.Next(0, 7);
+                    if (random1 == 0)
+                        room.Monsters.Add(new Dragon("Dragon", "A fierce dragon.", 40, 20, 10, 60));
+                    else if (random1 == 1)
+                        room.Monsters.Add(new Goblin("Goblin", "A sneaky Goblin.", 10, 5, 2, 20));
+                    else if (random1 == 2)
+                        room.Monsters.Add(new Minotaur("Minotaur", "A rampaging Minotaur.", 10, 10, 5, 40));
+                }
+            }
 
         }
 

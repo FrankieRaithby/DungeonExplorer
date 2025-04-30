@@ -40,7 +40,7 @@ namespace DungeonExplorer
             Console.WriteLine("Example: RGBY");
             string answer = Console.ReadLine().ToLower();
 
-            if (answer == "YBGR")
+            if (answer == "ybgr")
             {
                 Console.WriteLine("Correct! You may proceed.");
             }

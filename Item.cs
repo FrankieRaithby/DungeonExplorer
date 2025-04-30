@@ -68,5 +68,12 @@ namespace DungeonExplorer
         {
             Console.WriteLine("Using item: " + Name);
         }
+
+        public void DeleteItem(Player player)
+        {
+            player.Inventory.Items.Remove(this);
+        }
+
+        
     }
 }

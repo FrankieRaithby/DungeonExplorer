@@ -48,7 +48,35 @@ namespace DungeonExplorer
             bool playing = true;
             while (playing)
             {
-                
+                if (player.GetHealth() <= 0)
+                {
+                    Console.WriteLine("You have died. Game Over.");
+                    playing = false;
+                    break;
+                }
+                bool allMonstersDefeated = true;
+
+                foreach (var room in gamemap.GetRooms())
+                {
+                    foreach (var monster in room.GetMonsters())
+                    {
+                        if (monster.IsAlive())
+                        {
+                            allMonstersDefeated = false;
+                            break;
+                        }
+                    }
+
+                    if (!allMonstersDefeated)
+                        break;
+                }
+
+                if (allMonstersDefeated)
+                {
+                    Console.WriteLine("You have defeated all enemies. Victory is yours!");
+                    playing = false;
+                    break;
+                }
 
                 Dictionary<string, string> primaryChoices = new Dictionary<string, string>
                 {
@@ -92,6 +120,7 @@ namespace DungeonExplorer
                             // Puzzle Logic
                             int puzzle = currentRoom.GetPuzzle();
                             player.SolvePuzzle(puzzle);
+                            currentRoom.SetPuzzle(0);
                         }
                         else
                         {
@@ -108,7 +137,10 @@ namespace DungeonExplorer
                         player.DisplayStatus();
 
                         // Attire Management
-                        Dictionary<string, string> AttireChoices = new Dictionary<string, string>
+                        bool finished = false;
+                        while (!finished)
+                        {
+                            Dictionary<string, string> AttireChoices = new Dictionary<string, string>
                         {
                             { "A", "View Spare Armour" },
                             { "B", "Equip Armour" },
@@ -117,16 +149,43 @@ namespace DungeonExplorer
                             { "E", "Exit Attire Menu" },
                         };
 
+                            string AttireChoice = player.GetChoice(AttireChoices);
+
+                            switch (AttireChoice)
+                            {
+                                case "A":
+                                    // View Spare Armour
+                                    player.Attire.DisplaySpareArmour();
+                                    break;
+                                case "B":
+                                    // Equip Armour
+                                    player.Attire.EquipArmour(player);
+                                    break;
+                                case "C":
+                                    // Unequip Armour
+                                    player.Attire.UnequipArmour(player);
+                                    break;
+                                case "D":
+                                    // View Player Status
+                                    player.DisplayStatus();
+                                    break;
+                                case "E":
+                                    // Exit Attire Menu
+                                    finished = true;
+                                    break;
+                            }
+                        }
+                        
 
                         break;
                     case "C":
                         // View Inventory
                         player.Inventory.DisplayInventory();
 
-                        bool finished = false;
+                        bool finished2 = false;
 
                         // Inventory Management
-                        while (!finished)
+                        while (!finished2)
                         {
                             Dictionary<string, string> InventoryChoices = new Dictionary<string, string>
                             {
@@ -153,7 +212,7 @@ namespace DungeonExplorer
                                     break;
                                 case "D":
                                     // Exit Inventory Menu
-                                    finished = true;
+                                    finished2 = true;
                                     break;
                             }
                         }

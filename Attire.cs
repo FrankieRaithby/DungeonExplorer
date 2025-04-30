@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DungeonExplorer
 {
@@ -43,6 +45,11 @@ namespace DungeonExplorer
             get { return _boots; }
             set { _boots = value; }
         }
+        public int Defence
+        {
+            get { return _defence; }
+            set { _defence = value; }
+        }
 
         public Armour GetHelmet()
         {
@@ -60,57 +67,165 @@ namespace DungeonExplorer
         {
             return Boots;
         }
-
-
-        public void EquipArmour(Armour armour)
+        public int GetDefence()
         {
-            string variant = armour.GetVariant();
+            return Defence;
+        }
 
-            switch(variant)
+        public void DisplaySpareArmour()
+        {
+            Console.WriteLine("\n\tSpare Armour");
+            Console.WriteLine("\t------------");
+            foreach (var item in GetArmours())
             {
-                case "Helmet":
-                    Helmet = armour;
-                    break;
-                case "Chestplate":
-                    Chestplate = armour;
-                    break;
-                case "Leggings":
-                    Leggings = armour;
-                    break;
-                case "Boots":
-                    Boots = armour;
-                    break;
-                default:
-                    Console.WriteLine("Invalid armour variant.");
-                    break;
+                Console.WriteLine($"\t- {item.GetName()} ({item.GetDefence()} DEF) ({item.GetWeight()} Kg)");
             }
         }
 
-        public void UnequipArmour(string variant)
+        public void EquipArmour(Player player)
         {
-            switch (variant)
+            if (player.Inventory.GetArmours().Count == 0)
             {
-                case "Helmet":
-                    Helmet = null;
-                    break;
-                case "Chestplate":
-                    Chestplate = null;
-                    break;
-                case "Leggings":
-                    Leggings = null;
-                    break;
-                case "Boots":
-                    Boots = null;
-                    break;
-                default:
-                    Console.WriteLine("Invalid armour variant.");
-                    break;
+                Console.WriteLine("No armour to pick up.");
+                return;
+            }
+
+            Dictionary<string, string> armourChoices = new Dictionary<string, string>();
+            int i = 0;
+
+            foreach (Item item in player.Inventory.GetArmours())
+            {
+                string letter = ((char)('A' + i)).ToString();
+                armourChoices[letter] = item.GetName();
+                i++;
+            }
+
+            Console.WriteLine("\tEquip an armour:");
+
+            string ChosenItem = player.GetChoice(armourChoices);
+
+            if (armourChoices.ContainsKey(ChosenItem))
+            {
+                Armour selectedItem = player.Inventory.GetItem(armourChoices[ChosenItem]) as Armour;
+                if (selectedItem is Armour)
+                {
+                    string variant = selectedItem.GetVariant();
+
+                    switch (variant)
+                    {
+                        case "Helmet":
+                            Helmet = selectedItem;
+                            selectedItem.DeleteItem(player);
+                            break;
+                        case "Chestplate":
+                            Chestplate = selectedItem;
+                            selectedItem.DeleteItem(player);
+                            break;
+                        case "Leggings":
+                            Leggings = selectedItem;
+                            selectedItem.DeleteItem(player);
+                            break;
+                        case "Boots":
+                            Boots = selectedItem;
+                            selectedItem.DeleteItem(player);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid armour variant.");
+                            break;
+                    }
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
             }
         }
 
-        public List<Armour> GetArmours(List<Item> items)
+        public void UnequipArmour(Player player)
         {
-            return items.OfType<Armour>().ToList();
+            if (player.Attire.GetArmours().Count == 0)
+            {
+                Console.WriteLine("No armour to unequip.");
+                return;
+            }
+
+            Dictionary<string, string> armourChoices = new Dictionary<string, string>();
+            int i = 0;
+
+            foreach (Armour item in player.Attire.GetArmours())
+            {
+                string letter = ((char)('A' + i)).ToString();
+                armourChoices[letter] = item.GetName();
+                i++;
+            }
+
+            Console.WriteLine("\tUnequip an armour:");
+
+            string ChosenItem = player.GetChoice(armourChoices);
+
+            if (armourChoices.ContainsKey(ChosenItem))
+            {
+                Armour selectedItem = GetArmourByname(armourChoices[ChosenItem]);
+                if (selectedItem is Armour)
+                {
+                    string variant = selectedItem.GetVariant();
+
+                    switch (variant)
+                    {
+                        case "Helmet":
+                            Helmet = null;
+                            player.Inventory.Items.Add(selectedItem);
+                            break;
+                        case "Chestplate":
+                            Chestplate = null;
+                            player.Inventory.Items.Add(selectedItem);
+                            break;
+                        case "Leggings":
+                            Leggings = null;
+                            player.Inventory.Items.Add(selectedItem);
+                            break;
+                        case "Boots":
+                            Boots = null;
+                            player.Inventory.Items.Add(selectedItem);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid armour variant.");
+                            break;
+                    }
+
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid choice.");
+            }
+        }
+
+        public List<Armour> GetArmours()
+        {
+            List<Armour> equipedArmours = new List<Armour>();
+            if (Helmet != null)
+            {
+                equipedArmours.Add(Helmet);
+            }
+            if (Chestplate != null)
+            {
+                equipedArmours.Add(Chestplate);
+            }
+            if (Leggings != null)
+            {
+                equipedArmours.Add(Leggings);
+            }
+            if (Boots != null)
+            {
+                equipedArmours.Add(Boots);
+            }
+            return equipedArmours;
+        }
+        public Armour GetArmourByname(string name)
+        {
+            return GetArmours().FirstOrDefault(armour => armour.Name == name);
         }
         private int CalculateDefence()
         {

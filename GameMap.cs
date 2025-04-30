@@ -91,9 +91,55 @@ namespace DungeonExplorer
             Item weapon7 = new Weapon("Epixios' Staff", "A sharp staff.", 20, 50, "Ranged", 100);
             Item weapon8 = new Weapon("Hippocrates' Bow", "A sharp bow.", 10, 20, "Ranged", 100);
             Item weapon9 = new Weapon("Apollomedes' Crossbow", "A sharp staff.", 20, 40, "Ranged", 100);
-            
+
+            Item SmallHealthPotion = new Potion("Small Health Potion", "A potion that restores health.", 1, "Health", 10);
+            Item LargeHealthPotion = new Potion("Small Health Potion", "A potion that restores health.", 4, "Health", 40);
+
+            Item SmallPointsPotion = new Potion("Small Points Potion", "A potion that increases score.", 1, "Health", 10);
+            Item LargePointsPotion = new Potion("Small Points Potion", "A potion that increases score.", 4, "Health", 40);
 
 
+            foreach (Room room in Rooms)
+            {
+                Random random = new Random();
+                int random1 = random.Next(0, 3);
+                if (random1 == 0)
+                {
+                    int random2 = random.Next(0, 2);
+                    if (random2 == 0)
+                    {
+                        room.Loot.Add(SmallHealthPotion);
+                    }
+                    else if (random2 == 1)
+                    {
+                        room.Loot.Add(LargeHealthPotion);
+                    }
+                }
+                else if (random1 == 1)
+                {
+                    int random2 = random.Next(0, 2);
+                    if (random2 == 0)
+                    {
+                        room.Loot.Add(armour1);
+                    }
+                    else if (random2 == 1)
+                    {
+                        room.Loot.Add(armour2);
+                    }
+                }
+                else if (random1 == 2)
+                {
+                    int random2 = random.Next(0, 2);
+                    if (random2 == 0)
+                    {
+                        room.Loot.Add(SmallPointsPotion);
+                    }
+                    else if (random2 == 1)
+                    {
+                        room.Loot.Add(LargePointsPotion);
+                    }
+                }
+            }
 
 
             Monster Monster1 = new Dragon("Dragon", "A fierce dragon.", 100, 50, 20, 100);
